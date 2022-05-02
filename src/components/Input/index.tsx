@@ -1,23 +1,26 @@
+import { ChangeEventHandler, EventHandler } from 'react';
 import styles from './styles.module.scss';
 
 interface InputProps {
-  type: string;
+  type?: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   value: string;
-  onChangeFunction: (val: string) => void;
-  maxLength: number;
+  onChangeFunction: ChangeEventHandler<HTMLInputElement>;
+  maxLength?: number;
   error?: boolean;
+  width?: string;
 }
 
 const Input = ({
-  type,
+  type = 'text',
   name,
-  placeholder,
+  placeholder = '',
   value,
   onChangeFunction,
-  maxLength,
+  maxLength = 200,
   error = false,
+  width = '100%',
 }: InputProps) => {
   const isOnErrorState = () => error === true;
 
@@ -33,9 +36,10 @@ const Input = ({
         name={name}
         placeholder={placeholder}
         value={value}
-        onChange={e => onChangeFunction(e.target.value)}
+        onChange={onChangeFunction}
         maxLength={maxLength}
         className={getClass()}
+        style={{ width }}
       />
     </>
   );

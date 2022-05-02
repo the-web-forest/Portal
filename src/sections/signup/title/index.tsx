@@ -1,0 +1,11 @@
+import { FC } from 'react';
+import styles from './styles.module.css';
+
+export const SignupTitle: FC = () => (
+  <div className={styles.container}>
+    <h1 className={styles.title}>Cadastre-se</h1>
+    <span className={styles.description}>
+      Através do cadastro você apoia nossa causa e planta mais arvores
+    </span>
+  </div>
+);
