@@ -1,4 +1,4 @@
-import { ChangeEventHandler, EventHandler } from 'react';
+import { ChangeEventHandler } from 'react';
 import styles from './styles.module.scss';
 
 interface InputProps {
@@ -8,7 +8,7 @@ interface InputProps {
   value: string;
   onChangeFunction: ChangeEventHandler<HTMLInputElement>;
   maxLength?: number;
-  error?: boolean;
+  error?: string;
   width?: string;
 }
 
@@ -19,13 +19,11 @@ const Input = ({
   value,
   onChangeFunction,
   maxLength = 200,
-  error = false,
+  error,
   width = '100%',
 }: InputProps) => {
-  const isOnErrorState = () => error === true;
-
   const getClass = (): string => {
-    return isOnErrorState() ? styles.error : String.call(null);
+    return !!error ? styles.error : String.call(null);
   };
 
   return (
@@ -41,6 +39,7 @@ const Input = ({
         className={getClass()}
         style={{ width }}
       />
+      {error && <span>* {error}</span>}
     </>
   );
 };

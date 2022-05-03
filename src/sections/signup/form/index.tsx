@@ -5,6 +5,7 @@ import {
   useCallback,
   useState,
 } from 'react';
+import ComboBox, { OnChangeSelect } from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
 import styles from './styles.module.css';
@@ -20,19 +21,49 @@ interface ISignupData {
 
 export const SignupForm: FC = () => {
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
+  const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
+
   const handleSubmit: FormEventHandler = event => {
     event.preventDefault();
+
+    const errors: ISignupData = {} as ISignupData;
+
+    !formData.name &&
+      Object.assign(errors, {
+        name: 'Nome é obrigatório',
+      });
+
+    if (Object.keys(errors)?.length > 0) {
+      setFormErrors(errors);
+    } else {
+      Object.keys(formErrors)?.length > 0 && setFormErrors({} as ISignupData);
+      alert('segue o baile');
+    }
   };
 
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+  const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }, []);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
       const { name, value } = event.target;
       setFormData(prevState => ({
         ...prevState,
         [name]: value,
       }));
+
+      if (formErrors[name as keyof ISignupData]) {
+        setFormErrors(prevState => ({
+          ...prevState,
+          [name]: undefined,
+        }));
+      }
     },
-    [],
+    [formErrors],
   );
 
   return (
@@ -41,15 +72,41 @@ export const SignupForm: FC = () => {
         placeholder="Nome"
         name="name"
         value={formData.name}
-        onChangeFunction={handleInputChange}
+        error={formErrors.name}
+        onChangeFunction={handleChange}
         width="352px"
       />
       <Input
         placeholder="Email"
         name="email"
         value={formData.email}
-        onChangeFunction={handleInputChange}
+        onChangeFunction={handleChange}
         width="352px"
+      />
+
+      <ComboBox
+        name="state"
+        placeHolder="Estado"
+        options={[
+          { value: 'sp', label: 'São Paulo' },
+          { value: 'rj', label: 'Rio de janeiro' },
+          { value: 'sp', label: 'São Paulo' },
+          { value: 'rj', label: 'Rio de janeiro' },
+          { value: 'sp', label: 'São Paulo' },
+          { value: 'rj', label: 'Rio de janeiro' },
+        ]}
+        value={formData.state}
+        onChange={handleSelectChange}
+        width="259px"
+      />
+
+      <ComboBox
+        name="city"
+        placeHolder="Cidade"
+        options={[]}
+        value={formData.city}
+        onChange={handleSelectChange}
+        width="259px"
       />
 
       <span className={styles.passwordTitle}>Informe uma senha</span>
@@ -59,7 +116,7 @@ export const SignupForm: FC = () => {
         name="password"
         type="password"
         value={formData.password}
-        onChangeFunction={handleInputChange}
+        onChangeFunction={handleChange}
         width="259px"
       />
       <Input
@@ -67,14 +124,14 @@ export const SignupForm: FC = () => {
         name="confirm"
         type="password"
         value={formData.confirm}
-        onChangeFunction={handleInputChange}
+        onChangeFunction={handleChange}
         width="259px"
       />
 
       <FilledButton
         text="Cadastrar"
-        color={FilledColor.green}
         type="function"
+        color={FilledColor.green}
       />
     </form>
   );

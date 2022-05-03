@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import styles from './styles.module.css';
+import { WebForestLogo } from '../../../components/WebForestLogo';
+import styles from './styles.module.scss';
 
-export const SignupHeader: FC = () => {
-  return (
-    <div className={styles.container}>
-      <span>logo</span>
+export const SignupHeader: FC = () => (
+  <div className={styles.container}>
+    <div>
+      <WebForestLogo />
     </div>
-  );
-};
+  </div>
+);
