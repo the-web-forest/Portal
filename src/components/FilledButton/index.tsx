@@ -3,6 +3,7 @@ import styles from './style.module.scss';
 export enum FilledColor {
   orange = 'orange',
   darkGreen = 'darkGreen',
+  green = 'green',
 }
 interface FilledButtonProps {
   text: string;

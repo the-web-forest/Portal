@@ -1,27 +1,52 @@
-.label {
+.container {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
+  justify-content: center;
   height: 40px;
   width: 100%;
+  cursor: pointer;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  padding: 10px;
+  margin-bottom: 15px;
   &::after {
-    content: url(../../public/icons/caret-down-fill.svg);
+    content: url(../../../public/icons/caret-down-fill.svg);
     color: var(--dark-gray);
     position: absolute;
     right:10px; top:10px;
+    opacity: 0.75;
   }
+}
 
-  select {
-    width: 100%;
-    height: 40px;
-    font-size: 1em;
-    font-family: 'Aprova';
-    background-color: var(--white);
-    border-radius: 5px;
-    box-shadow: 0px 3px 4px rgba(88, 53, 94, 0.13);
-    border: none;
-    appearance: none;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
+.value {
+  font-family: 'Aprova';
+  font-size: 16px;
+  color: var(--dark-gray);
+  font-style: normal;
+  font-weight: normal;
+}
+
+.placeholder {
+  font-family: 'Aprova';
+  font-size: 16px;
+  color: var(--dark-gray);
+  font-style: normal;
+  font-weight: normal;
+  opacity: 0.65;
+}
+
+.options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  background-color: white;
+  left: 0;
+  top: 0;
+  margin-top: 40px;
+  max-height: 200px;
+  scrollbar-width: thin;
+  overflow-y: auto;
 }
 
