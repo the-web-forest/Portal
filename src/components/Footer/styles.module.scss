@@ -1,0 +1,53 @@
+.container {
+  background-color: var(--footer-surface);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 120px;
+  margin-top: auto;
+}
+
+.main {
+  display: flex;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: var(--dark-gray-text);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Aprova';
+    font-size: 14px;
+  }
+
+  > a:first-of-type {
+    margin-bottom: 15px;
+  }
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  > span {
+    font-size: 14px;
+    font-family: 'Aprova';
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 15px;
+
+  svg {
+    width: 30px;
+    height: 30px;    
+    cursor: pointer;
+  }
+}

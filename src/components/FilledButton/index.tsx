@@ -1,60 +1,37 @@
+import { FC } from 'react';
+import { useScreen } from '../../providers/screen';
 import styles from './style.module.scss';
 
 export enum FilledColor {
-  orange = 'orange',
-  darkGreen = 'darkGreen',
-  green = 'green',
+  orange = '#EA9B02',
+  darkGreen = '#00635D',
+  budGreen = '#63AF53',
+  green = '#28ab38',
 }
+
 interface FilledButtonProps {
-  text: string;
-  target?: string;
-  url?: string;
   color?: FilledColor;
-  type?: 'function' | 'link';
+  type?: 'button' | 'submit';
   onClickFunction?: () => void;
   width?: string;
 }
 
-const FilledButton = ({
-  text,
-  target = '_blank',
-  url,
-  type = 'link',
+const FilledButton: FC<FilledButtonProps> = ({
+  type = 'button',
   onClickFunction,
   color = FilledColor.orange,
   width = 'auto',
-}: FilledButtonProps) => {
-  const getWrapper = (elem: JSX.Element) => {
-    switch (type) {
-      case 'link':
-        return (
-          <a href={url} target={target}>
-            {elem}
-          </a>
-        );
-      case 'function':
-        return (
-          <a onClick={() => (onClickFunction ? onClickFunction() : null)}>
-            {elem}
-          </a>
-        );
-    }
-  };
-
-  const getMiddle = (): JSX.Element => {
-    return (
-      <div className={`${styles.container} ${styles[color]}`} style={{ width }}>
-        {text}
-      </div>
-    );
-  };
-
-  const renderButton = () => {
-    const middle = getMiddle();
-    return getWrapper(middle);
-  };
-
-  return renderButton();
+  children,
+}) => {
+  const { isMobile } = useScreen();
+  return (
+    <button
+      className={styles.container}
+      style={{ width: isMobile ? '100%' : width, backgroundColor: color }}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default FilledButton;

@@ -1,5 +1,4 @@
 .container {
-    background-color: var(--orange);
     color: var(--white);
     height: 40px;
     border-radius: 5px;
@@ -10,21 +9,10 @@
     font-family: 'Aprova';
     padding: 0px 18px 0px 18px;
     font-size: 1em;
+    transition: 0.25s;
+    outline: none;
 }
 
 .container:hover {
     filter: brightness(90%);
-    transition: filter 500ms linear;
-}
-
-.darkGreen {
-    background-color: var(--dark-green);
-}
-
-.orange {
-    background-color: var(--orange);
-}
-
-.green {
-    background-color: var(--green);
 }

@@ -14,17 +14,20 @@
   font-weight: bold;
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
+  margin: 0;
+  outline: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+html, body, #__next {
+  width: 100%;
+  height: 100%;
+  letter-spacing: 0.5px;
+  overflow: auto;
+}
+
+#__next {
+  z-index: 0;
 }
