@@ -1,0 +1,23 @@
+.container {
+  height: 300px;
+  position: absolute;
+  z-index: 100;
+  background-color: var(--white);
+  align-self: center;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-family: "Aprova";
+    font-size: 24px;
+  }
+
+  span {
+    font-family: "Aprova";
+    font-size: 16px;
+    opacity: 0.8;
+  }
+}
