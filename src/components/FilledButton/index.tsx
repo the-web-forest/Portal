@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 import { useScreen } from '../../providers/screen';
 import styles from './style.module.scss';
 
@@ -9,25 +9,25 @@ export enum FilledColor {
   green = '#28ab38',
 }
 
-interface FilledButtonProps {
+interface FilledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: FilledColor;
-  type?: 'button' | 'submit';
-  onClickFunction?: () => void;
   width?: string;
 }
 
 const FilledButton: FC<FilledButtonProps> = ({
-  type = 'button',
-  onClickFunction,
   color = FilledColor.orange,
   width = 'auto',
+  type = 'button',
   children,
+  ...rest
 }) => {
   const { isMobile } = useScreen();
   return (
     <button
       className={styles.container}
+      type={type}
       style={{ width: isMobile ? '100%' : width, backgroundColor: color }}
+      {...rest}
     >
       {children}
     </button>

@@ -8,7 +8,6 @@ import {
 import ComboBox, { OnChangeSelect } from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
-import { useScreen } from '../../../providers/screen';
 import styles from './styles.module.scss';
 
 interface ISignupData {
@@ -21,7 +20,6 @@ interface ISignupData {
 }
 
 export const SignupForm: FC = () => {
-  const { isMobile } = useScreen();
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
 
@@ -91,10 +89,6 @@ export const SignupForm: FC = () => {
     <form
       onSubmit={handleSubmit}
       className={styles.form}
-      style={{
-        padding: isMobile ? '0px 30px 30px 30px' : '0px 120px 40px 120px',
-        paddingTop: 'unset',
-      }}
     >
       <Input
         placeholder="Nome"

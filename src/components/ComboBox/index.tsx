@@ -73,13 +73,7 @@ const ComboBox = ({
   }, [options, value]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        marginBottom: isMobile ? '30px' : '15px',
-      }}
-    >
+    <div className={styles.optionContainer}>
       <div
         className={styles.container}
         style={{
