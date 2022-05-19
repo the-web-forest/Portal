@@ -1,4 +1,4 @@
-import Settings from '../core/settings';
+import Settings from '../infra/core/settings';
 
 export const pageview = (url: string) => {
   window.gtag('config', Settings.getGoogleTagKey(), {
