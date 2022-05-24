@@ -1,10 +1,14 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.scss';
+import { LoginForm } from '../sections/signin/LoginForm';
+import styles from '../styles/Signin.module.scss';
 
-const Home: NextPage = () => (
+const Signin: NextPage = () => (
   <div className={styles.container}>
-    <h1>PLATAFORMA</h1>
+    <div className={styles.loginForm}>
+      <LoginForm />
+    </div>
+    <div className={styles.background} />
   </div>
 );
 
-export default Home;
+export default Signin;

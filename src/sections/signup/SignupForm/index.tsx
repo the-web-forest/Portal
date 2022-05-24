@@ -105,10 +105,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     <form
       onSubmit={handleSubmit}
       className={styles.form}
-      style={{
-        padding: isMobile ? '0px 30px 30px 30px' : '0px 120px 40px 120px',
-        paddingTop: 'unset',
-      }}
     >
       <Input
         placeholder="Nome"

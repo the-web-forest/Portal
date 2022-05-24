@@ -20,4 +20,29 @@
     font-size: 16px;
     opacity: 0.8;
   }
+
+  @media (max-width: 750px)  {
+    width: 90%;
+  }
+
+  @media (min-width: 750px) {
+    width: 600px;
+  }
+}
+
+.iconWrapper {
+  position: absolute;
+  right: -65px;
+  bottom: -40px;
+
+  svg {
+    transition: 0.3s;
+  }
+
+  @media (max-width: 750px) {
+    right: -5px;
+    > svg {
+      width: 100px;
+    }
+  }
 }
