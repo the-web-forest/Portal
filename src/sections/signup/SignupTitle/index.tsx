@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 export const SignupTitle: FC = () => (
   <div className={styles.container}>
@@ -9,3 +9,4 @@ export const SignupTitle: FC = () => (
     </span>
   </div>
 );
+

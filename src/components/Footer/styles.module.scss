@@ -1,0 +1,94 @@
+.container {
+  background-color: var(--footer-surface);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 120px;
+  margin-top: auto;
+  @media (max-width: 750px) {
+    padding: 30px 30px;
+  }
+  @media (min-width: 750px) {
+    padding: 40px 120px;
+  }
+}
+
+.main {
+  display: flex;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    width: auto;
+    align-items: flex-start;
+  }
+  @media (min-width: 750px) {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+.logoWrapper {
+  @media (max-width: 750px) {
+    height: 60px;
+    width: 160px;
+  }
+
+  @media (min-width: 750px) {
+    height: 100px;
+    width: 250px;
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: var(--dark-gray-text);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Aprova';
+    font-size: 14px;
+  }
+
+  > a:first-of-type {
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 750px) {
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: 750px) {
+    margin-left: 100px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+.social {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  > span {
+    font-size: 14px;
+    font-family: 'Aprova';
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 15px;
+
+  svg {
+    width: 30px;
+    height: 30px;    
+    cursor: pointer;
+  }
+}

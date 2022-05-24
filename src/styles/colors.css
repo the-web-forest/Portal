@@ -1,6 +1,7 @@
 :root {
     --primary-color: #00635D;
     --gray-background: #ECECEC;
+    --lightgray-background: #F8F8F8;
     --english-violet: #58355E;
     --brow-sugar: #A06348;
 
@@ -11,6 +12,7 @@
     --green-lime: #28ab38;
     --bud-green:#63AF53;
     --dark-green: #00635D;
+    --footer-surface: #ECECEC;
     
     --orange: #EA9B02;
     --orange-hover: #B67901;

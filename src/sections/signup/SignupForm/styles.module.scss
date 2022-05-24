@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: unset;
+
+  @media (min-width: 750px) {
+    padding: 0px 120px 40px 120px;
+  }
+
+  @media (max-width: 750px) {
+    padding: 0px 30px 30px 30px;
+  }
+}
+
+.passwordTitle {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: 'Aprova';
+  font-size: 18px;
+}

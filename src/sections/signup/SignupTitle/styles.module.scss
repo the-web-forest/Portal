@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: unset;
+
+  @media (min-width: 750px) {
+    padding: 40px 120px 0px 120px;
+  }
+
+  @media (max-width: 750px) {
+    padding: 30px 30px 0px 30px;
+  }
+}
+
+.title {
+  font-family: 'Aprova';
+}
+
+.description {
+  font-family: 'Aprova';
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}

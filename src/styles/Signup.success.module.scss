@@ -10,15 +10,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   overflow-y: auto;
   background-color: var(--lightgray-background);
 }
 
-.mobileBody {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  background-color: var(--lightgray-background);
+.line {
+  color: var(--bud-green);
 }

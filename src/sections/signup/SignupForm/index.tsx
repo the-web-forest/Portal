@@ -8,7 +8,7 @@ import {
 import ComboBox, { OnChangeSelect } from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 interface ISignupData {
   readonly name: string;
@@ -25,12 +25,31 @@ export const SignupForm: FC = () => {
 
   const handleSubmit: FormEventHandler = event => {
     event.preventDefault();
-
     const errors: ISignupData = {} as ISignupData;
 
     !formData.name &&
       Object.assign(errors, {
         name: 'Nome é obrigatório',
+      });
+
+    !formData.email &&
+      Object.assign(errors, {
+        email: 'Email é obrigatório',
+      });
+
+    !formData.state &&
+      Object.assign(errors, {
+        state: 'Estado é obrigatório',
+      });
+
+    !formData.city &&
+      Object.assign(errors, {
+        city: 'Cidade é obrigatória',
+      });
+
+    !formData.password &&
+      Object.assign(errors, {
+        password: 'Senha é obrigatória',
       });
 
     if (Object.keys(errors)?.length > 0) {
@@ -67,7 +86,10 @@ export const SignupForm: FC = () => {
   );
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form
+      onSubmit={handleSubmit}
+      className={styles.form}
+    >
       <Input
         placeholder="Nome"
         name="name"
@@ -80,6 +102,7 @@ export const SignupForm: FC = () => {
         placeholder="Email"
         name="email"
         value={formData.email}
+        error={formErrors.email}
         onChangeFunction={handleChange}
         width="352px"
       />
@@ -96,6 +119,7 @@ export const SignupForm: FC = () => {
           { value: 'rj', label: 'Rio de janeiro' },
         ]}
         value={formData.state}
+        error={formErrors.state}
         onChange={handleSelectChange}
         width="259px"
       />
@@ -105,6 +129,7 @@ export const SignupForm: FC = () => {
         placeHolder="Cidade"
         options={[]}
         value={formData.city}
+        error={formErrors.city}
         onChange={handleSelectChange}
         width="259px"
       />
@@ -116,23 +141,24 @@ export const SignupForm: FC = () => {
         name="password"
         type="password"
         value={formData.password}
+        error={formErrors.password}
         onChangeFunction={handleChange}
         width="259px"
+        showRules
       />
       <Input
         placeholder="Repetir senha"
         name="confirm"
         type="password"
         value={formData.confirm}
+        error={formErrors.confirm}
         onChangeFunction={handleChange}
         width="259px"
       />
 
-      <FilledButton
-        text="Cadastrar"
-        type="function"
-        color={FilledColor.green}
-      />
+      <FilledButton color={FilledColor.budGreen} width="153px">
+        Cadastrar
+      </FilledButton>
     </form>
   );
 };
