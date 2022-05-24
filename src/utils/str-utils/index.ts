@@ -3,7 +3,7 @@ export class StrUtils {
     return value?.toLowerCase() != value;
   }
 
-  public static hasSixChars(value: string): boolean {
-    return value?.length >= 6;
+  public static hasEightChars(value: string): boolean {
+    return value?.length >= 8;
   }
 }
