@@ -3,62 +3,52 @@ import {
   FC,
   FormEventHandler,
   useCallback,
+  useEffect,
   useState,
 } from 'react';
-import ComboBox, { OnChangeSelect } from '../../../components/ComboBox';
+import ComboBox, { OnChangeSelect, ISelectOptionsEntity} from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
+import { useScreen } from '../../../providers/screen';
+import RegisterUserUseCase from '../../../infra/useCases/registerUser.usecase';
+import ISignupData from '../../../validations/DTO/ISignupData';
+import SignUpFormValidade from '../../../validations/SignUpForm.validate';
 import styles from './styles.module.scss';
+import { useRouter } from 'next/router';
+import IState from '../../../infra/entities/IState'
+import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase'
 
-interface ISignupData {
-  readonly name: string;
-  readonly email: string;
-  readonly state: string;
-  readonly city: string;
-  readonly password: string;
-  readonly confirm: string;
+interface Props {
+  states: IState[]
 }
 
-export const SignupForm: FC = () => {
+
+export const SignupForm: FC<Props> = ({ states }: Props) => {
+  const { isMobile } = useScreen();
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
-
-  const handleSubmit: FormEventHandler = event => {
-    event.preventDefault();
-    const errors: ISignupData = {} as ISignupData;
-
-    !formData.name &&
-      Object.assign(errors, {
-        name: 'Nome é obrigatório',
-      });
-
-    !formData.email &&
-      Object.assign(errors, {
-        email: 'Email é obrigatório',
-      });
-
-    !formData.state &&
-      Object.assign(errors, {
-        state: 'Estado é obrigatório',
-      });
-
-    !formData.city &&
-      Object.assign(errors, {
-        city: 'Cidade é obrigatória',
-      });
-
-    !formData.password &&
-      Object.assign(errors, {
-        password: 'Senha é obrigatória',
-      });
-
-    if (Object.keys(errors)?.length > 0) {
-      setFormErrors(errors);
-    } else {
-      Object.keys(formErrors)?.length > 0 && setFormErrors({} as ISignupData);
-      alert('segue o baile');
-    }
-  };
+  const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([])
+  const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([])
+  const router = useRouter();
+  const handleSubmit: FormEventHandler = useCallback(
+    async event => {
+      try {
+        event.preventDefault();
+        const errors = await new SignUpFormValidade().validate(formData);
+        if (Object.keys(errors)?.length > 0) {
+          setFormErrors(errors);
+        } else {
+          Object.keys(formErrors)?.length > 0 &&
+            setFormErrors({} as ISignupData);
+          const registered = await new RegisterUserUseCase().run(formData);
+          registered && router.push('/success');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [formData, formErrors, router],
+  );
 
   const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
     setFormData(prevState => ({
@@ -66,6 +56,16 @@ export const SignupForm: FC = () => {
       [name]: value,
     }));
   }, []);
+
+  const handleCities = useCallback(async (state: string) => {
+    try {
+      const response = await new GetCitiesUseCase().run(state)
+      const parsedCitiesOption:ISelectOptionsEntity[] = response.cities.map( city => ({label: city, value: city}))
+      setCitiesOption(parsedCitiesOption)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
@@ -84,6 +84,22 @@ export const SignupForm: FC = () => {
     },
     [formErrors],
   );
+
+  useEffect(() => {
+    try {
+      const newOption: ISelectOptionsEntity[] = states.map(state => ({label: state.name, value: state.initial}))
+      setStatesOption(newOption)
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
+
+  useEffect(() => {
+    if(formData.state) {
+      handleCities(formData.state)
+    }
+  }, [formData.state])
+
 
   return (
     <form
@@ -110,14 +126,7 @@ export const SignupForm: FC = () => {
       <ComboBox
         name="state"
         placeHolder="Estado"
-        options={[
-          { value: 'sp', label: 'São Paulo' },
-          { value: 'rj', label: 'Rio de janeiro' },
-          { value: 'sp', label: 'São Paulo' },
-          { value: 'rj', label: 'Rio de janeiro' },
-          { value: 'sp', label: 'São Paulo' },
-          { value: 'rj', label: 'Rio de janeiro' },
-        ]}
+        options={statesOption}
         value={formData.state}
         error={formErrors.state}
         onChange={handleSelectChange}
@@ -127,7 +136,7 @@ export const SignupForm: FC = () => {
       <ComboBox
         name="city"
         placeHolder="Cidade"
-        options={[]}
+        options={citiesOption}
         value={formData.city}
         error={formErrors.city}
         onChange={handleSelectChange}
