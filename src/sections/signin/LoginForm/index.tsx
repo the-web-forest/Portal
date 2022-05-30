@@ -49,7 +49,7 @@ export const LoginForm: FC = () => {
           Entrar
         </FilledButton>
 
-        <a href="https://google.com">
+        <a href="/recuperar-senha">
           <span>
             Esqueci minha senha
           </span>
