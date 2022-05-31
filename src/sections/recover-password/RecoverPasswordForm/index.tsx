@@ -43,9 +43,17 @@ export const RecoverPasswordForm: FC = () => {
           onChangeFunction={(event) => setEmail(event.target.value)}
           error={emailError}
         />
-        <FilledButton color={FilledColor.budGreen} width="140px" type="submit">
-          Enviar
-        </FilledButton>
+        <div className={styles.footerButtons}>
+          <FilledButton color={FilledColor.budGreen} width="140px" type="submit">
+            Enviar
+          </FilledButton>
+          
+          <a href="/">
+            <span>
+              Retornar para o login
+            </span>
+          </a>
+        </div>
       </form>
     </div>
   )
