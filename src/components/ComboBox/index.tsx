@@ -94,6 +94,7 @@ const ComboBox = ({
             <>
               {options.map(option => (
                 <Option
+                  key={option.value}
                   option={option}
                   onClick={() => handleSelect(option.value)}
                 />

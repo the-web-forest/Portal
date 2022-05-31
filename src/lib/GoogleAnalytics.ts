@@ -1,4 +1,4 @@
-import Settings from '../core/settings';
+import Settings from '../infra/core/settings';
 
 export const pageview = (url: string) => {
   // @ts-ignore
@@ -9,6 +9,7 @@ export const pageview = (url: string) => {
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = ({ action, category, label, value }: any) => {
+
   // @ts-ignore
   window.gtag('event', action, {
     event_category: category,

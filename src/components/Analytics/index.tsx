@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import Settings from '../../core/settings';
+import Settings from '../../infra/core/settings';
 
 const Analytics = () => (
   <>

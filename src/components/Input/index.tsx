@@ -100,8 +100,8 @@ const Input = ({
             <span>Uma letra maiúscula</span>
           </div>
           <div className={styles.ruleItem}>
-            {StrUtils.hasSixChars(value) ? <AiFillCheckCircle color="green" style={{ width: "20px", height: "20px" }} /> : <IoIosCloseCircle color="red" style={{ width: "20px", height: "20px" }} />}
-            <span>Pelo menos seis caracteres</span>
+            {StrUtils.hasEightChars(value) ? <AiFillCheckCircle color="green" style={{ width: "20px", height: "20px" }} /> : <IoIosCloseCircle color="red" style={{ width: "20px", height: "20px" }} />}
+            <span>Pelo menos oito caracteres</span>
           </div>
         </div>
       )}

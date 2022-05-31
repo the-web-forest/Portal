@@ -5,6 +5,7 @@ import '../styles/globals.scss';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ScreenProvider>
+      {/* @ts-ignore */}
       <Component {...pageProps} />
     </ScreenProvider>
   );
