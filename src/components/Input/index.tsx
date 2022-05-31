@@ -84,7 +84,13 @@ const Input = ({
           </div>
         )}
       </div>
-      {error && <span className={styles.errorText}>* {error}</span>}
+      {error && (
+        <span 
+          className={styles.errorText}
+        >
+          * {error}
+        </span>
+      )}
       {showRules && (
         <div className={styles.rulesContainer} style={{
           opacity: showPasswordRules ? 1 : 0
