@@ -56,7 +56,7 @@ const Input = ({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        marginBottom: marginBottom ? marginBottom : isMobile ? '30px' : '15px',
+        marginBottom: marginBottom || '15px',
       }}
     >
       <div
@@ -84,7 +84,13 @@ const Input = ({
           </div>
         )}
       </div>
-      {error && <span className={styles.errorText}>* {error}</span>}
+      {error && (
+        <span 
+          className={styles.errorText}
+        >
+          * {error}
+        </span>
+      )}
       {showRules && (
         <div className={styles.rulesContainer} style={{
           opacity: showPasswordRules ? 1 : 0
