@@ -42,14 +42,14 @@ const Input = ({
   const unhideRules = (): void => {
     if (showRules) {
       setShowPasswordRules(true);
-    }   
-  }
+    }
+  };
 
   const hideRules = (): void => {
     if (showRules) {
       setShowPasswordRules(false);
     }
-  }
+  };
 
   return (
     <div
@@ -84,23 +84,40 @@ const Input = ({
           </div>
         )}
       </div>
-      {error && (
-        <span 
-          className={styles.errorText}
-        >
-          * {error}
-        </span>
-      )}
+      {error && <span className={styles.errorText}>* {error}</span>}
       {showRules && (
-        <div className={styles.rulesContainer} style={{
-          opacity: showPasswordRules ? 1 : 0
-        }}>
+        <div
+          className={styles.rulesContainer}
+          style={{
+            opacity: showPasswordRules ? 1 : 0,
+          }}
+        >
           <div className={styles.ruleItem}>
-            {StrUtils.hasUppercase(value) ? <AiFillCheckCircle color="green" style={{ width: "20px", height: "20px" }} /> : <IoIosCloseCircle color="red" style={{ width: "20px", height: "20px" }} />}
+            {StrUtils.hasUppercase(value) ? (
+              <AiFillCheckCircle
+                color="green"
+                style={{ width: '20px', height: '20px' }}
+              />
+            ) : (
+              <IoIosCloseCircle
+                color="red"
+                style={{ width: '20px', height: '20px' }}
+              />
+            )}
             <span>Uma letra maiúscula</span>
           </div>
           <div className={styles.ruleItem}>
-            {StrUtils.hasEightChars(value) ? <AiFillCheckCircle color="green" style={{ width: "20px", height: "20px" }} /> : <IoIosCloseCircle color="red" style={{ width: "20px", height: "20px" }} />}
+            {StrUtils.hasEightChars(value) ? (
+              <AiFillCheckCircle
+                color="green"
+                style={{ width: '20px', height: '20px' }}
+              />
+            ) : (
+              <IoIosCloseCircle
+                color="red"
+                style={{ width: '20px', height: '20px' }}
+              />
+            )}
             <span>Pelo menos oito caracteres</span>
           </div>
         </div>

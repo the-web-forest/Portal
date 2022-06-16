@@ -2,9 +2,10 @@ import AppPaths from '../core/appPaths';
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 import ISignupData from '../../validations/DTO/ISignupData';
-import AppError from '../errors/AppError';
 import ISignupDataRequest from '../dtos/Signup/ISignupDataRequest.dto';
-import ISignupDataResponse from '../dtos/Signup/ISignupDataResponse.dto'
+import ISignupDataResponse from '../dtos/Signup/ISignupDataResponse.dto';
+import ApiErrors from '../errors/ApiErrors';
+import registerError from '../errors/RegisterErrors';
 
 export default class RegisterUserUseCase {
   private readonly httpService: IHTTPService;
@@ -15,21 +16,17 @@ export default class RegisterUserUseCase {
   async run(formData: ISignupData): Promise<boolean> {
     try {
       const payload: Omit<ISignupData, 'confirm'> = formData;
-      const response = await this.httpService.post<ISignupDataRequest, ISignupDataResponse>(
-        AppPaths.User,
-        payload,
-      )
-      console.log(response)
+      const response = await this.httpService.post<
+        ISignupDataRequest,
+        ISignupDataResponse
+      >(AppPaths.User.index, payload);
       return response.registered;
     } catch (error: any) {
-      if (error.response.data) {
-        const { data } = error.response;
-        const code = data.Code;
-        const message = data.Message;
-        const shortMessage = data.ShortMessage;
-        throw new AppError(code, message, shortMessage);
+      const { data } = error.response;
+      if (data === undefined) {
+        console.error('Unknow Error:', error);
       }
-      throw error;
+      throw new ApiErrors(registerError).getError(data.Code);
     }
   }
 }

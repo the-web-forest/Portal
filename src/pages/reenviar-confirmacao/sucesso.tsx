@@ -1,6 +1,6 @@
-import { NextPage } from "next";
-import { ResendConfirmationSuccess } from "../../sections/resend-confirmation/ResendConfirmationSuccess";
-import { SignupHeader } from "../../sections/signup/SignupHeader";
+import { NextPage } from 'next';
+import { ResendConfirmationSuccess } from '../../sections/resend-confirmation/ResendConfirmationSuccess';
+import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/Signup.success.module.scss';
 
 const ResendConfirmationSuccessPage: NextPage = () => (
@@ -11,6 +11,6 @@ const ResendConfirmationSuccessPage: NextPage = () => (
       <ResendConfirmationSuccess />
     </div>
   </div>
-)
+);
 
 export default ResendConfirmationSuccessPage;

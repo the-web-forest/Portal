@@ -1,60 +1,113 @@
-import { ChangeEventHandler, FC, FormEventHandler, useCallback, useState } from "react";
-import FilledButton, { FilledColor } from "../../../components/FilledButton";
-import Input from "../../../components/Input";
-import { WebForestLogo } from "../../../components/WebForestLogo";
-import styles from './styles.module.scss'
-
-interface ILoginData {
-  readonly email: string;
-  readonly password: string;
-}
+import {
+  ChangeEventHandler,
+  FC,
+  FormEventHandler,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
+import FilledButton, { FilledColor } from '../../../components/FilledButton';
+import Input from '../../../components/Input';
+import { WebForestLogo } from '../../../components/WebForestLogo';
+import { AuthContext } from '../../../contexts/AuthContext';
+import ILoginData from '../../../validations/DTO/ILoginData';
+import LoginFormValidate from '../../../validations/LoginForm.validate';
+import styles from './styles.module.scss';
+import AppError from '../../../infra/errors/AppError';
+import AttentionMessage from '../../../components/AttentionMessage';
+import Link from 'next/link';
+import pagePaths from '../../../infra/core/pagePaths';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
+  const [error, setError] = useState<ILoginData>({} as ILoginData);
+  const [statusError, setStatusError] = useState(false);
+  const { signIn } = useContext(AuthContext);
 
-  const handleChangeInput: ChangeEventHandler<HTMLInputElement> =
-    useCallback((event) => {
+  const handleSubmit: FormEventHandler = useCallback(
+    async event => {
+      try {
+        event.preventDefault();
+        const errors = await new LoginFormValidate().validate(data);
+        if (Object.keys(errors)?.length > 0) {
+          setError(errors);
+          return;
+        }
+        Object.keys(errors)?.length > 0 && setError({} as ILoginData);
+        await signIn(data);
+
+        setStatusError(false);
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          setStatusError(true);
+        }
+      }
+    },
+    [data, signIn],
+  );
+
+  const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
+    event => {
       const { name, value } = event.target;
+      console.log(name, value);
       setData(prevState => ({
         ...prevState,
-        [name]: value
-      }))
-    }, []);
+        [name]: value,
+      }));
 
-  const handleSubmit: FormEventHandler = event => {
-    event.preventDefault();
-  }
+      if (error[name as keyof ILoginData]) {
+        setError(prevState => ({
+          ...prevState,
+          [name]: undefined,
+        }));
+      }
+    },
+    [error],
+  );
 
   return (
     <div className={styles.container}>
       <WebForestLogo />
-      <form onSubmit={handleSubmit}>
-        <Input 
-          name="email"
-          placeholder='E-mail'
-          width='100%'
-          value={data.email}
-          onChangeFunction={handleChangeInput}
-        />
-        <Input 
-          name="password"
-          placeholder='Senha'
-          width='100%'
-          value={data.password}
-          onChangeFunction={handleChangeInput}
-          type="password"
-        />
+      <div>
+        <div
+          className={styles.erroContainer}
+          style={{ opacity: statusError ? 1 : 0 }}
+        >
+          <AttentionMessage message="Ops.. E-mail ou senha incorreto!" />
+        </div>
+        <form onSubmit={handleSubmit}>
+          <Input
+            name="email"
+            placeholder="E-mail"
+            width="100%"
+            value={data.email}
+            onChangeFunction={handleChangeInput}
+            error={error.email}
+          />
+          <Input
+            name="password"
+            placeholder="Senha"
+            width="100%"
+            value={data.password}
+            onChangeFunction={handleChangeInput}
+            type="password"
+            error={error.password}
+          />
 
-        <FilledButton color={FilledColor.budGreen} width="100%">
-          Entrar
-        </FilledButton>
+          <FilledButton type="submit" color={FilledColor.budGreen} width="100%">
+            Entrar
+          </FilledButton>
 
-        <a href="/recuperar-senha">
-          <span>
-            Esqueci minha senha
-          </span>
-        </a>
-      </form>
+          <div className={styles.linkContainer}>
+            <Link href={pagePaths.passwordReset.index}>
+              <span className={styles.link}>Esqueci minha senha</span>
+            </Link>
+            <Link href={pagePaths.signup.index}>
+              <span className={styles.link}>Criar cadastro</span>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 import { useScreen } from '../../providers/screen';
-import styles from './style.module.scss';
+import styles from './styles.module.scss';
 
 export enum FilledColor {
   orange = '#EA9B02',

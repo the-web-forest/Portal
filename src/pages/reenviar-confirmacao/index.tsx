@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import { ResendConfirmationForm } from "../../sections/resend-confirmation/ResendConfirmationForm";
+import { NextPage } from 'next';
+import { ResendConfirmationForm } from '../../sections/resend-confirmation/ResendConfirmationForm';
 import styles from '../../styles/RecoverPassword.module.scss';
 
 const ResendConfirmationPage: NextPage = () => (
@@ -9,6 +9,6 @@ const ResendConfirmationPage: NextPage = () => (
       <ResendConfirmationForm />
     </div>
   </div>
-)
+);
 
 export default ResendConfirmationPage;

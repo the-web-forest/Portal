@@ -6,29 +6,30 @@ import {
   useEffect,
   useState,
 } from 'react';
-import ComboBox, { OnChangeSelect, ISelectOptionsEntity} from '../../../components/ComboBox';
+import ComboBox, {
+  OnChangeSelect,
+  ISelectOptionsEntity,
+} from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
-import { useScreen } from '../../../providers/screen';
 import RegisterUserUseCase from '../../../infra/useCases/registerUser.usecase';
 import ISignupData from '../../../validations/DTO/ISignupData';
 import SignUpFormValidade from '../../../validations/SignUpForm.validate';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
-import IState from '../../../infra/entities/IState'
-import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase'
+import StateEntity from '../../../infra/entities/StateEntity';
+import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
+import pagePaths from '../../../infra/core/pagePaths';
 
 interface Props {
-  states: IState[]
+  states: StateEntity[];
 }
 
-
 export const SignupForm: FC<Props> = ({ states }: Props) => {
-  const { isMobile } = useScreen();
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
-  const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([])
-  const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([])
+  const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([]);
+  const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([]);
   const router = useRouter();
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
@@ -41,7 +42,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           Object.keys(formErrors)?.length > 0 &&
             setFormErrors({} as ISignupData);
           const registered = await new RegisterUserUseCase().run(formData);
-          registered && router.push('/success');
+          registered && router.push(pagePaths.signup.success);
         }
       } catch (err) {
         console.error(err);
@@ -59,13 +60,15 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
 
   const handleCities = useCallback(async (state: string) => {
     try {
-      const response = await new GetCitiesUseCase().run(state)
-      const parsedCitiesOption:ISelectOptionsEntity[] = response.cities.map( city => ({label: city, value: city}))
-      setCitiesOption(parsedCitiesOption)
+      const response = await new GetCitiesUseCase().run(state);
+      const parsedCitiesOption: ISelectOptionsEntity[] = response.cities.map(
+        city => ({ label: city, value: city }),
+      );
+      setCitiesOption(parsedCitiesOption);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }, [])
+  }, []);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
@@ -87,25 +90,24 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
 
   useEffect(() => {
     try {
-      const newOption: ISelectOptionsEntity[] = states.map(state => ({label: state.name, value: state.initial}))
-      setStatesOption(newOption)
+      const newOption: ISelectOptionsEntity[] = states.map(state => ({
+        label: state.name,
+        value: state.initial,
+      }));
+      setStatesOption(newOption);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if(formData.state) {
-      handleCities(formData.state)
+    if (formData.state) {
+      handleCities(formData.state);
     }
-  }, [formData.state])
-
+  }, [formData.state, handleCities]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={styles.form}
-    >
+    <form onSubmit={handleSubmit} className={styles.form}>
       <Input
         placeholder="Nome"
         name="name"
