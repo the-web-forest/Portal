@@ -1,5 +1,5 @@
-import IState from '../../entities/IState'
+import StateEntity from '../../entities/StateEntity';
 
 export default interface IStatesResponse {
-  states: Array<IState>
+  states: Array<StateEntity>;
 }

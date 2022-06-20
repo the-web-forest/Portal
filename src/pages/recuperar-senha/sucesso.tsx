@@ -1,6 +1,6 @@
-import { NextPage } from "next";
-import { RecoverPasswordSuccess } from "../../sections/recover-password/RecoverPasswordSuccess";
-import { SignupHeader } from "../../sections/signup/SignupHeader";
+import { NextPage } from 'next';
+import { RecoverPasswordSuccess } from '../../sections/recover-password/RecoverPasswordSuccess';
+import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/Signup.success.module.scss';
 
 const RecoverPasswordSuccessPage: NextPage = () => (
@@ -11,6 +11,6 @@ const RecoverPasswordSuccessPage: NextPage = () => (
       <RecoverPasswordSuccess />
     </div>
   </div>
-)
+);
 
 export default RecoverPasswordSuccessPage;

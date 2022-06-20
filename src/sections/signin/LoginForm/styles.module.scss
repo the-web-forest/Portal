@@ -1,6 +1,6 @@
 .container {
   @media (min-width: 1100px) {
-    width: 75%;
+    width: 85%;
   }
 
   @media (max-width: 1100px) {
@@ -12,40 +12,54 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  svg {
+  & > svg {
     width: 160px;
   }
 
-  form {
-    @media (min-width: 1100px) {
-      width: 50%;
-      min-width: 400px;
-    }
-  
-    @media (max-width: 1100px) {
-      width: 90%;
-    }
-    
-    max-width: 400px;
+  div {
     display: flex;
     flex-direction: column;
-    margin-top: 80px;
-
-    a {
-      text-align: center;
-      margin-top: 15px;
-      font-family: "Aprova";
-      color: var(--dark-gray-text);
-      cursor: pointer;
-      transition: 0.35s;
-      :hover {
-        text-decoration: underline;
-        color: var(--bud-green);
+        
+    width: 100%;
+    max-width: 400px;
+    form  {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .linkContainer {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid black;
+        width: 200px;
+        height: 100px;
+        .link {
+          text-align: center;
+          margin-top: 15px;
+          font-family: "Aprova";
+          color: var(--dark-gray-text);
+          cursor: pointer;
+          transition: 0.35s;
+          :hover {
+            text-decoration: underline;
+            color: var(--bud-green);
+          }
+        }  
+      }
+      
+  
+      span {
+        transition: 0.25s;
       }
     }
+  }
 
-    span {
-      transition: 0.25s;
-    }
+  .erroContainer {
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 }

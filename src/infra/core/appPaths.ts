@@ -1,7 +1,10 @@
 const AppPaths = {
-  User: '/User',
+  User: {
+    index: '/User',
+    login: '/User/Login',
+  },
   States: '/States',
-  Cities: '/Cities'
+  Cities: '/Cities',
 };
 
 export default AppPaths;

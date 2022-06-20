@@ -1,15 +1,12 @@
 export interface IAppError {
   code: string;
   message: string;
-  shortMessage: string;
 }
 
-export default class AppError extends Error implements IAppError {
+export default class AppError extends Error{
   constructor(
-    readonly code: string,
-    readonly message: string,
-    readonly shortMessage: string,
+   readonly error: IAppError
   ) {
-    super(message);
+    super(error.message);
   }
 }

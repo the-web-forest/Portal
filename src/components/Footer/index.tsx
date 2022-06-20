@@ -9,16 +9,12 @@ import styles from './styles.module.scss';
 
 export const Footer: FC = () => {
   return (
-    <div
-      id="footer"
-      className={styles.container}
-    >
+    <div id="footer" className={styles.container}>
       <div className={styles.main}>
         <div className={styles.logoWrapper}>
           <WebForestLogo />
         </div>
-        <div
-          className={styles.links}>
+        <div className={styles.links}>
           <a>Área da transparência</a>
           <a>Política de privacidade</a>
         </div>
