@@ -1,3 +1,3 @@
 export default interface ICitiesResponse {
-  cities: Array<string>
+  cities: Array<string>;
 }

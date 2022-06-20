@@ -3,10 +3,8 @@ export interface IAppError {
   message: string;
 }
 
-export default class AppError extends Error{
-  constructor(
-   readonly error: IAppError
-  ) {
+export default class AppError extends Error {
+  constructor(readonly error: IAppError) {
     super(error.message);
   }
 }
