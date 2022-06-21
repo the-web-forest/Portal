@@ -1,8 +1,8 @@
 enum ErrorCode {
   unhadleError = 'UNK-OOO',
-  invalidUserNameOrPassword = 'ERR-002',
-  emailAlreadyRegistered = 'ERR-004',
-  unverifiedEmail = 'ERR-004',
+  invalidUserNameOrPassword = 'IPE-002',
+  emailAlreadyRegistered = 'IPE-004',
+  unverifiedEmail = 'IPE-004',
 }
 
 export default ErrorCode;

@@ -1,15 +1,23 @@
 import ApiURI from '../core/apiURI';
-import IStatesResponse from '../dtos/States/IStatesResponse.dto';
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 
-export default class GetStatesUseCase {
+type Response = {
+  status: string;
+};
+
+export default class VerifyEmailUseCase {
   private readonly httpService: IHTTPService;
 
   constructor() {
     this.httpService = new HttpService();
   }
-  async run(): Promise<IStatesResponse> {
-    return this.httpService.get<IStatesResponse>(ApiURI.States);
+
+  async run(email: string): Promise<boolean> {
+    return !!(
+      await this.httpService.get<Response>(
+        `${ApiURI.User.verifyEmail}?email=${email}`,
+      )
+    ).status;
   }
 }
