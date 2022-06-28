@@ -1,6 +1,7 @@
 import {
   ChangeEventHandler,
   FC,
+  FocusEventHandler,
   FormEventHandler,
   useCallback,
   useEffect,
@@ -20,6 +21,7 @@ import { useRouter } from 'next/router';
 import StateEntity from '../../../infra/entities/StateEntity';
 import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
+import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 
 interface Props {
   states: StateEntity[];
@@ -35,6 +37,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     async event => {
       try {
         event.preventDefault();
+        if (!!formErrors.email) return;
         const errors = await new SignUpFormValidade().validate(formData);
         if (Object.keys(errors)?.length > 0) {
           setFormErrors(errors);
@@ -88,6 +91,32 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formErrors],
   );
 
+  const handleVerifyEmail: FocusEventHandler<HTMLInputElement> = useCallback(
+    async event => {
+      const { name, value } = event.target;
+      try {
+        await new VerifyEmailUseCase().run(value);
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: value,
+        }));
+
+        if (formErrors[name as keyof ISignupData]) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            [name]: undefined,
+          }));
+        }
+      } catch {
+        setFormErrors(prevState => ({
+          ...prevState,
+          email: 'E-mail já cadastrado',
+        }));
+      }
+    },
+    [formErrors],
+  );
+
   useEffect(() => {
     try {
       const newOption: ISelectOptionsEntity[] = states.map(state => ({
@@ -98,7 +127,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [states]);
 
   useEffect(() => {
     if (formData.state) {
@@ -122,6 +151,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         value={formData.email}
         error={formErrors.email}
         onChangeFunction={handleChange}
+        onBlurFunction={handleVerifyEmail}
         width="352px"
       />
 
@@ -167,7 +197,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         width="259px"
       />
 
-      <FilledButton color={FilledColor.budGreen} width="153px">
+      <FilledButton type="submit" color={FilledColor.budGreen} width="153px">
         Cadastrar
       </FilledButton>
     </form>

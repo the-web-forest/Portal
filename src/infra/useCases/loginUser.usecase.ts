@@ -2,7 +2,7 @@ import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 import ILoginData from '../../validations/DTO/ILoginData';
 import ILoginResponseDTO from '../dtos/Login/ILoginResponse.dto';
-import AppPaths from '../core/appPaths';
+import ApiURI from '../core/apiURI';
 import ApiErrors from '../errors/ApiErrors';
 import loginError from '../errors/LoginErrors';
 
@@ -15,7 +15,7 @@ export default class LoginUserUseCase {
   async run(formData: ILoginData): Promise<ILoginResponseDTO> {
     try {
       return await this.httpService.post<ILoginData, ILoginResponseDTO>(
-        AppPaths.User.login,
+        ApiURI.User.login,
         formData,
       );
     } catch (error: any) {
