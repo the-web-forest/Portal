@@ -9,6 +9,10 @@ const pagePaths = {
     index: '/recuperar-senha',
     success: '/recuperar-senha/sucesso',
   },
+  resendEmail: {
+    index: '/reenviar-confirmacao',
+    success: '/reenviar.confirmacao/sucesso',
+  },
 };
 
 export default pagePaths;

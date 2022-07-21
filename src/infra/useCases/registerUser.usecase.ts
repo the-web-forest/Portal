@@ -1,4 +1,4 @@
-import AppPaths from '../core/appPaths';
+import ApiURI from '../core/apiURI';
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 import ISignupData from '../../validations/DTO/ISignupData';
@@ -19,7 +19,7 @@ export default class RegisterUserUseCase {
       const response = await this.httpService.post<
         ISignupDataRequest,
         ISignupDataResponse
-      >(AppPaths.User.index, payload);
+      >(ApiURI.User.index, payload);
       return response.registered;
     } catch (error: any) {
       const { data } = error.response;

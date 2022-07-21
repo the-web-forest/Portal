@@ -1,6 +1,6 @@
-import { IAppError } from './AppError'
+import { IAppError } from './AppError';
 
 export default interface ErrorList {
-  [key: string]: IAppError
-  default: IAppError
+  [key: string]: IAppError;
+  default: IAppError;
 }

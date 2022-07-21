@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, FormEventHandler, useState } from 'react';
+import { FC, FormEventHandler, useCallback, useState } from 'react';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
 import { WebForestLogo } from '../../../components/WebForestLogo';
 import pagePaths from '../../../infra/core/pagePaths';
+import SendEmailToResetPasswordUseCase from '../../../infra/useCases/sendEmailToResetPassword.usecase';
 import { StrUtils } from '../../../utils/str-utils';
 import styles from './styles.module.scss';
 
@@ -13,23 +14,27 @@ export const RecoverPasswordForm: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
 
-  const handleSubmit: FormEventHandler = event => {
-    event.preventDefault();
-    console.log('email: ', email);
-    const isValidEmail = StrUtils.isEmailValid(email);
-    if (!isValidEmail) {
-      setEmailError('Atenção: Insira um e-mail válido');
-      return;
-    }
+  const handleSubmit: FormEventHandler = useCallback(
+    async event => {
+      event.preventDefault();
 
-    emailError && setEmailError('');
+      const isValidEmail = StrUtils.isEmailValid(email);
+      if (!isValidEmail) {
+        setEmailError('Atenção: Insira um e-mail válido');
+        return;
+      }
+      emailError && setEmailError('');
 
-    /**
-     * chamar api.
-     */
-
-    router.push(pagePaths.passwordReset.success);
-  };
+      try {
+        await new SendEmailToResetPasswordUseCase().run();
+        router.push(pagePaths.passwordReset.success);
+      } catch (err) {
+        /* Implementar tratativa de erro */
+      }
+      router.push(pagePaths.passwordReset.success);
+    },
+    [email, emailError, router],
+  );
 
   return (
     <div className={styles.container}>

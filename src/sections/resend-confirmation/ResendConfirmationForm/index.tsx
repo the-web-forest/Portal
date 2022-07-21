@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
-import { FC, FormEventHandler, useState } from "react";
-import FilledButton, { FilledColor } from "../../../components/FilledButton";
-import Input from "../../../components/Input";
-import { WebForestLogo } from "../../../components/WebForestLogo";
-import { StrUtils } from "../../../utils/str-utils";
+import { useRouter } from 'next/router';
+import { FC, FormEventHandler, useState } from 'react';
+import FilledButton, { FilledColor } from '../../../components/FilledButton';
+import Input from '../../../components/Input';
+import { WebForestLogo } from '../../../components/WebForestLogo';
+import { StrUtils } from '../../../utils/str-utils';
 import styles from './styles.module.scss';
 
 export const ResendConfirmationForm: FC = () => {
@@ -16,7 +16,7 @@ export const ResendConfirmationForm: FC = () => {
     console.log('email: ', email);
     const isValidEmail = StrUtils.isEmailValid(email);
     if (!isValidEmail) {
-      setEmailError("Atenção: Insira um e-mail válido");
+      setEmailError('Atenção: Insira um e-mail válido');
       return;
     }
 
@@ -26,8 +26,8 @@ export const ResendConfirmationForm: FC = () => {
      * chamar api.
      */
 
-    router.push("/reenviar-confirmacao/sucesso")
-  }
+    router.push('/reenviar-confirmacao/sucesso');
+  };
 
   return (
     <div className={styles.container}>
@@ -36,12 +36,12 @@ export const ResendConfirmationForm: FC = () => {
       <span>Notamos que você já se cadastrou, vamos reenviar</span>
       <span>o link de confirmação, insira o seu e-mail.</span>
       <form onSubmit={handleSubmit}>
-        <Input 
+        <Input
           name="email"
-          placeholder='E-mail'
-          width='100%'
+          placeholder="E-mail"
+          width="100%"
           value={email}
-          onChangeFunction={(event) => setEmail(event.target.value)}
+          onChangeFunction={event => setEmail(event.target.value)}
           error={emailError}
         />
         <FilledButton color={FilledColor.budGreen} width="260px" type="submit">
@@ -49,5 +49,5 @@ export const ResendConfirmationForm: FC = () => {
         </FilledButton>
       </form>
     </div>
-  )
-}
+  );
+};

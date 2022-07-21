@@ -9,4 +9,3 @@ export const SignupTitle: FC = () => (
     </span>
   </div>
 );
-

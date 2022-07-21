@@ -17,6 +17,8 @@ import AppError from '../../../infra/errors/AppError';
 import AttentionMessage from '../../../components/AttentionMessage';
 import Link from 'next/link';
 import pagePaths from '../../../infra/core/pagePaths';
+import ErrorCode from '../../../infra/errors/ErrorCodes';
+import Router from 'next/router';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
@@ -39,6 +41,9 @@ export const LoginForm: FC = () => {
         setStatusError(false);
       } catch (err: any) {
         if (err instanceof AppError) {
+          if (err.error.code === ErrorCode.unverifiedEmail) {
+            Router.push(pagePaths.resendEmail.index);
+          }
           setStatusError(true);
         }
       }

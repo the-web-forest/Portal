@@ -1,15 +1,21 @@
 import ApiURI from '../core/apiURI';
-import IStatesResponse from '../dtos/States/IStatesResponse.dto';
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 
-export default class GetStatesUseCase {
+type Response = {
+  send: boolean;
+};
+
+export default class SendEmailToResetPasswordUseCase {
   private readonly httpService: IHTTPService;
 
   constructor() {
     this.httpService = new HttpService();
   }
-  async run(): Promise<IStatesResponse> {
-    return this.httpService.get<IStatesResponse>(ApiURI.States);
+
+  async run(): Promise<boolean> {
+    return (
+      await this.httpService.get<Response>(`${ApiURI.User.resetPassword}`)
+    ).send;
   }
 }
