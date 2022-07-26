@@ -26,12 +26,12 @@ export const RecoverPasswordForm: FC = () => {
       emailError && setEmailError('');
 
       try {
-        await new SendEmailToResetPasswordUseCase().run();
-        router.push(pagePaths.passwordReset.success);
+        const Response : boolean = await new SendEmailToResetPasswordUseCase().run(email);
+        Response && router.push(pagePaths.passwordReset.success);
       } catch (err) {
         /* Implementar tratativa de erro */
       }
-      router.push(pagePaths.passwordReset.success);
+      //router.push(pagePaths.passwordReset.success);
     },
     [email, emailError, router],
   );
