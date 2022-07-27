@@ -16,10 +16,11 @@ export default class PasswordChangeUseCase{
     }
 
     async run(formData : INewPasswordData) : Promise<boolean>{
+        const requestBody : IPasswordChangeRequest = { ...formData}
         try{
             const response = await this.httpService.post<IPasswordChangeRequest, IPasswordChangeResponse>(
                 ApiURI.User.passwordChange,
-                formData,
+                requestBody,
             );
             return response.changed;
         } catch (error: any){

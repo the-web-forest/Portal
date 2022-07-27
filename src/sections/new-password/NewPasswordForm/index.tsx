@@ -35,7 +35,7 @@ export const NewPasswordForm: FC = () => {
     }));
   }, [router.query.token, router.query.email])
 
-  const handleSubmit: FormEventHandler = 
+  const handleSubmit: FormEventHandler = useCallback(
   async event => {
     try{
       event.preventDefault();
@@ -56,7 +56,7 @@ export const NewPasswordForm: FC = () => {
     } catch (err : any){
       //Criar Tratamento de erro
     }
-  };
+  }, [data, error]);
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {

@@ -18,7 +18,7 @@ export default class SendEmailToResetPasswordUseCase {
   }
 
   async run(email : string): Promise<boolean> {
-    const data : DataBody = {email : email};
+    const data : DataBody = {email};
     return (
       await this.httpService.post<DataBody,Response>(`${ApiURI.User.resetPassword}`, data)
     ).send;

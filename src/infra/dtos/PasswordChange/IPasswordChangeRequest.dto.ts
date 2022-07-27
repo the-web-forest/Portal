@@ -1,6 +1,6 @@
 export default interface IPasswordChangeRequest {
-    email: string;
+    email?: string;
     password: string;
-    token: string;
+    token?: string;
   }
   
