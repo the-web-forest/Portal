@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import { NewPasswordForm } from '../../sections/new-password/NewPasswordForm';
-import styles from '../../styles/NewPassword.module.scss';
+import { NewPasswordForm } from '../../../sections/new-password/NewPasswordForm';
+import styles from '../../../styles/NewPassword.module.scss';
 
 const NewPasswordPage: NextPage = () => (
   <div className={styles.container}>

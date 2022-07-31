@@ -18,8 +18,11 @@ import { useRouter } from 'next/router';
 import AttentionMessage from '../../../components/AttentionMessage';
 import PasswordChangeUseCase from '../../../infra/useCases/passwordChange.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
+import { useToast } from '@chakra-ui/react';
+import ToastCaller from '../../../infra/toast/ToastCaller';
 
 export const NewPasswordForm: FC = () => {
+  const toast = useToast();
   const router = useRouter();
   const [data, setData] = useState<INewPasswordData>({} as INewPasswordData);
   const [error, setError] = useState<INewPasswordData>({} as INewPasswordData);
@@ -36,27 +39,41 @@ export const NewPasswordForm: FC = () => {
   }, [router.query.token, router.query.email])
 
   const handleSubmit: FormEventHandler = useCallback(
-  async event => {
-    try{
-      event.preventDefault();
-      const errors = await new NewPasswordValidate().validate(data);
-      if(Object.keys(errors)?.length > 0){
-        setError(errors);
-        return;
+    async event => {
+      try{
+        event.preventDefault();
+        const errors = await new NewPasswordValidate().validate(data);
+        if(Object.keys(errors)?.length > 0){
+          setError(errors);
+          return;
+        }
+        if(!(data.password == data.confirm)){
+          setStatusError(true);
+        }
+        else{
+          setStatusError(false);
+          
+          const response : boolean = await new PasswordChangeUseCase().run(data);
+          (response) && router.push(pagePaths.newPassword.success);
+        }        
+      } catch (err : any){
+        if (err instanceof AppError) {
+          if(err.error.code == ErrorCode.invalidPasswordReset){
+            router.push({pathname:pagePaths.newPassword.expired, query:{ email:data.email }})
+          }
+          else if (err.error.code != null){
+            ToastCaller.Error(toast, 'Erro',err.error.code + ' - ' + err.error.message);
+          }
+          else{
+            ToastCaller.Error(toast, 'Erro', err.error.message??err.message??'Erro imprevisto, contacte o suporte.');
+          }
+        }
+        else{
+          ToastCaller.Error(toast, 'Erro', err.message??'Erro imprevisto, contacte o suporte.');
+        }
       }
-      if(!(data.password == data.confirm)){
-        setStatusError(true);
-      }
-      else{
-        setStatusError(false);
-        
-        const response : boolean = await new PasswordChangeUseCase().run(data);
-        (response) && router.push(pagePaths.passwordReset.success);
-      }        
-    } catch (err : any){
-      //Criar Tratamento de erro
-    }
-  }, [data, error]);
+      }, [data, error]
+    );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
