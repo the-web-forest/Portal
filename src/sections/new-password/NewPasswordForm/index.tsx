@@ -27,53 +27,67 @@ export const NewPasswordForm: FC = () => {
   const [data, setData] = useState<INewPasswordData>({} as INewPasswordData);
   const [error, setError] = useState<INewPasswordData>({} as INewPasswordData);
   const [statusError, setStatusError] = useState(false);
-  
+
   useEffect(() => {
     const TokenParam = router.query.token;
     const EmailParam = router.query.email;
     setData(prevState => ({
       ...prevState,
-      token: TokenParam != undefined ? TokenParam.toString() :  undefined,
-      email: EmailParam !== undefined ? EmailParam.toString() : undefined
+      token: TokenParam != undefined ? TokenParam.toString() : undefined,
+      email: EmailParam !== undefined ? EmailParam.toString() : undefined,
     }));
-  }, [router.query.token, router.query.email])
+  }, [router.query.token, router.query.email]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
-      try{
+      try {
         event.preventDefault();
         const errors = await new NewPasswordValidate().validate(data);
-        if(Object.keys(errors)?.length > 0){
+        if (Object.keys(errors)?.length > 0) {
           setError(errors);
           return;
         }
-        if(!(data.password == data.confirm)){
+        if (!(data.password == data.confirm)) {
           setStatusError(true);
-        }
-        else{
+        } else {
           setStatusError(false);
-          
-          const response : boolean = await new PasswordChangeUseCase().run(data);
-          (response) && router.push(pagePaths.newPassword.success);
-        }        
-      } catch (err : any){
-        if (err instanceof AppError) {
-          if(err.error.code == ErrorCode.invalidPasswordReset){
-            router.push({pathname:pagePaths.newPassword.expired, query:{ email:data.email }})
-          }
-          else if (err.error.code != null){
-            ToastCaller.Error(toast, 'Erro',err.error.code + ' - ' + err.error.message);
-          }
-          else{
-            ToastCaller.Error(toast, 'Erro', err.error.message??err.message??'Erro imprevisto, contacte o suporte.');
-          }
+
+          const response: boolean = await new PasswordChangeUseCase().run(data);
+          response && router.push(pagePaths.newPassword.success);
         }
-        else{
-          ToastCaller.Error(toast, 'Erro', err.message??'Erro imprevisto, contacte o suporte.');
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          if (err.error.code == ErrorCode.invalidPasswordReset) {
+            router.push({
+              pathname: pagePaths.newPassword.expired,
+              query: { email: data.email },
+            });
+          } else if (err.error.code != null) {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              err.error.code + ' - ' + err.error.message,
+            );
+          } else {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              err.error.message ??
+                err.message ??
+                'Erro imprevisto, contacte o suporte.',
+            );
+          }
+        } else {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            err.message ?? 'Erro imprevisto, contacte o suporte.',
+          );
         }
       }
-      }, [data, error]
-    );
+    },
+    [data, error],
+  );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
@@ -97,12 +111,12 @@ export const NewPasswordForm: FC = () => {
     <div className={styles.container}>
       <WebForestLogo />
       <h3>Criar uma nova senha</h3>
-        <div
-            className={styles.erroContainer}
-            style={{ opacity: statusError ? 1 : 0 }}
-          >
-          <AttentionMessage message="Ops.. As senhas informadas não condizem!" />
-        </div>
+      <div
+        className={styles.erroContainer}
+        style={{ opacity: statusError ? 1 : 0 }}
+      >
+        <AttentionMessage message="Ops.. As senhas informadas não condizem!" />
+      </div>
       <form onSubmit={handleSubmit}>
         <Input
           name="password"

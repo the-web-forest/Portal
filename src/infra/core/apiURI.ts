@@ -4,7 +4,7 @@ const ApiURI = {
     login: '/User/Login',
     passwordChange: '/User/Password/Change',
     resetPassword: '/Email/Send/PasswordReset',
-    verifyEmail: '/Email/Check'
+    verifyEmail: '/Email/Check',
   },
   States: '/States',
   Cities: '/Cities',

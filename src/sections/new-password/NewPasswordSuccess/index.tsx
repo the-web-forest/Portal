@@ -19,7 +19,7 @@ export const NewPasswordSuccessBox: FC = () => (
     <div style={{ marginTop: '20px' }}>
       <Link href={pagePaths.index}>
         <FilledButton color={FilledColor.budGreen} width="175px">
-                Efetuar login
+          Efetuar login
         </FilledButton>
       </Link>
     </div>

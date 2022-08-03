@@ -33,7 +33,7 @@ export const LoginForm: FC = () => {
     async event => {
       try {
         event.preventDefault();
-        
+
         const errors = await new LoginFormValidate().validate(data);
         if (Object.keys(errors)?.length > 0) {
           setError(errors);
@@ -45,8 +45,7 @@ export const LoginForm: FC = () => {
         setStatusError(false);
       } catch (err: any) {
         if (err instanceof AppError) {
-          switch (err.error.code)
-          {
+          switch (err.error.code) {
             case ErrorCode.unverifiedEmail:
               Router.push(pagePaths.resendEmail.index);
               break;
@@ -54,16 +53,23 @@ export const LoginForm: FC = () => {
               setStatusError(true);
               break;
             default:
-              ToastCaller.Error(toast, 'Erro',err.error.code + " - " +  err.error.message);
+              ToastCaller.Error(
+                toast,
+                'Erro',
+                err.error.code + ' - ' + err.error.message,
+              );
               break;
           }
-        }
-        else {
-          ToastCaller.Error(toast, 'Erro', err.message??'Erro imprevisto, contacte o suporte.');  
+        } else {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            err.message ?? 'Erro imprevisto, contacte o suporte.',
+          );
         }
       }
     },
-    [data, signIn],
+    [data, signIn, toast],
   );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
