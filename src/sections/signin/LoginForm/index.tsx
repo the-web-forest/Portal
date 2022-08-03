@@ -19,17 +19,21 @@ import Link from 'next/link';
 import pagePaths from '../../../infra/core/pagePaths';
 import ErrorCode from '../../../infra/errors/ErrorCodes';
 import Router from 'next/router';
+import { useToast } from '@chakra-ui/react';
+import ToastCaller from '../../../infra/toast/ToastCaller';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
   const [error, setError] = useState<ILoginData>({} as ILoginData);
   const [statusError, setStatusError] = useState(false);
+  const toast = useToast();
   const { signIn } = useContext(AuthContext);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       try {
         event.preventDefault();
+
         const errors = await new LoginFormValidate().validate(data);
         if (Object.keys(errors)?.length > 0) {
           setError(errors);
@@ -41,14 +45,31 @@ export const LoginForm: FC = () => {
         setStatusError(false);
       } catch (err: any) {
         if (err instanceof AppError) {
-          if (err.error.code === ErrorCode.unverifiedEmail) {
-            Router.push(pagePaths.resendEmail.index);
+          switch (err.error.code) {
+            case ErrorCode.unverifiedEmail:
+              Router.push(pagePaths.resendEmail.index);
+              break;
+            case ErrorCode.invalidUserNameOrPassword:
+              setStatusError(true);
+              break;
+            default:
+              ToastCaller.Error(
+                toast,
+                'Erro',
+                err.error.code + ' - ' + err.error.message,
+              );
+              break;
           }
-          setStatusError(true);
+        } else {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            err.message ?? 'Erro imprevisto, contacte o suporte.',
+          );
         }
       }
     },
-    [data, signIn],
+    [data, signIn, toast],
   );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(

@@ -9,6 +9,11 @@ const pagePaths = {
     index: '/recuperar-senha',
     success: '/recuperar-senha/sucesso',
   },
+  newPassword: {
+    index: '/senha/redefinir',
+    success: '/senha/redefinir/sucesso',
+    expired: '/senha/redefinir/expirado',
+  },
   resendEmail: {
     index: '/reenviar-confirmacao',
     success: '/reenviar.confirmacao/sucesso',

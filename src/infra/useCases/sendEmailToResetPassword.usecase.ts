@@ -6,6 +6,10 @@ type Response = {
   send: boolean;
 };
 
+type DataBody = {
+  email: string;
+};
+
 export default class SendEmailToResetPasswordUseCase {
   private readonly httpService: IHTTPService;
 
@@ -13,9 +17,13 @@ export default class SendEmailToResetPasswordUseCase {
     this.httpService = new HttpService();
   }
 
-  async run(): Promise<boolean> {
+  async run(email: string): Promise<boolean> {
+    const data: DataBody = { email };
     return (
-      await this.httpService.get<Response>(`${ApiURI.User.resetPassword}`)
+      await this.httpService.post<DataBody, Response>(
+        `${ApiURI.User.resetPassword}`,
+        data,
+      )
     ).send;
   }
 }
