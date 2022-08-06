@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
-import { NewPasswordForm } from '../../../sections/new-password/NewPasswordForm';
+import { RecoverPasswordForm } from '../../../sections/new-password/RecoverPasswordForm';
 import styles from '../../../styles/NewPassword.module.scss';
 
 const NewPasswordPage: NextPage = () => (
   <div className={styles.container}>
     <div className={styles.form}>
-      <NewPasswordForm />
+      <RecoverPasswordForm />
     </div>
     <div className={styles.background} />
   </div>

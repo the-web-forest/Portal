@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 import INewPasswordData from '../../../validations/DTO/INewPasswordData';
 import AppError from '../../../infra/errors/AppError';
 import ErrorCode from '../../../infra/errors/ErrorCodes';
-import NewPasswordValidate from '../../../validations/NewPasswordForm.validate';
+import RecoverPasswordValidate from '../../../validations/RecoverPasswordForm.validate';
 import { useRouter } from 'next/router';
 import AttentionMessage from '../../../components/AttentionMessage';
 import PasswordChangeUseCase from '../../../infra/useCases/passwordChange.usecase';
@@ -21,7 +21,7 @@ import pagePaths from '../../../infra/core/pagePaths';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 
-export const NewPasswordForm: FC = () => {
+export const RecoverPasswordForm: FC = () => {
   const toast = useToast();
   const router = useRouter();
   const [data, setData] = useState<INewPasswordData>({} as INewPasswordData);
@@ -34,7 +34,7 @@ export const NewPasswordForm: FC = () => {
     setData(prevState => ({
       ...prevState,
       token: TokenParam != undefined ? TokenParam.toString() : undefined,
-      email: EmailParam !== undefined ? EmailParam.toString() : undefined,
+      email: EmailParam != undefined ? EmailParam.toString() : undefined,
     }));
   }, [router.query.token, router.query.email]);
 
@@ -42,18 +42,32 @@ export const NewPasswordForm: FC = () => {
     async event => {
       try {
         event.preventDefault();
-        const errors = await new NewPasswordValidate().validate(data);
-        if (Object.keys(errors)?.length > 0) {
-          setError(errors);
-          return;
-        }
-        if (!(data.password == data.confirm)) {
-          setStatusError(true);
+        if (data.email == undefined || data.token == undefined) {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
+            3000,
+          );
+          router.push({
+            pathname: pagePaths.resendPassword.index,
+          });
         } else {
-          setStatusError(false);
+          const errors = await new RecoverPasswordValidate().validate(data);
+          if (Object.keys(errors)?.length > 0) {
+            setError(errors);
+            return;
+          }
+          if (!(data.password == data.confirm)) {
+            setStatusError(true);
+          } else {
+            setStatusError(false);
 
-          const response: boolean = await new PasswordChangeUseCase().run(data);
-          response && router.push(pagePaths.newPassword.success);
+            const response: boolean = await new PasswordChangeUseCase().run(
+              data,
+            );
+            response && router.push(pagePaths.newPassword.success);
+          }
         }
       } catch (err: any) {
         if (err instanceof AppError) {

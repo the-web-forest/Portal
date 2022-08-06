@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { NewPasswordExpiredBox } from '../../../sections/new-password/NewPasswordExpired';
+import { RecoverPasswordExpiredBox } from '../../../sections/new-password/RecoverPasswordExpired';
 import { SignupHeader } from '../../../sections/signup/SignupHeader';
 import styles from '../../../styles/Signup.success.module.scss';
 
@@ -8,7 +8,7 @@ const NewPasswordExpiredPage: NextPage = () => (
     <SignupHeader />
     <div className={styles.body}>
       <hr className={styles.line} />
-      <NewPasswordExpiredBox />
+      <RecoverPasswordExpiredBox />
     </div>
   </div>
 );

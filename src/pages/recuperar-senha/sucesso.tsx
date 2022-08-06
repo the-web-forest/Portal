@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { RecoverPasswordSuccess } from '../../sections/recover-password/RecoverPasswordSuccess';
+import { RecoverPasswordSuccess } from '../../sections/resend-password/ResendPasswordSuccess';
 import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/Signup.success.module.scss';
 

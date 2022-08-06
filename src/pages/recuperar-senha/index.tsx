@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { NextPage } from 'next';
-import { RecoverPasswordForm } from '../../sections/recover-password/RecoverPasswordForm';
+import { RecoverPasswordForm } from '../../sections/resend-password/ResendPasswordForm';
 import styles from '../../styles/RecoverPassword.module.scss';
 
 const RecoverPassword: NextPage = () => (

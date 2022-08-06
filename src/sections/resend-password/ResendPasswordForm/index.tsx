@@ -32,7 +32,7 @@ export const RecoverPasswordForm: FC = () => {
       try {
         const Response: boolean =
           await new SendEmailToResetPasswordUseCase().run(email);
-        Response && router.push(pagePaths.passwordReset.success);
+        Response && router.push(pagePaths.resendPassword.success);
       } catch (err: any) {
         if (err instanceof AppError) {
           switch (err.error.code) {
@@ -41,6 +41,7 @@ export const RecoverPasswordForm: FC = () => {
                 toast,
                 'Erro',
                 'Email inserido não verificado, reencaminhando para a pagina de reenvio de email...',
+                4000,
               );
               router.push({ pathname: pagePaths.resendEmail.index });
               break;
@@ -50,6 +51,7 @@ export const RecoverPasswordForm: FC = () => {
                 'Erro',
                 err.error.code + ' - ' + err.error.message,
               );
+              console.log(JSON.stringify(err));
               break;
           }
         } else {
@@ -58,6 +60,7 @@ export const RecoverPasswordForm: FC = () => {
             'Erro',
             err.message ?? 'Erro imprevisto, contacte o suporte.',
           );
+          console.log(JSON.stringify(err));
         }
       }
     },
@@ -67,7 +70,7 @@ export const RecoverPasswordForm: FC = () => {
   return (
     <div className={styles.container}>
       <WebForestLogo />
-      <h3>Recuperar senha</h3>
+      <title>Recuperar senha</title>
       <span>{`Enviaremos no e-mail os passos para recuperação da senha :)`}</span>
       <form onSubmit={handleSubmit}>
         <Input

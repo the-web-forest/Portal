@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import { NewPasswordSuccessBox } from '../../../sections/new-password/NewPasswordSuccess';
-import { RecoverPasswordSuccess } from '../../../sections/recover-password/RecoverPasswordSuccess';
+import { RecoverPasswordSuccessBox } from '../../../sections/new-password/RecoverPasswordSuccess';
+import { RecoverPasswordSuccess } from '../../../sections/resend-password/ResendPasswordSuccess';
 import { SignupHeader } from '../../../sections/signup/SignupHeader';
 import styles from '../../../styles/Signup.success.module.scss';
 
@@ -9,7 +9,7 @@ const NewPasswordSuccessPage: NextPage = () => (
     <SignupHeader />
     <div className={styles.body}>
       <hr className={styles.line} />
-      <NewPasswordSuccessBox />
+      <RecoverPasswordSuccessBox />
     </div>
   </div>
 );
