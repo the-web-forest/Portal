@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-import { AiFillDelete, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { SignupSuccessicon } from '../../../components/SignupSuccessIcon';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import pagePaths from '../../../infra/core/pagePaths';

@@ -23,7 +23,7 @@ export const AuthProvider: FC = ({ children }) => {
   const signIn = useCallback(async (data: ILoginData) => {
     const { accessToken, user } = await new LoginUserUseCase().run(data);
     setCookie(undefined, CookiesEnum.USER_TOKEN, accessToken, {
-      maxAge: 60 * 60 * 1, // 1 hora
+      maxAge: 60 * 60 * 1,
     });
     setUser(user);
     Router.push(pagePaths.dashboard);

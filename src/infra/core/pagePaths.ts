@@ -18,6 +18,9 @@ const pagePaths = {
     index: '/reenviar-confirmacao',
     success: '/reenviar.confirmacao/sucesso',
   },
+  payment: {
+    shoppingCart: '/carrinho',
+  },
 };
 
 export default pagePaths;
