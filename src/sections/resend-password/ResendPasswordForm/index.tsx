@@ -70,7 +70,7 @@ export const RecoverPasswordForm: FC = () => {
   return (
     <div className={styles.container}>
       <WebForestLogo />
-      <title>Recuperar senha</title>
+      <h3>Recuperar senha</h3>
       <span>{`Enviaremos no e-mail os passos para recuperação da senha :)`}</span>
       <form onSubmit={handleSubmit}>
         <Input
