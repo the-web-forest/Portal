@@ -64,7 +64,8 @@ export const LoginForm: FC = () => {
           ToastCaller.Error(
             toast,
             'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
+            err.message + err.error.code ??
+              'Erro imprevisto, contacte o suporte.',
           );
         }
       }
@@ -125,7 +126,7 @@ export const LoginForm: FC = () => {
           </FilledButton>
 
           <div className={styles.linkContainer}>
-            <Link href={pagePaths.passwordReset.index}>
+            <Link href={pagePaths.resendPassword.index}>
               <span className={styles.link}>Esqueci minha senha</span>
             </Link>
             <Link href={pagePaths.signup.index}>

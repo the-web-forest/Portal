@@ -1,26 +1,28 @@
 import { StrUtils } from '../utils/str-utils';
 import INewPasswordData from './DTO/INewPasswordData';
 
-export default class NewPasswordValidate {
+export default class RecoverPasswordValidate {
   private errors: INewPasswordData = {} as INewPasswordData;
 
   async validate(formData: INewPasswordData): Promise<INewPasswordData> {
-    (!formData.password || !StrUtils.hasEightChars(formData.password)) &&
+    !StrUtils.hasEightChars(formData.password) &&
+      Object.assign(this.errors, {
+        password: 'Informe uma senha com mais de 8 caracteres',
+      });
+
+    !formData.password &&
       Object.assign(this.errors, {
         password: 'Senha é obrigatória',
       });
 
-    (!formData.confirm || !StrUtils.hasEightChars(formData.confirm)) &&
+    !formData.confirm &&
       Object.assign(this.errors, {
         confirm: 'A confirmação da senha é obrigatoria',
       });
-    !formData.token &&
+
+    !StrUtils.hasEightChars(formData.confirm) &&
       Object.assign(this.errors, {
-        token: 'Token de acesso inválido',
-      });
-    !formData.email &&
-      Object.assign(this.errors, {
-        email: 'Dados de acesso inválidos',
+        confirm: 'Informe uma senha com mais de 8 caracteres',
       });
     return this.errors;
   }
