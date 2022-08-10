@@ -6,7 +6,7 @@ import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Link from 'next/link';
 import pagePaths from '../../../infra/core/pagePaths';
 
-export const NewPasswordSuccessBox: FC = () => (
+export const RecoverPasswordSuccessBox: FC = () => (
   <div className={styles.container}>
     <AiOutlineCheckCircle
       color="#63AF53"

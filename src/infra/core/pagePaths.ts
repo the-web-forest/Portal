@@ -5,7 +5,7 @@ const pagePaths = {
     success: '/cadastro/sucesso',
   },
   dashboard: '/dashboard',
-  passwordReset: {
+  resendPassword: {
     index: '/recuperar-senha',
     success: '/recuperar-senha/sucesso',
   },

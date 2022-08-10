@@ -11,7 +11,7 @@ import SendEmailToResetPasswordUseCase from '../../../infra/useCases/sendEmailTo
 import ErrorCode from '../../../infra/errors/ErrorCodes';
 import AppError from '../../../infra/errors/AppError';
 
-export const NewPasswordExpiredBox: FC = () => {
+export const RecoverPasswordExpiredBox: FC = () => {
   const toast = useToast();
   const [email, setEmail] = useState<string>();
   const router = useRouter();
@@ -25,7 +25,7 @@ export const NewPasswordExpiredBox: FC = () => {
       if (email != undefined) {
         const Response: boolean =
           await new SendEmailToResetPasswordUseCase().run(email);
-        Response && router.push(pagePaths.passwordReset.success);
+        Response && router.push(pagePaths.resendPassword.success);
       } else {
         ToastCaller.Info(
           toast,
