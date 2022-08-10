@@ -22,7 +22,7 @@ export default class PasswordChangeUseCase {
       >(ApiURI.User.passwordChange, requestBody);
       return response.changed;
     } catch (error: any) {
-      const { data } = error.response;
+      const { data } = error.response.data;
       if (data === undefined) {
         console.error('Unknow Error:', error);
       }
