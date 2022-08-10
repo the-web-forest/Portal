@@ -7,11 +7,11 @@ import pagePaths from '../../../infra/core/pagePaths';
 import { useRouter } from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
-import SendEmailToResetPasswordUseCase from '../../../infra/useCases/sendEmailToResetPassword.usecase';
 import ErrorCode from '../../../infra/errors/ErrorCodes';
 import AppError from '../../../infra/errors/AppError';
+import SendEmailToValidateEmailUseCase from '../../../infra/useCases/sendEmailToValidateEmail.usecase';
 
-export const RecoverPasswordExpiredBox: FC = () => {
+export const RegisterConfirmationExpiredBox: FC = () => {
   const toast = useToast();
   const [email, setEmail] = useState<string>();
   const router = useRouter();
@@ -24,18 +24,8 @@ export const RecoverPasswordExpiredBox: FC = () => {
     try {
       if (email != undefined) {
         const Response: boolean =
-          await new SendEmailToResetPasswordUseCase().run(email);
-        Response && router.push(pagePaths.resendPassword.success);
-      } else {
-        ToastCaller.Info(
-          toast,
-          'Info',
-          'Email informado não encontrado, vamos te reencaminhar para pagina de alteração de senha...',
-          3000,
-        );
-        setTimeout(function () {
-          router.push(pagePaths.resendEmail.index);
-        }, 2000);
+          await new SendEmailToValidateEmailUseCase().run(email);
+        Response && router.push(pagePaths.registerConfirm.send);
       }
     } catch (err: any) {
       if (err instanceof AppError) {

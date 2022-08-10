@@ -18,6 +18,15 @@ const pagePaths = {
     index: '/reenviar-confirmacao',
     success: '/reenviar.confirmacao/sucesso',
   },
+  payment: {
+    shoppingCart: '/carrinho',
+  },
+  registerConfirm: {
+    index: '/cadastro-confirmacao',
+    success: '/cadastro-confirmacao/sucesso',
+    expirated: '/cadastro-confirmacao/expirado',
+    send: '/cadastro-confirmacao/enviado',
+  },
 };
 
 export default pagePaths;

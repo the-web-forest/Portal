@@ -21,6 +21,7 @@ import ErrorCode from '../../../infra/errors/ErrorCodes';
 import Router from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
+import Settings from '../../../infra/core/settings';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
@@ -76,7 +77,6 @@ export const LoginForm: FC = () => {
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     event => {
       const { name, value } = event.target;
-      console.log(name, value);
       setData(prevState => ({
         ...prevState,
         [name]: value,
@@ -94,6 +94,7 @@ export const LoginForm: FC = () => {
 
   return (
     <div className={styles.container}>
+      <title>{`Login - ${Settings.APP_NAME}`}</title>
       <WebForestLogo />
       <div>
         <div

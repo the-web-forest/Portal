@@ -100,7 +100,7 @@ export const RecoverPasswordForm: FC = () => {
         }
       }
     },
-    [data, error],
+    [data, router, toast],
   );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
