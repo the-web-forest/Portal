@@ -18,16 +18,14 @@ const ResendConfirmationLoadingPage: NextPage = () => {
     if (!!TokenParam && !!EmailParam) {
       new ValidateEmaillUseCase()
         .run(EmailParam, TokenParam)
-        .then(data => {
+        .then(() => {
           router.push(pagePaths.registerConfirm.success);
         })
-        .catch(err => {
+        .catch(() => {
           router.push(
             `${pagePaths.registerConfirm.expirated}?email=${EmailParam}`,
           );
         });
-    } else {
-      router.push(pagePaths.index);
     }
   }, [router.query.token, router.query.email, router]);
 
