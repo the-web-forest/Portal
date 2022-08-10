@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import type { NextPage } from 'next';
+import Settings from '../infra/core/settings';
 import { LoginForm } from '../sections/signin/LoginForm';
 import styles from '../styles/Signin.module.scss';
 

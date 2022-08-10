@@ -2,8 +2,6 @@
 <a  href="https://www.webforest.eco/" target="blank"><img  src="https://www.webforest.eco/images/logo.svg"  width="200"  alt="WebForest Logo"/></a>
 </p>
 
-<p  align="center">A collection of microservices that supports the Web Forest ecosystem.</p>
-
 ## Philosophy 🌳
 
 Web Forest is a NGO, our goal is straightforward: We want to improve the world using technology and ecology.
@@ -22,7 +20,7 @@ Did you like the project? Consider supporting us: [Click Here](http://apoie.webf
 
 ## Description 🌲
 
-**Platform** is our main platform repository.
+**Portal** is our main platform repository.
 
 ## Our Stack 💻
 

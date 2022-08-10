@@ -22,6 +22,7 @@ import StateEntity from '../../../infra/entities/StateEntity';
 import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
 import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
+import Settings from '../../../infra/core/settings';
 
 interface Props {
   states: StateEntity[];
@@ -136,70 +137,74 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
   }, [formData.state, handleCities]);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <Input
-        placeholder="Nome"
-        name="name"
-        value={formData.name}
-        error={formErrors.name}
-        onChangeFunction={handleChange}
-        width="352px"
-      />
-      <Input
-        placeholder="Email"
-        name="email"
-        value={formData.email}
-        error={formErrors.email}
-        onChangeFunction={handleChange}
-        onBlurFunction={handleVerifyEmail}
-        width="352px"
-      />
+    <>
+      <title>{`Novo Cadastro - ${Settings.APP_NAME}`}</title>
 
-      <ComboBox
-        name="state"
-        placeHolder="Estado"
-        options={statesOption}
-        value={formData.state}
-        error={formErrors.state}
-        onChange={handleSelectChange}
-        width="259px"
-      />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Input
+          placeholder="Nome"
+          name="name"
+          value={formData.name}
+          error={formErrors.name}
+          onChangeFunction={handleChange}
+          width="352px"
+        />
+        <Input
+          placeholder="Email"
+          name="email"
+          value={formData.email}
+          error={formErrors.email}
+          onChangeFunction={handleChange}
+          onBlurFunction={handleVerifyEmail}
+          width="352px"
+        />
 
-      <ComboBox
-        name="city"
-        placeHolder="Cidade"
-        options={citiesOption}
-        value={formData.city}
-        error={formErrors.city}
-        onChange={handleSelectChange}
-        width="259px"
-      />
+        <ComboBox
+          name="state"
+          placeHolder="Estado"
+          options={statesOption}
+          value={formData.state}
+          error={formErrors.state}
+          onChange={handleSelectChange}
+          width="259px"
+        />
 
-      <span className={styles.passwordTitle}>Informe uma senha</span>
+        <ComboBox
+          name="city"
+          placeHolder="Cidade"
+          options={citiesOption}
+          value={formData.city}
+          error={formErrors.city}
+          onChange={handleSelectChange}
+          width="259px"
+        />
 
-      <Input
-        placeholder="Senha"
-        name="password"
-        type="password"
-        value={formData.password}
-        error={formErrors.password}
-        onChangeFunction={handleChange}
-        width="259px"
-        showRules
-      />
-      <Input
-        placeholder="Repetir senha"
-        name="confirm"
-        type="password"
-        value={formData.confirm}
-        error={formErrors.confirm}
-        onChangeFunction={handleChange}
-        width="259px"
-      />
+        <span className={styles.passwordTitle}>Informe uma senha</span>
 
-      <FilledButton type="submit" color={FilledColor.budGreen} width="153px">
-        Cadastrar
-      </FilledButton>
-    </form>
+        <Input
+          placeholder="Senha"
+          name="password"
+          type="password"
+          value={formData.password}
+          error={formErrors.password}
+          onChangeFunction={handleChange}
+          width="259px"
+          showRules
+        />
+        <Input
+          placeholder="Repetir senha"
+          name="confirm"
+          type="password"
+          value={formData.confirm}
+          error={formErrors.confirm}
+          onChangeFunction={handleChange}
+          width="259px"
+        />
+
+        <FilledButton type="submit" color={FilledColor.budGreen} width="153px">
+          Cadastrar
+        </FilledButton>
+      </form>
+    </>
   );
 };
