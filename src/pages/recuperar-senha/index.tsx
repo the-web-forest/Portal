@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import Settings from '../../infra/core/settings';
 import { RecoverPasswordForm } from '../../sections/resend-password/ResendPasswordForm';
 import styles from '../../styles/RecoverPassword.module.scss';
 
 const RecoverPassword: NextPage = () => (
   <>
     <Head>
-      <title>Recuperar senha</title>
+      <title>{`Recuperar senha - ${Settings.APP_NAME}`}</title>
     </Head>
     <div className={styles.container}>
       <motion.div

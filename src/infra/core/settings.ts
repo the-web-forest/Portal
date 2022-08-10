@@ -1,5 +1,5 @@
 export default class Settings {
-  public static APP_NAME = 'Web Forest - Plataforma';
+  public static APP_NAME = 'Web Forest';
   public static APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   public static FACEBOOK_URL = 'https://facebook.com';
   public static INSTAGRAM_URL = 'https://www.instagram.com/web_forest';

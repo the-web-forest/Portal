@@ -51,7 +51,6 @@ export const RecoverPasswordForm: FC = () => {
                 'Erro',
                 err.error.code + ' - ' + err.error.message,
               );
-              console.log(JSON.stringify(err));
               break;
           }
         } else {
@@ -60,7 +59,6 @@ export const RecoverPasswordForm: FC = () => {
             'Erro',
             err.message ?? 'Erro imprevisto, contacte o suporte.',
           );
-          console.log(JSON.stringify(err));
         }
       }
     },
