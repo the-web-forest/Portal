@@ -1,6 +1,6 @@
 import ApiURI from '../core/apiURI';
 import ApiErrors from '../errors/ApiErrors';
-import passwordChangeError from '../errors/PasswordChangeErrors';
+import RecoverPasswordError from '../errors/RecoverPasswordErrors';
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
 
@@ -33,7 +33,7 @@ export default class SendEmailToResetPasswordUseCase {
       if (data == undefined) {
         console.error('Unknow Error:', error);
       }
-      throw new ApiErrors(passwordChangeError).getError(data.Code);
+      throw new ApiErrors(RecoverPasswordError).getError(data.Code);
     }
   }
 }
