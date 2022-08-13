@@ -18,6 +18,16 @@ interface InputProps {
   width?: string;
   showRules?: boolean;
   marginBottom?: string;
+  inputMode?:
+    | 'text'
+    | 'search'
+    | 'numeric'
+    | 'none'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'decimal'
+    | undefined;
 }
 
 const Input = ({
@@ -31,6 +41,7 @@ const Input = ({
   width = '100%',
   showRules = false,
   marginBottom,
+  inputMode = 'text',
   onBlurFunction,
 }: InputProps) => {
   const { isMobile } = useScreen();
@@ -71,8 +82,9 @@ const Input = ({
           id={styles.container}
           type={hide ? 'password' : 'text'}
           name={name}
-          placeholder={placeholder}
+          inputMode={inputMode}
           value={value}
+          placeholder={placeholder}
           onChange={onChangeFunction}
           onBlurCapture={onBlurFunction}
           maxLength={maxLength}

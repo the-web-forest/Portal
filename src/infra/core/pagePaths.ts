@@ -5,6 +5,7 @@ const pagePaths = {
     success: '/cadastro/sucesso',
   },
   dashboard: '/dashboard',
+  myAccount: '/minha-conta',
   resendPassword: {
     index: '/recuperar-senha',
     success: '/recuperar-senha/sucesso',
@@ -26,6 +27,9 @@ const pagePaths = {
     success: '/cadastro-confirmacao/sucesso',
     expirated: '/cadastro-confirmacao/expirado',
     send: '/cadastro-confirmacao/enviado',
+  },
+  plant: {
+    confirmation: '/confirmacao-plantio',
   },
 };
 

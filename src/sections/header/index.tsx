@@ -3,18 +3,29 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import Router from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
+import Vibrate from '../../utils/vibrate';
+import Cart from '../../utils/cart-utils';
+import { useEffect, useState } from 'react';
 
 interface HeaderProps {
   title?: string;
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const [cartSize, setCartSize] = useState<number>(0);
+
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
   };
 
   const goToDashboard = () => {
+    Vibrate.vibrate(200);
     Router.push(pagePaths.dashboard);
+  };
+
+  const goToMyAccount = () => {
+    Vibrate.vibrate(200);
+    Router.push(pagePaths.myAccount);
   };
 
   const renderTitle = () => {
@@ -26,6 +37,11 @@ const Header = ({ title }: HeaderProps) => {
 
     return headerTitle;
   };
+
+  useEffect(() => {
+    const cart = new Cart();
+    setCartSize(cart.getItemsSize());
+  }, []);
 
   return (
     <header>
@@ -51,14 +67,20 @@ const Header = ({ title }: HeaderProps) => {
               src="/images/icons/shopping-cart.svg"
             />
             <div id="cart-number" className={styles.cartNumber}>
-              42
+              {cartSize}
             </div>
           </div>
-          <div id="my-account" className={styles.myAccount}>
+          <div
+            id="my-account"
+            onClick={goToMyAccount}
+            className={styles.myAccount}
+          >
             <div id="my-photo" className={styles.myPhoto}>
-              <Image src={'/images/icons/user.svg'} width={35} height={35} />
+              <Image src={'/images/icons/user.svg'} width={40} height={40} />
             </div>
-            Minha Conta
+            <span id="my-account-text" className={styles.myAccountText}>
+              Minha Conta
+            </span>
           </div>
         </div>
       </div>
