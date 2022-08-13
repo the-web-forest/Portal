@@ -1,0 +1,89 @@
+.container {
+  position: relative;
+  width: 1366px;
+  height: 936px;
+  background: #F8F8F8;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.body {
+  position: absolute;
+  width: 536px;
+  height: 280px;
+  left: 365px;
+  top: 234px;
+  background: #FFFFFF;
+  border-radius: 8px;
+
+}
+
+.footer {
+position: fixed;
+left: 0%;
+right: 0%;
+bottom: 0%;
+height: 5rem;
+background: #E0EFDD;
+flex-direction: row-reverse;
+}
+
+.logo {
+  position: absolute;
+  left: 45.53%;
+  right: 45.46%;
+  top: 26.51%;
+  bottom: 26.06%;
+}
+
+.circle {  
+position: absolute;
+left: 250px;
+top: 50px;
+}
+
+.text {
+position: absolute;
+width: 238px;
+height: 30px;
+left: 170px;
+top: 110px;
+font-family: 'Aprova';
+font-style: normal;
+font-weight: 600;
+font-size: 22px;
+line-height: 30px;
+/* identical to box height */
+
+
+/* TextColor-Primaria */
+
+color: #4D4D4D;
+}
+
+.textConfirm {
+  position: absolute;
+  width: 240px;
+  height: 40px;
+  left: 160px;
+  top: 145px;
+  
+  /* Body */
+  
+  font-family: 'Aprova';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.015em;
+  
+  /* TextColor-Primaria */
+  
+  color: #4D4D4D;
+}
+
+.doll {
+  left: 260px;
+  top: -139px;
+  position: relative;
+}
