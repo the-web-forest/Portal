@@ -84,7 +84,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         setAwaitAsync(false);
       }
     },
-    [formData, formErrors, router],
+    [formData, formErrors, router, toast],
   );
 
   const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
@@ -194,7 +194,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         />
 
         <ComboBox
-          id="state"
           name="state"
           placeHolder="Estado"
           options={statesOption}
