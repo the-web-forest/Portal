@@ -21,6 +21,7 @@ import {
   useLayoutEffect,
   useState,
 } from 'react';
+import AttentionMessage from '../../components/AttentionMessage';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -111,6 +112,7 @@ const Payment: NextPage = () => {
   ]);
 
   const checkout = useCallback(async () => {
+    setError({} as IPaymentData);
     setIsLoading(true);
     const checkoutCart = new Cart();
     const cardToken = await getCardHash().catch(() => setIsLoading(false));
@@ -177,7 +179,7 @@ const Payment: NextPage = () => {
     if (!isAuthenticated) {
       signOut();
     }
-  }, [isAuthenticated, signOut]);
+  }, [error, isAuthenticated, signOut]);
 
   useEffect(() => {
     const cart = new Cart();
@@ -325,6 +327,11 @@ const Payment: NextPage = () => {
           </div>
 
           <div className={styles.mobilePaymentButton}>
+            {Object.keys(error).length > 0 && (
+              <div className={styles.errorMessage}>
+                <AttentionMessage message="Verifique todos os campos!" />
+              </div>
+            )}
             <FilledButton
               color={FilledColor.budGreen}
               width="100%"
