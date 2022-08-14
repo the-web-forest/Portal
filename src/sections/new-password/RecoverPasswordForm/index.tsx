@@ -27,6 +27,7 @@ export const RecoverPasswordForm: FC = () => {
   const [data, setData] = useState<INewPasswordData>({} as INewPasswordData);
   const [error, setError] = useState<INewPasswordData>({} as INewPasswordData);
   const [statusError, setStatusError] = useState(false);
+  const [awaitAsync, setAwaitAsync] = useState<boolean>(false);
 
   useEffect(() => {
     const TokenParam = router.query.token;
@@ -40,8 +41,9 @@ export const RecoverPasswordForm: FC = () => {
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
+      event.preventDefault();
       try {
-        event.preventDefault();
+        setAwaitAsync(true);
         if (data.email == undefined || data.token == undefined) {
           ToastCaller.Error(
             toast,
@@ -82,14 +84,6 @@ export const RecoverPasswordForm: FC = () => {
               'Erro',
               err.error.code + ' - ' + err.error.message,
             );
-          } else {
-            ToastCaller.Error(
-              toast,
-              'Erro',
-              err.error.message ??
-                err.message ??
-                'Erro imprevisto, contacte o suporte.',
-            );
           }
         } else {
           ToastCaller.Error(
@@ -98,6 +92,9 @@ export const RecoverPasswordForm: FC = () => {
             err.message ?? 'Erro imprevisto, contacte o suporte.',
           );
         }
+      }
+      finally{
+        setAwaitAsync(false);
       }
     },
     [data, router, toast],
@@ -151,7 +148,12 @@ export const RecoverPasswordForm: FC = () => {
           error={error.confirm}
         />
 
-        <FilledButton type="submit" color={FilledColor.budGreen} width="100%">
+        <FilledButton
+          disabled={awaitAsync}
+          type="submit"
+          color={FilledColor.budGreen}
+          width="100%"
+        >
           Cadastrar nova senha
         </FilledButton>
       </form>
