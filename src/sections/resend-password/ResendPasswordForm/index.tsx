@@ -66,7 +66,7 @@ export const RecoverPasswordForm: FC = () => {
         setAwaitAsync(false);
       }
     },
-    [email, emailError, router],
+    [email, emailError, router, toast],
   );
 
   return (
