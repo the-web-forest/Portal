@@ -1,4 +1,4 @@
-const luhnck = val => {
+const luhnck = (val: string) => {
   let validsum = 0;
   let k = 1;
   for (let l = val.length - 1; l >= 0; l--) {
