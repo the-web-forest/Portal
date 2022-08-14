@@ -193,6 +193,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           width="259px"
           showRules
         />
+
         <Input
           id="new-password"
           placeholder="Repetir senha"
