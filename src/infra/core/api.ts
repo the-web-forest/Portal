@@ -17,11 +17,12 @@ axiosInstance.interceptors.request.use(config => {
 });
 
 axiosInstance.interceptors.response.use(
-  response => response,
-  function (error) {
+  response => Promise.resolve(response),
+  error => {
     if (error.response.status == 401) {
       window.open(`https://${window.location.host}`, '_self');
     }
+    return Promise.reject(error);
   },
 );
 
