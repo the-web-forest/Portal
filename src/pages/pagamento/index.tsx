@@ -220,7 +220,7 @@ const Payment: NextPage = () => {
 
       <Header title="Pagamento" />
       <script
-        async
+        async={false}
         src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"
       ></script>
       <div id="container" className={styles.container}>
