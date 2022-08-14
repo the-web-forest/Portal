@@ -67,7 +67,12 @@ export const ResendConfirmationForm: FC = () => {
           onChangeFunction={event => setEmail(event.target.value)}
           error={emailError}
         />
-        <FilledButton disabled={awaitAsync} color={FilledColor.budGreen} width="260px" type="submit">
+        <FilledButton
+          disabled={awaitAsync}
+          color={FilledColor.budGreen}
+          width="260px"
+          type="submit"
+        >
           Reenviar confirmação
         </FilledButton>
       </form>

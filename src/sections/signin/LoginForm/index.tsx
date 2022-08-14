@@ -71,8 +71,7 @@ export const LoginForm: FC = () => {
               'Erro imprevisto, contacte o suporte.',
           );
         }
-      }
-      finally{
+      } finally {
         setAwaitAsync(false);
       }
     },
@@ -127,7 +126,12 @@ export const LoginForm: FC = () => {
             error={error.password}
           />
 
-          <FilledButton disabled={awaitAsync} type="submit" color={FilledColor.budGreen} width="100%">
+          <FilledButton
+            disabled={awaitAsync}
+            type="submit"
+            color={FilledColor.budGreen}
+            width="100%"
+          >
             Entrar
           </FilledButton>
 

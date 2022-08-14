@@ -62,8 +62,7 @@ export const RecoverPasswordForm: FC = () => {
             err.message ?? 'Erro imprevisto, contacte o suporte.',
           );
         }
-      }
-      finally{
+      } finally {
         setAwaitAsync(false);
       }
     },

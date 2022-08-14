@@ -20,7 +20,7 @@ export default class SendEmailToValidateEmailUseCase {
   }
 
   async run(email: string): Promise<boolean> {
-    try{
+    try {
       const data: DataBody = { email };
       return (
         await this.httpService.post<DataBody, Response>(
@@ -28,9 +28,9 @@ export default class SendEmailToValidateEmailUseCase {
           data,
         )
       ).send;
-    } catch(error : any){
+    } catch (error: any) {
       const data = error.response.data;
-      if(data == undefined){
+      if (data == undefined) {
         console.error('Unknow Error:', error);
       }
       throw new ApiErrors(SendEmailToValidateError).getError(data.Code);
