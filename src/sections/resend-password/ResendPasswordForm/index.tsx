@@ -18,18 +18,20 @@ export const RecoverPasswordForm: FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
+  const [awaitAsync, setAwaitAsync] = useState<boolean>(false);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       event.preventDefault();
-
-      const isValidEmail = StrUtils.isEmailValid(email);
-      if (!isValidEmail) {
-        setEmailError('Atenção: Insira um e-mail válido');
-        return;
-      }
-      emailError && setEmailError('');
       try {
+        setAwaitAsync(true);
+        const isValidEmail = StrUtils.isEmailValid(email);
+        if (!isValidEmail) {
+          setEmailError('Atenção: Insira um e-mail válido');
+          return;
+        }
+        emailError && setEmailError('');
+
         const Response: boolean =
           await new SendEmailToResetPasswordUseCase().run(email);
         Response && router.push(pagePaths.resendPassword.success);
@@ -60,6 +62,8 @@ export const RecoverPasswordForm: FC = () => {
             err.message ?? 'Erro imprevisto, contacte o suporte.',
           );
         }
+      } finally {
+        setAwaitAsync(false);
       }
     },
     [email, emailError, router],
@@ -84,6 +88,7 @@ export const RecoverPasswordForm: FC = () => {
             color={FilledColor.budGreen}
             width="140px"
             type="submit"
+            disabled={awaitAsync}
           >
             Enviar
           </FilledButton>

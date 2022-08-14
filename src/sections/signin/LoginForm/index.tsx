@@ -27,12 +27,14 @@ export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
   const [error, setError] = useState<ILoginData>({} as ILoginData);
   const [statusError, setStatusError] = useState(false);
+  const [awaitAsync, setAwaitAsync] = useState(false);
   const toast = useToast();
   const { signIn } = useContext(AuthContext);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       try {
+        setAwaitAsync(true);
         event.preventDefault();
 
         const errors = await new LoginFormValidate().validate(data);
@@ -68,6 +70,8 @@ export const LoginForm: FC = () => {
               'Erro imprevisto, contacte o suporte.',
           );
         }
+      } finally {
+        setAwaitAsync(false);
       }
     },
     [data, signIn, toast],
@@ -123,7 +127,12 @@ export const LoginForm: FC = () => {
             error={error.password}
           />
 
-          <FilledButton type="submit" color={FilledColor.budGreen} width="100%">
+          <FilledButton
+            disabled={awaitAsync}
+            type="submit"
+            color={FilledColor.budGreen}
+            width="100%"
+          >
             Entrar
           </FilledButton>
 

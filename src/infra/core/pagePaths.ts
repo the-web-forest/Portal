@@ -27,7 +27,7 @@ const pagePaths = {
     index: '/cadastro-confirmacao',
     success: '/cadastro-confirmacao/sucesso',
     expirated: '/cadastro-confirmacao/expirado',
-    send: '/cadastro-confirmacao/enviado',
+    sent: '/cadastro-confirmacao/enviado',
   },
   plant: {
     confirmation: '/confirmacao-plantio',
