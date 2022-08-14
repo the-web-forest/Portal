@@ -1,4 +1,4 @@
-import LocalStorageEnum from "../../infra/core/LocalStorageEnum";
+import LocalStorageEnum from '../../infra/core/LocalStorageEnum';
 
 export class CartItem {
   private id: string;
@@ -80,6 +80,30 @@ export default class Cart {
     if (typeof window == 'undefined') {
       return;
     }
+
+    localStorage.setItem(
+      LocalStorageEnum.CART,
+      `[
+      {
+         "id":"62f658be091278803645a91f",
+         "quantity":2,
+         "value":10.00
+      },
+      {
+         "id":"62f65b27091278803645a920",
+         "quantity":2,
+         "value":10.00
+      },  {
+         "id":"62f5d836877ec09a0d90a857",
+         "quantity":2,
+         "value": 10.00
+      },{
+         "id":"62d974ce600a69ca2643738d",
+         "quantity":2,
+         "value": 10.00
+      }
+   ]`,
+    );
 
     const localStorageCart = localStorage.getItem(LocalStorageEnum.CART);
 

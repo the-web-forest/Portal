@@ -16,4 +16,13 @@ axiosInstance.interceptors.request.use(config => {
   return config;
 });
 
+axiosInstance.interceptors.response.use(
+  response => response,
+  function (error) {
+    if (error.response.status == 401) {
+      window.open(`https://${window.location.host}`, '_self');
+    }
+  },
+);
+
 export const api = axiosInstance;

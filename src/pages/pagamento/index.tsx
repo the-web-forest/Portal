@@ -1,4 +1,14 @@
-import { useToast } from '@chakra-ui/react';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useToast,
+} from '@chakra-ui/react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -32,6 +42,7 @@ const Payment: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalValue, setTotalValue] = useState<string>('0.00');
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
   const handleChangeInput = useCallback(
     (event, mask?) => {
@@ -105,7 +116,7 @@ const Payment: NextPage = () => {
         router.push(pagePaths.plant.confirmation);
       })
       .catch(err => {
-        console.error(err);
+        setShowErrorModal(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -160,6 +171,38 @@ const Payment: NextPage = () => {
 
   return (
     <>
+      <Modal
+        isOpen={showErrorModal}
+        isCentered
+        onClose={() => setShowErrorModal(false)}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent className={styles.modal}>
+          <ModalHeader className={styles.modalHeader}>
+            <Image
+              width={50}
+              height={50}
+              src={'/images/icons/error-icon.svg'}
+            />
+            <span className={styles.modalHeaderSpan}>Pagamento reprovado</span>
+          </ModalHeader>
+          <ModalBody className={styles.modalBody}>
+            A operadora do seu cartão recusou a transação. Revise as informações
+            ou entre em contato com o seu banco.
+          </ModalBody>
+
+          <ModalFooter className={styles.modalFooter}>
+            <Button
+              className={styles.modalButton}
+              onClick={() => setShowErrorModal(false)}
+            >
+              OK
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
       <Header title="Pagamento" />
       <script
         async
@@ -275,8 +318,9 @@ const Payment: NextPage = () => {
               width="100%"
               type="submit"
               onClick={handleSubmit}
+              disabled={isLoading}
             >
-              Pagar
+              {isLoading ? 'Processando' : 'Pagar'}
             </FilledButton>
           </div>
         </div>

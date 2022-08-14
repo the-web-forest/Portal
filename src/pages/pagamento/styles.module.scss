@@ -167,3 +167,37 @@
         display: none;
     }
 }
+
+// MODAL
+
+.modalHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modalHeaderSpan{
+    margin-top: 10px;
+}
+
+.modalBody {
+    text-align: center;
+}
+
+.modalFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modalButton {
+    background-color: var(--dark-gray-text) !important;
+    color: var(--white);
+    width: 30%;
+}
+
+.modal {
+    @media (max-width: 750px) {
+        margin: 15px;
+    }
+}

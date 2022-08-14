@@ -48,9 +48,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           const registered = await new RegisterUserUseCase().run(formData);
           registered && router.push(pagePaths.signup.success);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      } catch (err) {}
     },
     [formData, formErrors, router],
   );
