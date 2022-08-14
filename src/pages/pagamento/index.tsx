@@ -12,9 +12,17 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FormEventHandler, useCallback, useEffect, useState } from 'react';
+import {
+  FormEventHandler,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
+import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
@@ -34,6 +42,7 @@ import styles from './styles.module.scss';
 const newPaymentUseCase = new NewPaymentUseCase();
 
 const Payment: NextPage = () => {
+  const { isAuthenticated, signOut } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
 
@@ -164,10 +173,16 @@ const Payment: NextPage = () => {
   );
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      signOut();
+    }
+  }, [isAuthenticated, signOut]);
+
+  useEffect(() => {
     const cart = new Cart();
     setTotalValue(cart.getCartTotalValue().toFixed(2));
     setTotalItems(cart.getItemsSize());
-  }, []);
+  }, [isAuthenticated, signOut]);
 
   return (
     <>

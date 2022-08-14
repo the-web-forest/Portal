@@ -20,6 +20,7 @@ const pagePaths = {
     success: '/reenviar.confirmacao/sucesso',
   },
   payment: {
+    index: '/pagamento',
     shoppingCart: '/carrinho',
   },
   registerConfirm: {
