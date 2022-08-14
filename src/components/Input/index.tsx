@@ -18,6 +18,7 @@ interface InputProps {
   width?: string;
   showRules?: boolean;
   marginBottom?: string;
+  id?: string;
   inputMode?:
     | 'text'
     | 'search'
@@ -43,6 +44,7 @@ const Input = ({
   marginBottom,
   inputMode = 'text',
   onBlurFunction,
+  id = '',
 }: InputProps) => {
   const { isMobile } = useScreen();
   const [hide, setHide] = useState<boolean>(type === 'password');
@@ -79,7 +81,7 @@ const Input = ({
         }}
       >
         <input
-          id={styles.container}
+          id={id}
           type={hide ? 'password' : 'text'}
           name={name}
           inputMode={inputMode}

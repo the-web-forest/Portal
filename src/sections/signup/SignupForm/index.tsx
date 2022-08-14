@@ -142,6 +142,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <Input
           placeholder="Nome"
           name="name"
+          id="name"
           value={formData.name}
           error={formErrors.name}
           onChangeFunction={handleChange}
@@ -150,6 +151,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <Input
           placeholder="Email"
           name="email"
+          id="email"
           value={formData.email}
           error={formErrors.email}
           onChangeFunction={handleChange}
@@ -158,6 +160,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         />
 
         <ComboBox
+          id="state"
           name="state"
           placeHolder="Estado"
           options={statesOption}
@@ -180,6 +183,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <span className={styles.passwordTitle}>Informe uma senha</span>
 
         <Input
+          id="password"
           placeholder="Senha"
           name="password"
           type="password"
@@ -190,6 +194,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           showRules
         />
         <Input
+          id="new-password"
           placeholder="Repetir senha"
           name="confirm"
           type="password"

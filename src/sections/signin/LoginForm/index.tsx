@@ -104,6 +104,7 @@ export const LoginForm: FC = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <Input
+            id="email"
             name="email"
             placeholder="E-mail"
             width="100%"
@@ -112,6 +113,7 @@ export const LoginForm: FC = () => {
             error={error.email}
           />
           <Input
+            id="current-password"
             name="password"
             placeholder="Senha"
             width="100%"
