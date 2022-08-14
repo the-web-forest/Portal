@@ -12,6 +12,7 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import {
   FormEventHandler,
   useCallback,
@@ -219,10 +220,6 @@ const Payment: NextPage = () => {
       </Modal>
 
       <Header title="Pagamento" />
-      <script
-        async={false}
-        src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"
-      ></script>
       <div id="container" className={styles.container}>
         <div id="data-section" className={styles.dataSection}>
           <div id="title" className={styles.title}>
