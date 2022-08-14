@@ -6,9 +6,17 @@ export class StrUtils {
   public static hasEightChars(value: string): boolean {
     return value?.length >= 8;
   }
+  public static hasExactCharQuantity(value: string, quantity: number): boolean {
+    return value?.length >= quantity;
+  }
 
   public static isEmailValid(value: string): boolean {
     const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return reg.test(value);
+  }
+
+  public static isAValidUserName(name: string): boolean {
+    const regName = /[^a-zà-ú]/gi;
+    return regName.test(name);
   }
 }

@@ -42,7 +42,6 @@ export const LoginForm: FC = () => {
         }
         Object.keys(errors)?.length > 0 && setError({} as ILoginData);
         await signIn(data);
-
         setStatusError(false);
       } catch (err: any) {
         if (err instanceof AppError) {

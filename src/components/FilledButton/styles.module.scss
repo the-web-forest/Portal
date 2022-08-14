@@ -13,6 +13,10 @@
     outline: none;
 }
 
+.container:disabled {
+    filter: opacity(80%);
+}
+
 .container:hover {
     filter: brightness(90%);
 }
