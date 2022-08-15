@@ -2,29 +2,43 @@
   position: relative;
   width: 1366px;
   height: 936px;
-  background: #F8F8F8;
+  background: var(--lightgray-background);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 1100px) {
+    width: 960px;
+  }
 }
 
 .body {
   position: absolute;
   width: 536px;
   height: 280px;
-  left: 365px;
+  left: 30%;
   top: 234px;
-  background: #FFFFFF;
+  background: var(--white);
   border-radius: 8px;
+
+  @media (max-width: 1100px) {
+    left: 20%;
+  }
 
 }
 
 .footer {
-position: fixed;
+position: absolute;
 left: 0%;
 right: 0%;
 bottom: 0%;
 height: 5rem;
+width:1366px; ;
 background: #E0EFDD;
 flex-direction: row-reverse;
+justify-items: center;
+
+@media (max-width: 1100px) {
+  width: 960px;
+}
 }
 
 .logo {
@@ -52,12 +66,7 @@ font-style: normal;
 font-weight: 600;
 font-size: 22px;
 line-height: 30px;
-/* identical to box height */
-
-
-/* TextColor-Primaria */
-
-color: #4D4D4D;
+color: var(--dark-gray-text);
 }
 
 .textConfirm {
@@ -66,9 +75,6 @@ color: #4D4D4D;
   height: 40px;
   left: 160px;
   top: 145px;
-  
-  /* Body */
-  
   font-family: 'Aprova';
   font-style: normal;
   font-weight: 400;
@@ -76,14 +82,28 @@ color: #4D4D4D;
   line-height: 18px;
   text-align: center;
   letter-spacing: 0.015em;
-  
-  /* TextColor-Primaria */
-  
-  color: #4D4D4D;
+  color: var(--dark-gray-text);
 }
 
 .doll {
   left: 260px;
   top: -139px;
   position: relative;
+}
+
+.button {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 32px;
+gap: 10px;
+position: absolute;
+width: 222px;
+height: 40px;
+left: 10px;
+top: 67px;
+background: var(--bud-green);
+box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.13);
+border-radius: 4px;
 }
