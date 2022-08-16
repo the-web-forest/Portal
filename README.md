@@ -58,6 +58,14 @@ An special thanks for the following people who contributed to this project:
         </sub>
       </a>
     </td>
+     <td align="center">
+      <a href="https://github.com/leticiapardini">
+        <img src="https://avatars.githubusercontent.com/u/97961576?v=4" width="100px;" alt="leticiapardini Picture on GitHub"/><br>
+        <sub>
+          <b>Leticia Pardini</b>
+        </sub>
+      </a>
+    </td>
     <td align="center">
       <a href="https://github.com/DevBacega">
         <img src="https://avatars.githubusercontent.com/u/54642509?v=4" width="100px;" alt="DevBacega Picture on GitHub"/><br>

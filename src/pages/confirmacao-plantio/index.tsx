@@ -9,6 +9,8 @@ import pagePaths from '../../infra/core/pagePaths';
 
 const PlantingConfirmation: NextPage = () => {
   const router = useRouter();
+  const id = router.query.id;
+  console.log(id, 'id');
   const changePage = () => {
     return router.push(pagePaths.dashboard);
   };
@@ -22,7 +24,7 @@ const PlantingConfirmation: NextPage = () => {
           <div className={styles.circle}>
             <Image src="/images/check-circle.png" width={48} height={48} />
           </div>
-          <div className={styles.text}> {`Pedido IU96QQ5T`}</div>
+          <div className={styles.text}> {`Pedido: ${id}`}</div>
           <div className={styles.textConfirm}>
             {' '}
             Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
