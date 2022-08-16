@@ -23,6 +23,10 @@ import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
 import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 import Settings from '../../../infra/core/settings';
+import { useToast } from '@chakra-ui/react';
+import AppError from '../../../infra/errors/AppError';
+import ErrorCode from '../../../infra/errors/ErrorCodes';
+import ToastCaller from '../../../infra/toast/ToastCaller';
 
 interface Props {
   states: StateEntity[];
@@ -33,10 +37,13 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
   const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([]);
   const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([]);
+  const [awaitAsync, setAwaitAsync] = useState<boolean | undefined>(false);
+  const toast = useToast();
   const router = useRouter();
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       try {
+        setAwaitAsync(true);
         event.preventDefault();
         if (!!formErrors.email) return;
         const errors = await new SignUpFormValidade().validate(formData);
@@ -48,11 +55,36 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           const registered = await new RegisterUserUseCase().run(formData);
           registered && router.push(pagePaths.signup.success);
         }
-      } catch (err) {
-        console.error(err);
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          if (err.error.code != null) {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              err.error.code + ' - ' + err.error.message,
+            );
+          } else {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              err.error.message ??
+                err.message ??
+                'Erro imprevisto, contacte o suporte.',
+            );
+          }
+        } else {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            err.message ?? 'Erro imprevisto, contacte o suporte.',
+          );
+          console.error(err);
+        }
+      } finally {
+        setAwaitAsync(false);
       }
     },
-    [formData, formErrors, router],
+    [formData, formErrors, router, toast],
   );
 
   const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
@@ -144,6 +176,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <Input
           placeholder="Nome"
           name="name"
+          id="name"
           value={formData.name}
           error={formErrors.name}
           onChangeFunction={handleChange}
@@ -152,6 +185,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <Input
           placeholder="Email"
           name="email"
+          id="email"
           value={formData.email}
           error={formErrors.email}
           onChangeFunction={handleChange}
@@ -182,6 +216,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
         <span className={styles.passwordTitle}>Informe uma senha</span>
 
         <Input
+          id="password"
           placeholder="Senha"
           name="password"
           type="password"
@@ -191,7 +226,9 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           width="259px"
           showRules
         />
+
         <Input
+          id="new-password"
           placeholder="Repetir senha"
           name="confirm"
           type="password"
@@ -201,7 +238,12 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           width="259px"
         />
 
-        <FilledButton type="submit" color={FilledColor.budGreen} width="153px">
+        <FilledButton
+          disabled={awaitAsync}
+          type="submit"
+          color={FilledColor.budGreen}
+          width="153px"
+        >
           Cadastrar
         </FilledButton>
       </form>

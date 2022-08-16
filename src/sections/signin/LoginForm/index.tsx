@@ -27,12 +27,14 @@ export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
   const [error, setError] = useState<ILoginData>({} as ILoginData);
   const [statusError, setStatusError] = useState(false);
+  const [awaitAsync, setAwaitAsync] = useState(false);
   const toast = useToast();
   const { signIn } = useContext(AuthContext);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       try {
+        setAwaitAsync(true);
         event.preventDefault();
 
         const errors = await new LoginFormValidate().validate(data);
@@ -42,7 +44,6 @@ export const LoginForm: FC = () => {
         }
         Object.keys(errors)?.length > 0 && setError({} as ILoginData);
         await signIn(data);
-
         setStatusError(false);
       } catch (err: any) {
         if (err instanceof AppError) {
@@ -69,6 +70,8 @@ export const LoginForm: FC = () => {
               'Erro imprevisto, contacte o suporte.',
           );
         }
+      } finally {
+        setAwaitAsync(false);
       }
     },
     [data, signIn, toast],
@@ -105,6 +108,7 @@ export const LoginForm: FC = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <Input
+            id="email"
             name="email"
             placeholder="E-mail"
             width="100%"
@@ -113,6 +117,7 @@ export const LoginForm: FC = () => {
             error={error.email}
           />
           <Input
+            id="current-password"
             name="password"
             placeholder="Senha"
             width="100%"
@@ -122,7 +127,12 @@ export const LoginForm: FC = () => {
             error={error.password}
           />
 
-          <FilledButton type="submit" color={FilledColor.budGreen} width="100%">
+          <FilledButton
+            disabled={awaitAsync}
+            type="submit"
+            color={FilledColor.budGreen}
+            width="100%"
+          >
             Entrar
           </FilledButton>
 

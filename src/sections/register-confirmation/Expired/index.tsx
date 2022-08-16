@@ -25,7 +25,7 @@ export const RegisterConfirmationExpiredBox: FC = () => {
       if (email != undefined) {
         const Response: boolean =
           await new SendEmailToValidateEmailUseCase().run(email);
-        Response && router.push(pagePaths.registerConfirm.send);
+        Response && router.push(pagePaths.registerConfirm.sent);
       }
     } catch (err: any) {
       if (err instanceof AppError) {

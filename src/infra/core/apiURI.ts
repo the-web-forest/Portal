@@ -10,6 +10,7 @@ const ApiURI = {
   },
   States: '/States',
   Cities: '/Cities',
+  Plant: '/Plant',
 };
 
 export default ApiURI;
