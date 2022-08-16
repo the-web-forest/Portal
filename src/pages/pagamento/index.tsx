@@ -125,7 +125,10 @@ const Payment: NextPage = () => {
       .run(checkoutCart.getItems(), cardToken)
       .then(res => {
         //  new Cart().deleteAllItems();
-        router.push(pagePaths.plant.confirmation);
+        router.push({
+          pathname: pagePaths.plant.confirmation,
+          query: { id: encodeURI(res) },
+        });
       })
       .catch(err => {
         setShowErrorModal(true);
@@ -149,11 +152,6 @@ const Payment: NextPage = () => {
       } catch (err: any) {
         if (err instanceof AppError) {
           switch (err.error.code) {
-            case ErrorCode.unverifiedEmail:
-              router.push(pagePaths.resendEmail.index);
-              break;
-            case ErrorCode.invalidUserNameOrPassword:
-              break;
             default:
               ToastCaller.Error(
                 toast,
@@ -172,7 +170,7 @@ const Payment: NextPage = () => {
         }
       }
     },
-    [checkout, data, router, toast],
+    [checkout, data, toast],
   );
 
   useEffect(() => {
