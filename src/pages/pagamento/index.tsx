@@ -286,7 +286,7 @@ const Payment: NextPage = () => {
             <div id="card-image-section" className={styles.cardImageSection}>
               <div className={styles.cardIcon}>
                 <Image
-                  src={'/images/icons/credit-card.svg'}
+                  src={'/images/credit-card.svg'}
                   width={300}
                   height={300}
                 />

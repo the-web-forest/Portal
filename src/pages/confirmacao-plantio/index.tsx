@@ -1,24 +1,24 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { Footer } from '../../components/Footer';
 import { WebForestLogo } from '../../components/WebForestLogo';
-import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/PlantingConfirmation.module.scss';
 import { useRouter } from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
+import Header from '../../sections/header';
 
 const PlantingConfirmation: NextPage = () => {
   const router = useRouter();
   const id = router.query.id;
-  console.log(id, 'id');
+
   const changePage = () => {
     return router.push(pagePaths.dashboard);
   };
+
   return (
     <>
       <div className={styles.container}>
         <div>
-          <SignupHeader />
+          <Header />
         </div>
         <div className={styles.body}>
           <div className={styles.circle}>
@@ -29,10 +29,14 @@ const PlantingConfirmation: NextPage = () => {
             {' '}
             Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
             <div className={styles.doll}>
-              <Image src="/images/Group.png" width={125} height={281} />
+              <Image
+                src="/images/fundo-novo-plantio.png"
+                width={125}
+                height={281}
+              />
             </div>
             <button onClick={() => changePage()} className={styles.button}>
-              Ir para minha floresta
+              Ir para minhas árvores
             </button>
           </div>
         </div>
