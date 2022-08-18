@@ -1,4 +1,3 @@
-import CreditCardUtils from '../../utils/credit-card-utils';
 import { StrUtils } from '../../utils/str-utils';
 import IPaymentData from './IPaymentData';
 
@@ -11,14 +10,6 @@ export default class PaymentFormValidate {
         name: 'Nome inválido',
       });
     }
-
-    // if (!CreditCardUtils.validCardNumber(formData.cardNumber)) {
-    //   Object.assign(this.errors, {
-    //     cardNumber: 'Cartão de crédito inválido',
-    //   });
-    // }
-
-    // EMPTY AREA
 
     if (!formData.name) {
       Object.assign(this.errors, {

@@ -25,7 +25,7 @@ export default class SignUpFormValidade {
         city: 'Cidade é obrigatória',
       });
 
-    !(formData.confirm == formData.password) &&
+    formData.confirm !== formData.password &&
       Object.assign(this.errors, {
         password: 'As senhas informadas não são iguais.',
         confirm: 'As senhas informadas não são iguais.',

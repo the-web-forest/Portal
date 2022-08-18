@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { RecoverPasswordSuccessBox } from '../../../sections/new-password/RecoverPasswordSuccess';
-import { RecoverPasswordSuccess } from '../../../sections/resend-password/ResendPasswordSuccess';
 import { SignupHeader } from '../../../sections/signup/SignupHeader';
 import styles from '../../../styles/Signup.success.module.scss';
 

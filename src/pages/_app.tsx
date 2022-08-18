@@ -1,8 +1,7 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '../contexts/AuthContext';
 import { ScreenProvider } from '../providers/screen';
-import { extendTheme } from '@chakra-ui/react';
 import '../styles/globals.scss';
 
 const theme = extendTheme();

@@ -39,22 +39,19 @@ export const RecoverPasswordExpiredBox: FC = () => {
       }
     } catch (err: any) {
       if (err instanceof AppError) {
-        switch (err.error.code) {
-          case ErrorCode.unverifiedEmail:
-            ToastCaller.Error(
-              toast,
-              'Erro',
-              'Email inserido não verificado, reencaminhando para a pagina de reenvio de email...',
-            );
-            router.push({ pathname: pagePaths.resendEmail.index });
-            break;
-          default:
-            ToastCaller.Error(
-              toast,
-              'Erro',
-              err.error.code + ' - ' + err.error.message,
-            );
-            break;
+        if (err.error.code === ErrorCode.unverifiedEmail) {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            'Email inserido não verificado, reencaminhando para a pagina de reenvio de email...',
+          );
+          router.push({ pathname: pagePaths.resendEmail.index });
+        } else {
+          ToastCaller.Error(
+            toast,
+            'Erro',
+            err.error.code + ' - ' + err.error.message,
+          );
         }
       } else {
         ToastCaller.Error(

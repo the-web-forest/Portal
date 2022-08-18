@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
 import ValidateEmaillUseCase from '../../infra/useCases/validateEmail.usecase';
