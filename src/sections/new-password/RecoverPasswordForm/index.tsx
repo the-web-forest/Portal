@@ -54,20 +54,21 @@ export const RecoverPasswordForm: FC = () => {
           router.push(pagePaths.resendPassword.index);
         } else {
           const errors = await new RecoverPasswordValidate().validate(data);
+
           if (Object.keys(errors)?.length > 0) {
             setError(errors);
             return;
           }
-          if (data.password !== data.confirm) {
-            setStatusError(true);
-          } else {
-            setStatusError(false);
+          const isDifferentPassWord = data.password !== data.confirm;
 
-            const response: boolean = await new PasswordChangeUseCase().run(
-              data,
-            );
-            response && router.push(pagePaths.newPassword.success);
+          if (isDifferentPassWord) {
+            setStatusError(true);
+            return;
           }
+
+          setStatusError(false);
+          const response: boolean = await new PasswordChangeUseCase().run(data);
+          response && router.push(pagePaths.newPassword.success);
         }
       } catch (err: any) {
         if (err instanceof AppError) {
