@@ -77,20 +77,27 @@ export const RecoverPasswordForm: FC = () => {
               pathname: pagePaths.newPassword.expired,
               query: { email: data.email },
             });
-          } else if (err.error.code != null) {
+            return;
+          }
+
+          if (err.error.code != null) {
             ToastCaller.Error(
               toast,
               'Erro',
               err.error.code + ' - ' + err.error.message,
             );
+            return;
           }
-        } else {
-          ToastCaller.Error(
-            toast,
-            'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
-          );
+
+          return;
         }
+
+        ToastCaller.Error(
+          toast,
+          'Erro',
+          err.message ?? 'Erro imprevisto, contacte o suporte.',
+        );
+        return;
       } finally {
         setAwaitAsync(false);
       }
