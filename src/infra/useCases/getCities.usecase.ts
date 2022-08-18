@@ -13,7 +13,6 @@ export default class GetCitiesUseCase {
     const response = await this.httpService.get<ICitiesResponse>(
       `${ApiURI.States}/${state}${ApiURI.Cities}`,
     );
-    console.log(response);
     return response;
   }
 }

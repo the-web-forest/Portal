@@ -20,7 +20,6 @@ const Signup: NextPage<IProps> = ({ states }: IProps) => {
       <div className={isMobile ? styles.mobileBody : styles.body}>
         <SignupTitle />
         <SignupForm states={states} />
-        <Footer />
       </div>
     </div>
   );

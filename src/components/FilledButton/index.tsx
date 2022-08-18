@@ -18,18 +18,19 @@ const FilledButton: FC<FilledButtonProps> = ({
   color = FilledColor.orange,
   width = 'auto',
   type = 'button',
+  disabled = false,
   children,
   ...rest
 }) => {
   const { isMobile } = useScreen();
   return (
     <button
-      className={styles.container}
+      className={`${styles.container} ${disabled ? styles.disabled : ''}`}
       type={type}
       style={{ width: isMobile ? '100%' : width, backgroundColor: color }}
       {...rest}
     >
-      {children}
+      {disabled ? <span className={styles.loader}></span> : `${children}`}
     </button>
   );
 };

@@ -1,6 +1,7 @@
 .container {
   @media (min-width: 1300px) {
-    width: 580px;
+    width: 70%;
+    max-width: 400px;
   }
 
   @media (max-width: 1300px) {
@@ -12,7 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  svg {
+  > svg {
     width: 160px;
     margin-bottom: 40px;
   }
@@ -27,14 +28,7 @@
   }
 
   form {
-    @media (min-width: 1300px) {
-      width: 70%;
-    }
-  
-    @media (max-width: 1300px) {
-      width: 100%;
-    }
-
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 40px;
