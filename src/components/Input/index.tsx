@@ -27,8 +27,7 @@ interface InputProps {
     | 'tel'
     | 'url'
     | 'email'
-    | 'decimal'
-    | undefined;
+    | 'decimal';
 }
 
 const Input = ({
