@@ -120,7 +120,6 @@ const Payment: NextPage = () => {
     newPaymentUseCase
       .run(checkoutCart.getItems(), cardToken)
       .then(res => {
-        //  new Cart().deleteAllItems();
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
