@@ -44,16 +44,14 @@ export const RecoverPasswordForm: FC = () => {
       event.preventDefault();
       try {
         setAwaitAsync(true);
-        if (data.email == undefined || data.token == undefined) {
+        if (!!!data.email || !!!data.token) {
           ToastCaller.Error(
             toast,
             'Erro',
             'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
             3000,
           );
-          router.push({
-            pathname: pagePaths.resendPassword.index,
-          });
+          router.push(pagePaths.resendPassword.index);
         } else {
           const errors = await new RecoverPasswordValidate().validate(data);
           if (Object.keys(errors)?.length > 0) {
