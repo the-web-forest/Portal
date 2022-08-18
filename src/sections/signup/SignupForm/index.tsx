@@ -25,7 +25,6 @@ import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 import Settings from '../../../infra/core/settings';
 import { useToast } from '@chakra-ui/react';
 import AppError from '../../../infra/errors/AppError';
-import ErrorCode from '../../../infra/errors/ErrorCodes';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 
 interface Props {

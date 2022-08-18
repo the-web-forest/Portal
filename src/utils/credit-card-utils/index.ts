@@ -20,7 +20,7 @@ const luhnck = (val: string) => {
 
 export default class CreditCardUtils {
   static validCardNumber(cardNumber: string): boolean {
-    const regex = /^[0-9]{13,19}$/;
+    const regex = /^\d{13,19}$/;
 
     if (!regex.test(cardNumber)) {
       return false;

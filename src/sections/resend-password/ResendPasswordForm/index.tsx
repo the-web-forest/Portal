@@ -37,8 +37,8 @@ export const RecoverPasswordForm: FC = () => {
         Response && router.push(pagePaths.resendPassword.success);
       } catch (err: any) {
         if (err instanceof AppError) {
-          switch (err.error.code) {
-            case ErrorCode.unverifiedEmail:
+          if (err.error.code) {
+            if (err.error.code === ErrorCode.unverifiedEmail) {
               ToastCaller.Error(
                 toast,
                 'Erro',
@@ -46,14 +46,13 @@ export const RecoverPasswordForm: FC = () => {
                 4000,
               );
               router.push({ pathname: pagePaths.resendEmail.index });
-              break;
-            default:
+            } else {
               ToastCaller.Error(
                 toast,
                 'Erro',
                 err.error.code + ' - ' + err.error.message,
               );
-              break;
+            }
           }
         } else {
           ToastCaller.Error(

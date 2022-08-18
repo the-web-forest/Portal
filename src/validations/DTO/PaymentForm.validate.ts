@@ -4,13 +4,7 @@ import IPaymentData from './IPaymentData';
 export default class PaymentFormValidate {
   private errors: IPaymentData = {} as IPaymentData;
 
-  async validate(formData: IPaymentData): Promise<IPaymentData> {
-    if (!StrUtils.isAValidUserName(formData.name)) {
-      Object.assign(this.errors, {
-        name: 'Nome inválido',
-      });
-    }
-
+  private validateEmptyFields(formData: IPaymentData) {
     if (!formData.name) {
       Object.assign(this.errors, {
         name: 'Preencha o nome conforme o cartão',
@@ -34,6 +28,16 @@ export default class PaymentFormValidate {
         cardCvv: 'Preencha o código de segurança',
       });
     }
+  }
+
+  async validate(formData: IPaymentData): Promise<IPaymentData> {
+    if (!StrUtils.isAValidUserName(formData.name)) {
+      Object.assign(this.errors, {
+        name: 'Nome inválido',
+      });
+    }
+
+    this.validateEmptyFields(formData);
 
     if (formData.cardExpiration) {
       const currentMonth = new Date().getMonth() + 1;
