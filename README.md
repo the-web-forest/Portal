@@ -2,24 +2,16 @@
 <a  href="https://www.webforest.eco/" target="blank"><img  src="https://www.webforest.eco/images/logo.svg"  width="200"  alt="WebForest Logo"/></a>
 </p>
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=bugs)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=the-web-forest_Portal&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=the-web-forest_Portal)
-
 
 ## Philosophy 🌳
 
