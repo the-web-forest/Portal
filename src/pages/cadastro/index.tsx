@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
-import { Footer } from '../../components/Footer';
 import StateEntity from '../../infra/entities/StateEntity';
 import GetStatesUseCase from '../../infra/useCases/getStates.usecase';
 import { useScreen } from '../../providers/screen';

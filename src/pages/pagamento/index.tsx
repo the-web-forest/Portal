@@ -2,7 +2,6 @@ import {
   Button,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -12,13 +11,11 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import {
   FormEventHandler,
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useState,
 } from 'react';
 import AttentionMessage from '../../components/AttentionMessage';
@@ -28,7 +25,6 @@ import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
-import ErrorCode from '../../infra/errors/ErrorCodes';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import NewPaymentUseCase from '../../infra/useCases/newPayment.usecase';
 import creditCardMask from '../../masks/creditCard.mask';
@@ -151,14 +147,12 @@ const Payment: NextPage = () => {
         await checkout();
       } catch (err: any) {
         if (err instanceof AppError) {
-          switch (err.error.code) {
-            default:
-              ToastCaller.Error(
-                toast,
-                'Erro',
-                err.error.code + ' - ' + err.error.message,
-              );
-              break;
+          if (err.error.code) {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              err.error.code + ' - ' + err.error.message,
+            );
           }
         } else {
           ToastCaller.Error(

@@ -60,7 +60,7 @@ export const RecoverPasswordForm: FC = () => {
             setError(errors);
             return;
           }
-          if (!(data.password == data.confirm)) {
+          if (data.password !== data.confirm) {
             setStatusError(true);
           } else {
             setStatusError(false);
