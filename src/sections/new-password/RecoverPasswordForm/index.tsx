@@ -39,37 +39,40 @@ export const RecoverPasswordForm: FC = () => {
     }));
   }, [router.query.token, router.query.email]);
 
+  const validateEmptyFields = () => {
+    if (!!!data.email || !!!data.token) {
+      ToastCaller.Error(
+        toast,
+        'Erro',
+        'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
+        3000,
+      );
+      router.push(pagePaths.resendPassword.index);
+    }
+  };
+
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       event.preventDefault();
       try {
         setAwaitAsync(true);
-        if (!!!data.email || !!!data.token) {
-          ToastCaller.Error(
-            toast,
-            'Erro',
-            'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
-            3000,
-          );
-          router.push(pagePaths.resendPassword.index);
-        } else {
-          const errors = await new RecoverPasswordValidate().validate(data);
+        validateEmptyFields();
 
-          if (Object.keys(errors)?.length > 0) {
-            setError(errors);
-            return;
-          }
-          const isDifferentPassWord = data.password !== data.confirm;
+        const errors = await new RecoverPasswordValidate().validate(data);
 
-          if (isDifferentPassWord) {
-            setStatusError(true);
-            return;
-          }
-
-          setStatusError(false);
-          const response: boolean = await new PasswordChangeUseCase().run(data);
-          response && router.push(pagePaths.newPassword.success);
+        if (Object.keys(errors)?.length > 0) {
+          setError(errors);
+          return;
         }
+
+        if (data.password !== data.confirm) {
+          setStatusError(true);
+          return;
+        }
+
+        setStatusError(false);
+        const response: boolean = await new PasswordChangeUseCase().run(data);
+        response && router.push(pagePaths.newPassword.success);
       } catch (err: any) {
         if (err instanceof AppError) {
           if (err.error.code == ErrorCode.invalidPasswordReset) {
@@ -80,7 +83,7 @@ export const RecoverPasswordForm: FC = () => {
             return;
           }
 
-          if (err.error.code != null) {
+          if (err.error.code) {
             ToastCaller.Error(
               toast,
               'Erro',
