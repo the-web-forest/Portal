@@ -9,6 +9,11 @@ export default class SignUpFormValidade {
       Object.assign(this.errors, {
         name: 'Nome é obrigatório',
       });
+    
+    !StrUtils.isAValidUserName(formData.name) &&
+      Object.assign(this.errors, {
+        name: 'Nome inválido',
+      });
 
     !formData.email &&
       Object.assign(this.errors, {

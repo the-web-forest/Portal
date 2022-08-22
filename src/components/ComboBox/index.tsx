@@ -103,7 +103,7 @@ const ComboBox = ({
           )}
         </div>
       </div>
-      {error && <span className={styles.errorText}>{error}</span>}
+      {error && <span className={styles.errorText}>* {error}</span>}
     </div>
   );
 };

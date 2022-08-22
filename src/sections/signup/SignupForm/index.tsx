@@ -27,6 +27,7 @@ import { useToast } from '@chakra-ui/react';
 import AppError from '../../../infra/errors/AppError';
 import ErrorCode from '../../../infra/errors/ErrorCodes';
 import ToastCaller from '../../../infra/toast/ToastCaller';
+import { StrUtils } from '../../../utils/str-utils';
 
 interface Props {
   states: StateEntity[];
@@ -87,12 +88,22 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formData, formErrors, router, toast],
   );
 
-  const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
+  const handleSelectChange: OnChangeSelect = useCallback(
+    (name, value) => {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+
+      if (formErrors[name as keyof ISignupData]) {
+        setFormErrors(prevState => ({
+          ...prevState,
+          [name]: undefined,
+        }));
+      }
+    },
+    [formErrors],
+  );
 
   const handleCities = useCallback(async (state: string) => {
     try {
@@ -128,23 +139,38 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     async event => {
       const { name, value } = event.target;
       try {
-        await new VerifyEmailUseCase().run(value);
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value,
-        }));
+        if(StrUtils.isEmailValid(value)){
+          await new VerifyEmailUseCase().run(value);
+          setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+          }));
 
-        if (formErrors[name as keyof ISignupData]) {
+          if (formErrors[name as keyof ISignupData]) {
+            setFormErrors(prevState => ({
+              ...prevState,
+              [name]: undefined,
+            }));
+          }
+        }
+        else{
           setFormErrors(prevState => ({
             ...prevState,
-            [name]: undefined,
+            email: "Email informado é inválido",
           }));
         }
-      } catch {
-        setFormErrors(prevState => ({
-          ...prevState,
-          email: 'E-mail já cadastrado',
-        }));
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: err.message,
+          }));
+        } else {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: 'Erro imprevisto',
+          }));
+        }
       }
     },
     [formErrors],
