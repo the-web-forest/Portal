@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   ChangeEventHandler,
   FC,
@@ -105,7 +106,7 @@ export const RecoverPasswordForm: FC = () => {
         setAwaitAsync(false);
       }
     },
-    [data, router, toast],
+    [data, router, toast, validateEmptyFields],
   );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
