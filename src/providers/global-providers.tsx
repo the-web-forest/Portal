@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { CartProvider } from '../providers/cart';
-import { ScreenProvider } from '../providers/screen';
+import { CartProvider } from './cart';
+import { ScreenProvider } from './screen';
 import { AuthProvider } from '../contexts/AuthContext';
 
 const theme = extendTheme();
