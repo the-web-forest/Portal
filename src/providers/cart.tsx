@@ -143,10 +143,10 @@ const CartProvider: FC = ({ children }) => {
 
   const cartTotals = useMemo((): ICartTotals => {
     const quantityTotal =
-      items?.reduce((acc, item) => (acc += item.quantity), 0) || 0;
+      items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
     const valueTotal =
-      items?.reduce((acc, item) => (acc += item.value * item.quantity), 0) || 0;
+      items?.reduce((acc, item) => acc + item.value * item.quantity, 0) || 0;
 
     return {
       quantity: quantityTotal,
