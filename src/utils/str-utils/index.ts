@@ -19,4 +19,15 @@ export class StrUtils {
     const regName = /[^a-zà-ú]/gi;
     return regName.test(name);
   }
+
+  public static formatCurrency(value: number): string {
+    return Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  }
+
+  public static unformatCurrency(value: string): number {
+    return value ? Number(value.replace(/\D/g, '')) / 100 : 0;
+  }
 }
