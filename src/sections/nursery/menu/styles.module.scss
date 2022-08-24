@@ -20,6 +20,13 @@
 
 }
 
+.buttonSelected {
+    @extend .button;
+    .selected {
+        display: block;
+    }
+}
+
 .selected {
     background-color: var(--wf-green);
     width: 90%;

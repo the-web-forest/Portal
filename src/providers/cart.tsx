@@ -33,6 +33,7 @@ interface ICartContextData {
   readonly addItemToCart: (item: ICartItem) => void;
   readonly removeItemQuantity: (itemId: string) => void;
   readonly removeItemOfCart: (itemId: string) => void;
+  readonly getItemQuantity: (itemId: string) => number;
   readonly clearCart: () => void;
 }
 
@@ -155,6 +156,25 @@ const CartProvider: FC = ({ children }) => {
     };
   }, [items]);
 
+  /**
+   * @description Get item Quantity
+   * @param {string} itemId
+   */
+  const getItemQuantity = useCallback(
+    (itemId: string) => {
+      const current = items?.length > 0 ? [...items] : [];
+      const ids = current.map(_item => _item.id) || [];
+
+      if (!ids.includes(itemId)) {
+        return 0;
+      }
+
+      const item = items.find(item => item.id === itemId);
+      return item ? item.quantity : 0;
+    },
+    [items],
+  );
+
   useEffect(() => {
     const { [CookiesEnum.APP_CART]: persistedItems } = parseCookies();
     if (persistedItems) {
@@ -175,6 +195,7 @@ const CartProvider: FC = ({ children }) => {
         clearCart,
         removeItemOfCart,
         removeItemQuantity,
+        getItemQuantity,
       }}
     >
       {children}

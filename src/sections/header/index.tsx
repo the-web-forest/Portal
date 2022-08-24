@@ -6,12 +6,14 @@ import pagePaths from '../../infra/core/pagePaths';
 import Vibrate from '../../utils/vibrate';
 import Cart from '../../utils/cart-utils';
 import { useEffect, useState } from 'react';
+import { useCart } from '../../providers/cart';
 
 interface HeaderProps {
   title?: string;
 }
 
 const Header = ({ title }: HeaderProps) => {
+  const cart = useCart();
   const [cartSize, setCartSize] = useState<number>(0);
 
   const goToShoppingCart = () => {
@@ -32,7 +34,7 @@ const Header = ({ title }: HeaderProps) => {
     let headerTitle = 'Web Forest';
 
     if (title) {
-      headerTitle = `${title} - ${headerTitle}`;
+      headerTitle = `${headerTitle} - ${title}`;
     }
 
     return headerTitle;
@@ -67,7 +69,7 @@ const Header = ({ title }: HeaderProps) => {
               src="/images/icons/shopping-cart.svg"
             />
             <div id="cart-number" className={styles.cartNumber}>
-              {cartSize}
+              {cart.cartTotals.quantity}
             </div>
           </div>
           <div

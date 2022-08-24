@@ -21,6 +21,7 @@ import {
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import { AuthContext } from '../../contexts/AuthContext';
+import CurrencyHelper from '../../helpers/currency';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
@@ -30,8 +31,9 @@ import creditCardMask from '../../masks/creditCard.mask';
 import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
+import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
-import Cart from '../../utils/cart-utils';
+import Cart, { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
 import PaymentFormValidate from '../../validations/DTO/PaymentForm.validate';
 import styles from './styles.module.scss';
@@ -42,11 +44,10 @@ const Payment: NextPage = () => {
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
-
+  const cart = useCart();
   const [data, setData] = useState<IPaymentData>({} as IPaymentData);
   const [error, setError] = useState<IPaymentData>({} as IPaymentData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [totalValue, setTotalValue] = useState<string>('0.00');
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
   const handleChangeInput = useCallback(
@@ -115,9 +116,14 @@ const Payment: NextPage = () => {
       return;
     }
 
+    const items: CartItem[] = cart.items.map(item => {
+      return new CartItem(item.id, item.value, item.quantity);
+    });
+
     newPaymentUseCase
-      .run(checkoutCart.getItems(), cardToken)
+      .run(items, cardToken)
       .then(res => {
+        cart.clearCart();
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
@@ -129,7 +135,7 @@ const Payment: NextPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [getCardHash, router]);
+  }, [cart, getCardHash, router]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
@@ -169,11 +175,6 @@ const Payment: NextPage = () => {
       signOut();
     }
   }, [error, isAuthenticated, signOut]);
-
-  useEffect(() => {
-    const cart = new Cart();
-    setTotalValue(cart.getCartTotalValue().toFixed(2));
-  }, [isAuthenticated, signOut]);
 
   return (
     <>
@@ -285,7 +286,9 @@ const Payment: NextPage = () => {
                 />
               </div>
               <p className={styles.totalTitle}>Valor Total</p>
-              <p className={styles.totalValue}>R$ {totalValue}</p>
+              <p className={styles.totalValue}>
+                R$ {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
+              </p>
               <div className={styles.paymentButton}>
                 <FilledButton
                   color={FilledColor.budGreen}

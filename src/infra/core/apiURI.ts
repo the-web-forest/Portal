@@ -11,6 +11,12 @@ const ApiURI = {
   States: '/States',
   Cities: '/Cities',
   Plant: '/Plant',
+  Trees: {
+    index: '/Tree',
+    biomes: {
+      active: '/Tree/Biomes/Active',
+    },
+  },
 };
 
 export default ApiURI;
