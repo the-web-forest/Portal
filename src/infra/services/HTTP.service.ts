@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { CachiosInstance, CachiosRequestConfig } from 'cachios';
 import { api } from '../core/api';
 import { IHTTPService } from './interfaces/IHTTPService';

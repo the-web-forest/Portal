@@ -18,7 +18,6 @@ const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 
 const Viveiro: NextPage = () => {
-  const router = useRouter();
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const [biomes, setBiomes] = useState<{ name: string; selected: boolean }[]>(
     [],
@@ -51,7 +50,7 @@ const Viveiro: NextPage = () => {
       .run(selectedBiome.name, DEFAULT_TREE_QUANTITY, skip, false)
       .then(trees => {
         const newTrees = trees?.trees;
-        const newTreesState = { ...treeList };
+        const newTreesState = { ...treeList } as ITreesResponseDTO;
         newTreesState.trees?.push(...newTrees);
         setTreeList(newTreesState);
       })

@@ -287,7 +287,8 @@ const Payment: NextPage = () => {
               </div>
               <p className={styles.totalTitle}>Valor Total</p>
               <p className={styles.totalValue}>
-                R$ {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
+                R$
+                {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
               </p>
               <div className={styles.paymentButton}>
                 <FilledButton

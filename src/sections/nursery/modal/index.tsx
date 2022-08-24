@@ -5,7 +5,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { ITreeResponse } from '../../../infra/dtos/Trees/ITreesResponse.dto';
 import styles from './styles.module.scss';
