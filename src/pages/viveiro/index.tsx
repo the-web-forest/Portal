@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -20,7 +20,7 @@ const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 
 const Viveiro: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const [biomes, setBiomes] = useState<{ name: string; selected: boolean }[]>(
     [],
