@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FocusEventHandler, useState } from 'react';
-import styles from './styles.module.scss';
+import stylesNormal from './styles.module.scss';
+import stylesLight from './styles.light.module.scss';
 import { IoEyeOff, IoEye } from 'react-icons/io5';
 import { useScreen } from '../../providers/screen';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -28,6 +29,7 @@ interface InputProps {
     | 'url'
     | 'email'
     | 'decimal';
+  skin?: 'normal' | 'light';
 }
 
 const Input = ({
@@ -44,6 +46,7 @@ const Input = ({
   inputMode = 'text',
   onBlurFunction,
   id = '',
+  skin = 'normal',
 }: InputProps) => {
   const { isMobile } = useScreen();
   const [hide, setHide] = useState<boolean>(type === 'password');
@@ -64,6 +67,8 @@ const Input = ({
       setShowPasswordRules(false);
     }
   };
+
+  const styles = skin == 'normal' ? stylesNormal : stylesLight;
 
   return (
     <div
