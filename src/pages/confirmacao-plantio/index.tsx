@@ -24,24 +24,25 @@ const PlantingConfirmation: NextPage = () => {
           <div className={styles.circle}>
             <Image src="/images/check-circle.png" width={48} height={48} />
           </div>
-          <div className={styles.text}> {`Pedido: ${id}`}</div>
+          <div className={styles.text}>
+            {' '}
+            {`Pedido: ${
+              id ? id : '630404149e66c190eb6214ec630404149e66c190eb6214ec'
+            }`}
+          </div>
           <div className={styles.textConfirm}>
             {' '}
             Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
             <div className={styles.doll}>
-              <Image src="/images/Group.png" width={125} height={281} />
+              <Image src="/images/doll.png" width={137} height={167} />
             </div>
             <button onClick={() => changePage()} className={styles.button}>
               Ir para minha floresta
             </button>
           </div>
         </div>
-        <div>
-          <div className={styles.footer}>
-            <div className={styles.logo}>
-              <WebForestLogo />
-            </div>
-          </div>
+        <div className={styles.sheets}>
+          <Image src="/images/folhas.png" width={'450vw'} height={'250vh'} />
         </div>
       </div>
     </>
