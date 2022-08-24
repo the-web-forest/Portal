@@ -2,11 +2,11 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 150px);
     margin-top: 80px;
     padding: 5%;
     padding-top: 2%;
-    background: url('/images/folhas-bg.png') left bottom no-repeat, url('/images/folhas-bg-2.png') right top no-repeat, linear-gradient(to top, #E4ECE1 65%, var(--white) 35%);
+    background: url('/images/folhas-bg.png') left bottom no-repeat, url('/images/folhas-bg-2.png') right top no-repeat, linear-gradient(to top, #E4ECE1 60%, var(--white) 40%);
     transition: 50ms ease-in;
     @media (max-width: 750px) {
         flex-direction: column;
@@ -37,4 +37,18 @@
     span {
         cursor: pointer;
     }
+}
+
+.plantNow {
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    width: 20%;
 }
