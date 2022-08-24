@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  images: {
+    domains: ['storage.dev.webforest.eco', 'webforeststoragedev.blob.core.windows.net']
+  }
 }
 
 module.exports = nextConfig

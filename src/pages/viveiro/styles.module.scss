@@ -1,0 +1,40 @@
+.container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    padding: 5%;
+    padding-top: 2%;
+    background: url('/images/folhas-bg.png') left bottom no-repeat, url('/images/folhas-bg-2.png') right top no-repeat, linear-gradient(to top, #E4ECE1 65%, var(--white) 35%);
+    transition: 50ms ease-in;
+    @media (max-width: 750px) {
+        flex-direction: column;
+        padding: 10px 5% 10px 5%;
+    }
+
+    @media (max-width: 750px) {
+        min-height: calc(100vh - 60px);
+    }
+}
+
+
+.title {
+    text-rendering: optimizeLegibility;
+    font-size: 1.7em;
+    color: var(--dark-gray-text);
+    margin-bottom: 40px;
+}
+
+.loadMore {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--dark-blue);
+    text-decoration: underline;
+    
+    span {
+        cursor: pointer;
+    }
+}
