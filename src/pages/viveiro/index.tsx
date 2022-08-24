@@ -1,6 +1,9 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
+import FilledButton, { FilledColor } from '../../components/FilledButton';
 import { AuthContext } from '../../contexts/AuthContext';
+import pagePaths from '../../infra/core/pagePaths';
 import ITreesResponseDTO, {
   ITreeResponse,
 } from '../../infra/dtos/Trees/ITreesResponse.dto';
@@ -17,6 +20,7 @@ const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 
 const Viveiro: NextPage = () => {
+  const router = useRouter();
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const [biomes, setBiomes] = useState<{ name: string; selected: boolean }[]>(
     [],
@@ -124,6 +128,19 @@ const Viveiro: NextPage = () => {
             <span onClick={() => loadMoreTrees()}>Visualizar mais árvores</span>
           </div>
         )}
+      </div>
+      <div className={styles.plantNow}>
+        <div className={styles.button}>
+          <FilledButton
+            color={FilledColor.budGreen}
+            onClick={() => router.push(pagePaths.payment.shoppingCart)}
+            type="submit"
+            width="100%"
+            disabled={false}
+          >
+            Plante agora
+          </FilledButton>
+        </div>
       </div>
     </>
   );
