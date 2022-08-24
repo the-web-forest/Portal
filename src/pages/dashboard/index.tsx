@@ -17,7 +17,7 @@ const Dashboard: NextPage = () => {
   return (
     <>
       <Header title="Dashboard" />
-      <div>Coming Soon</div>
+      <div>Minhas Árvores</div>
       <button onClick={e => router.push(pagePaths.payment.index)}>Pagar</button>
     </>
   );

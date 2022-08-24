@@ -18,7 +18,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import AttentionMessage from '../../components/AttentionMessage';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -48,7 +47,6 @@ const Payment: NextPage = () => {
   const [error, setError] = useState<IPaymentData>({} as IPaymentData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalValue, setTotalValue] = useState<string>('0.00');
-  const [totalItems, setTotalItems] = useState<number>(0);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
   const handleChangeInput = useCallback(
@@ -175,7 +173,6 @@ const Payment: NextPage = () => {
   useEffect(() => {
     const cart = new Cart();
     setTotalValue(cart.getCartTotalValue().toFixed(2));
-    setTotalItems(cart.getItemsSize());
   }, [isAuthenticated, signOut]);
 
   return (
@@ -215,36 +212,35 @@ const Payment: NextPage = () => {
       <Header title="Pagamento" />
       <div id="container" className={styles.container}>
         <div id="data-section" className={styles.dataSection}>
-          <div id="title" className={styles.title}>
-            Pagamento
-          </div>
-          <div id="payment-type" className={styles.paymentType}>
-            Cartão de Crédito
-          </div>
-
           <div id="card-section" className={styles.cardSection}>
             <div id="form-section" className={styles.formSection}>
               <form className={styles.cardForm} onSubmit={handleSubmit}>
-                <span className={styles.inputText}>
-                  Nome impresso no cartão
-                </span>
-                <Input
-                  name="name"
-                  value={data.name}
-                  onChangeFunction={e => handleChangeInput(e, userNameMask)}
-                  maxLength={50}
-                  error={error.name}
-                />
-
-                <span className={styles.inputText}>Número do Cartão</span>
-                <Input
-                  name="cardNumber"
-                  inputMode="numeric"
-                  value={data.cardNumber}
-                  onChangeFunction={e => handleChangeInput(e, creditCardMask)}
-                  maxLength={19}
-                  error={error.cardNumber}
-                />
+                <p className={styles.title}>Dados do Cartão</p>
+                <div className={styles.inputLine}>
+                  <span className={styles.inputText}>Nome</span>
+                  <Input
+                    name="name"
+                    value={data.name}
+                    onChangeFunction={e => handleChangeInput(e, userNameMask)}
+                    maxLength={50}
+                    error={error.name}
+                    skin="light"
+                    placeholder="Escreva conforme o cartão"
+                  />
+                </div>
+                <div className={styles.inputLine}>
+                  <span className={styles.inputText}>Número do Cartão</span>
+                  <Input
+                    name="cardNumber"
+                    inputMode="numeric"
+                    value={data.cardNumber}
+                    onChangeFunction={e => handleChangeInput(e, creditCardMask)}
+                    maxLength={19}
+                    error={error.cardNumber}
+                    skin="light"
+                    placeholder="Escreva o número do cartão"
+                  />
+                </div>
 
                 <div className={styles.formLine}>
                   <div className={styles.formColumn}>
@@ -258,6 +254,8 @@ const Payment: NextPage = () => {
                         handleChangeInput(e, creditCardExpirationMask)
                       }
                       maxLength={7}
+                      skin="light"
+                      placeholder="00/00"
                     />
                   </div>
                   <div className={styles.formColumn}>
@@ -271,6 +269,8 @@ const Payment: NextPage = () => {
                         handleChangeInput(e, creditCardSecurityCode)
                       }
                       maxLength={4}
+                      skin="light"
+                      placeholder="000"
                     />
                   </div>
                 </div>
@@ -284,8 +284,9 @@ const Payment: NextPage = () => {
                   height={300}
                 />
               </div>
-
-              <div className={styles.desktopPaymentButton}>
+              <p className={styles.totalTitle}>Valor Total</p>
+              <p className={styles.totalValue}>R$ {totalValue}</p>
+              <div className={styles.paymentButton}>
                 <FilledButton
                   color={FilledColor.budGreen}
                   onClick={handleSubmit}
@@ -297,41 +298,6 @@ const Payment: NextPage = () => {
                 </FilledButton>
               </div>
             </div>
-          </div>
-        </div>
-        <div id="summary-section" className={styles.summarySection}>
-          <div id="summary-box" className={styles.summaryBox}>
-            <div id="summary-box-title" className={styles.summaryBoxTitle}>
-              Resumo
-            </div>
-
-            <div id="summary-header" className={styles.summaryHeader}>
-              <span>Quantidade</span>
-              <span>Valor</span>
-            </div>
-            <div className={styles.divider}></div>
-
-            <div id="summary-items" className={styles.summaryItems}>
-              <span>{totalItems} Árvores</span>
-              <span>R$ {totalValue}</span>
-            </div>
-          </div>
-
-          <div className={styles.mobilePaymentButton}>
-            {Object.keys(error).length > 0 && (
-              <div className={styles.errorMessage}>
-                <AttentionMessage message="Verifique todos os campos!" />
-              </div>
-            )}
-            <FilledButton
-              color={FilledColor.budGreen}
-              width="100%"
-              type="submit"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Processando' : 'Pagar'}
-            </FilledButton>
           </div>
         </div>
       </div>
