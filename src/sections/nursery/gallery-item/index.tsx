@@ -3,6 +3,8 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import CurrencyHelper from '../../../helpers/currency';
 import { ICartItem, useCart } from '../../../providers/cart';
+import { useToast } from '@chakra-ui/react';
+import ToastCaller from '../../../infra/toast/ToastCaller';
 
 interface NurseryGalleryItemProps {
   data: ITreeResponse;
@@ -13,6 +15,7 @@ const NurseryGalleryItem = ({
   data,
   showTreeModal,
 }: NurseryGalleryItemProps) => {
+  const toast = useToast();
   const cart = useCart();
 
   const addItem = () => {
@@ -21,6 +24,7 @@ const NurseryGalleryItem = ({
       value: data.value,
       name: data.name,
     };
+    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada com sucesso!');
     cart.addItemToCart(item);
   };
 

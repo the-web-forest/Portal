@@ -17,7 +17,7 @@ export class StrUtils {
 
   public static isAValidUserName(name: string): boolean {
     const regName = /[^a-zà-ú]/gi;
-    return regName.test(name);
+    return regName.test(name.trim());
   }
 
   public static formatCurrency(value: number): string {

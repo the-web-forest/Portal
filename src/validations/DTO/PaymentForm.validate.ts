@@ -11,7 +11,10 @@ export default class PaymentFormValidate {
       });
     }
 
-    if (!formData.cardNumber) {
+    if (
+      !formData.cardNumber ||
+      !StrUtils.hasExactCharQuantity(formData.cardNumber, 16)
+    ) {
       Object.assign(this.errors, {
         cardNumber: 'Preencha o número do cartão',
       });
