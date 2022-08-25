@@ -27,6 +27,7 @@ const Viveiro: NextPage = () => {
   );
   const [treeList, setTreeList] = useState<ITreesResponseDTO>();
   const [treeToShow, setTreeToShow] = useState<ITreeResponse | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const changeSelectedBiome = (biomeName: string) => {
     setTreeList(undefined);
@@ -43,9 +44,11 @@ const Viveiro: NextPage = () => {
   const loadMoreTrees = () => {
     const selectedBiome = biomes.find(biome => biome.selected);
 
-    if (!selectedBiome) {
+    if (isLoading || !selectedBiome) {
       return;
     }
+
+    setIsLoading(true);
 
     const skip = treeList ? treeList.trees.length : 0;
 
@@ -59,6 +62,9 @@ const Viveiro: NextPage = () => {
       })
       .catch(err => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -72,10 +78,11 @@ const Viveiro: NextPage = () => {
     getBiomesUseCase
       .run()
       .then(response => {
-        const newBiomes = response.map((biome, index) => {
-          return { name: biome, selected: index == 0 ? true : false };
-        });
-        setBiomes(newBiomes);
+        setBiomes(
+          response.map((biome, index) => {
+            return { name: biome, selected: index == 0 ? true : false };
+          }),
+        );
       })
       .catch(error => {
         console.error(error);
@@ -129,6 +136,7 @@ const Viveiro: NextPage = () => {
           </div>
         )}
       </div>
+
       <div className={styles.plantNow}>
         <div className={styles.button}>
           <FilledButton
