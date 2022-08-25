@@ -30,6 +30,7 @@ interface InputProps {
     | 'email'
     | 'decimal';
   skin?: 'normal' | 'light';
+  disabled?: boolean;
 }
 
 const Input = ({
@@ -47,6 +48,7 @@ const Input = ({
   onBlurFunction,
   id = '',
   skin = 'normal',
+  disabled = false,
 }: InputProps) => {
   const { isMobile } = useScreen();
   const [hide, setHide] = useState<boolean>(type === 'password');
@@ -98,6 +100,7 @@ const Input = ({
           style={{ width: isMobile ? '100%' : width }}
           onFocus={unhideRules}
           onBlur={hideRules}
+          disabled={disabled}
         />
         {type === 'password' && (
           <div className={styles.password} onClick={togglePassword}>
