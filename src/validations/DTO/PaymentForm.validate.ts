@@ -34,7 +34,6 @@ export default class PaymentFormValidate {
   }
 
   async validate(formData: IPaymentData): Promise<IPaymentData> {
-
     if (!StrUtils.isAValidUserName(formData.name)) {
       Object.assign(this.errors, {
         name: 'Nome inválido',
