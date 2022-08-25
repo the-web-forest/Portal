@@ -19,6 +19,11 @@
     background-color: var(--lightgray-background);
 }
 
+.container:disabled {
+    cursor: wait;
+   color: var(--soft-gray);
+}
+
 .password {
     position: absolute;
     right: 0;

@@ -45,7 +45,12 @@ const Payment: NextPage = () => {
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
-  const [data, setData] = useState<IPaymentData>({} as IPaymentData);
+  const [data, setData] = useState<IPaymentData>({
+    name: '',
+    cardExpiration: '',
+    cardNumber: '',
+    cardCvv: '',
+  } as IPaymentData);
   const [error, setError] = useState<IPaymentData>({} as IPaymentData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
@@ -227,6 +232,7 @@ const Payment: NextPage = () => {
                     error={error.name}
                     skin="light"
                     placeholder="Escreva conforme o cartão"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className={styles.inputLine}>
@@ -240,6 +246,7 @@ const Payment: NextPage = () => {
                     error={error.cardNumber}
                     skin="light"
                     placeholder="Escreva o número do cartão"
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -257,6 +264,7 @@ const Payment: NextPage = () => {
                       maxLength={7}
                       skin="light"
                       placeholder="00/00"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className={styles.formColumn}>
@@ -272,6 +280,7 @@ const Payment: NextPage = () => {
                       maxLength={4}
                       skin="light"
                       placeholder="000"
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
