@@ -1,14 +1,14 @@
 @import url('../styles/colors.css');
 
 @font-face {
-  font-family: "Aprova", sans-serif;
+  font-family: "Aprova";
   src: url('/fonts/APROVA-REGULAR.TTF');
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
-  font-family: "Aprova", sans-serif;
+  font-family: "Aprova";
   src: url('/fonts/APROVA-BOLD.TTF');
   font-style: normal;
   font-weight: bold;
@@ -20,6 +20,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  font-family: "Aprova";
 }
 
 html, body, #__next {
