@@ -30,7 +30,12 @@ const NurseryModal = ({ tree, closeModal }: INurseryModalProps) => {
           </span>
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody className={styles.modalBody}>{tree?.description}</ModalBody>
+        <ModalBody
+          className={styles.modalBody}
+          dangerouslySetInnerHTML={{
+            __html: tree?.description || '',
+          }}
+        ></ModalBody>
       </ModalContent>
     </Modal>
   );
