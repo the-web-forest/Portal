@@ -19,7 +19,7 @@ const Header = ({ title }: HeaderProps) => {
 
   const goToDashboard = () => {
     Vibrate.vibrate(200);
-    Router.push(pagePaths.dashboard);
+    Router.push(pagePaths.nursery.index);
   };
 
   const goToMyAccount = () => {

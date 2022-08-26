@@ -1,3 +1,4 @@
+import { Toast, useToast } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -7,8 +8,10 @@ import pagePaths from '../../infra/core/pagePaths';
 import ITreesResponseDTO, {
   ITreeResponse,
 } from '../../infra/dtos/Trees/ITreesResponse.dto';
+import ToastCaller from '../../infra/toast/ToastCaller';
 import GetBiomesUseCase from '../../infra/useCases/getBiomes.usecase';
 import GetTreesByBiomeUseCase from '../../infra/useCases/getTreesByBiome.usecase';
+import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
 import NurseryGallery from '../../sections/nursery/gallery';
 import NurseryMenu from '../../sections/nursery/menu';
@@ -20,7 +23,10 @@ const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 
 const Viveiro: NextPage = () => {
+  const toast = useToast();
+  const cart = useCart();
   const router = useRouter();
+
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const [biomes, setBiomes] = useState<{ name: string; selected: boolean }[]>(
     [],
@@ -66,6 +72,18 @@ const Viveiro: NextPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const plantTrees = () => {
+    if (cart.cartTotals.quantity) {
+      router.push(pagePaths.payment.index);
+    } else {
+      ToastCaller.Warning(
+        toast,
+        'Atneção!',
+        'Selecione ao menos uma árvore para plantar',
+      );
+    }
   };
 
   useEffect(() => {
@@ -143,7 +161,7 @@ const Viveiro: NextPage = () => {
         <div className={styles.button}>
           <FilledButton
             color={FilledColor.budGreen}
-            onClick={() => router.push(pagePaths.payment.shoppingCart)}
+            onClick={() => plantTrees()}
             type="submit"
             width="100%"
             disabled={false}

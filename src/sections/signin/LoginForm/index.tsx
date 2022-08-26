@@ -108,6 +108,7 @@ export const LoginForm: FC = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <Input
+            disabled={awaitAsync}
             id="email"
             name="email"
             placeholder="E-mail"
@@ -117,6 +118,7 @@ export const LoginForm: FC = () => {
             error={error.email}
           />
           <Input
+            disabled={awaitAsync}
             id="current-password"
             name="password"
             placeholder="Senha"
