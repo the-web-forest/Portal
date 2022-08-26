@@ -14,7 +14,7 @@ const NurseryGallery = ({ treeList, showTreeModal }: NurseryGalleryProps) => {
   const renderLoader = () => {
     return (
       <div className={styles.loader}>
-        <Image src={'/loaders/load.gif'} height={100} width={100} />
+        <Image src={'/loaders/load.gif'} height={50} width={50} />
         <p>Carregando...</p>
       </div>
     );
