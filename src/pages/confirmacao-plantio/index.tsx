@@ -30,7 +30,7 @@ const PlantingConfirmation: NextPage = () => {
             Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
             <div className={styles.doll}>
               <Image
-                src="/images/fundo-novo-plantio.png"
+                src="/images/fundo-novo-plantio.webp"
                 width={125}
                 height={281}
               />

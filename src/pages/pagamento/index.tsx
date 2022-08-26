@@ -114,7 +114,7 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const cardToken = await getCardHash().catch(() => setIsLoading(false));
+    const cardToken = await getCardHash().finally(() => setIsLoading(false));
 
     if (!cardToken) {
       return;
@@ -127,11 +127,13 @@ const Payment: NextPage = () => {
     newPaymentUseCase
       .run(items, cardToken)
       .then(res => {
-        cart.clearCart();
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
         });
+        setTimeout(() => {
+          cart.clearCart();
+        }, 500);
       })
       .catch(err => {
         setShowErrorModal(true);
