@@ -114,7 +114,7 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const cardToken = await getCardHash().catch(() => setIsLoading(false));
+    const cardToken = await getCardHash().finally(() => setIsLoading(false));
 
     if (!cardToken) {
       return;
