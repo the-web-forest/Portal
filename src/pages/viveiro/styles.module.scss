@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height: calc(100vh - 150px);
     margin-top: 80px;
-    padding: 2% 5% 30px 5%;
+    padding: 2% 5% 80px 5%;
     background: url('/images/folhas-bg.png') left bottom no-repeat, url('/images/folhas-bg-2.png') right top no-repeat, linear-gradient(to top, #E4ECE1 60%, var(--white) 40%);
     
     @media (max-width: 750px) {
