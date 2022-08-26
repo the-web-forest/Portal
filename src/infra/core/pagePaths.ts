@@ -32,6 +32,9 @@ const pagePaths = {
   plant: {
     confirmation: '/confirmacao-plantio',
   },
+  nursery: {
+    index: '/viveiro',
+  },
 };
 
 export default pagePaths;

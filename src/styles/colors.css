@@ -8,10 +8,12 @@
     --dark-gray: #4C4C4C;
     --dark-gray-text: #4D4D4D;
     --soft-gray: #E5E5E5;
+    --soft-gray-button: #D9D9D9;
     --soft-red: #ffb6b6;
     --soft-red-2: #F9E4E4;
     --green-lime: #28ab38;
     --bud-green:#63AF53;
+    --wf-green: #65A944;
     --dark-green: #00635D;
     --footer-surface: #ECECEC;
     
@@ -19,7 +21,9 @@
     --orange-hover: #B67901;
     --white: #FFF;
     --red: red;
+    --red-error: #A00E01;
     --blue: #508FE7;
     --black: black;
     --green: green;
+    --dark-blue: #694AB2;
 }

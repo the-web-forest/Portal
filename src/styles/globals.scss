@@ -1,14 +1,14 @@
 @import url('../styles/colors.css');
 
 @font-face {
-  font-family: "Aprova", sans-serif;
+  font-family: "Aprova";
   src: url('/fonts/APROVA-REGULAR.TTF');
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
-  font-family: "Aprova", sans-serif;
+  font-family: "Aprova";
   src: url('/fonts/APROVA-BOLD.TTF');
   font-style: normal;
   font-weight: bold;
@@ -20,6 +20,14 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  font-family: "Aprova";
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */ 
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                              supported by Chrome, Edge, Opera and Firefox */
 }
 
 html, body, #__next {

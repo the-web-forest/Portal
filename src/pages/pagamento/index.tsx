@@ -18,10 +18,10 @@ import {
   useEffect,
   useState,
 } from 'react';
-import AttentionMessage from '../../components/AttentionMessage';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import { AuthContext } from '../../contexts/AuthContext';
+import CurrencyHelper from '../../helpers/currency';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
@@ -31,8 +31,9 @@ import creditCardMask from '../../masks/creditCard.mask';
 import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
+import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
-import Cart from '../../utils/cart-utils';
+import { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
 import PaymentFormValidate from '../../validations/DTO/PaymentForm.validate';
 import styles from './styles.module.scss';
@@ -43,12 +44,15 @@ const Payment: NextPage = () => {
   const { isAuthenticated, signOut } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
-
-  const [data, setData] = useState<IPaymentData>({} as IPaymentData);
+  const cart = useCart();
+  const [data, setData] = useState<IPaymentData>({
+    name: '',
+    cardExpiration: '',
+    cardNumber: '',
+    cardCvv: '',
+  } as IPaymentData);
   const [error, setError] = useState<IPaymentData>({} as IPaymentData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [totalValue, setTotalValue] = useState<string>('0.00');
-  const [totalItems, setTotalItems] = useState<number>(0);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
   const handleChangeInput = useCallback(
@@ -110,16 +114,20 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const checkoutCart = new Cart();
     const cardToken = await getCardHash().catch(() => setIsLoading(false));
 
     if (!cardToken) {
       return;
     }
 
+    const items: CartItem[] = cart.items.map(item => {
+      return new CartItem(item.id, item.value, item.quantity);
+    });
+
     newPaymentUseCase
-      .run(checkoutCart.getItems(), cardToken)
+      .run(items, cardToken)
       .then(res => {
+        cart.clearCart();
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
@@ -131,7 +139,7 @@ const Payment: NextPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [getCardHash, router]);
+  }, [cart, getCardHash, router]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
@@ -173,10 +181,10 @@ const Payment: NextPage = () => {
   }, [error, isAuthenticated, signOut]);
 
   useEffect(() => {
-    const cart = new Cart();
-    setTotalValue(cart.getCartTotalValue().toFixed(2));
-    setTotalItems(cart.getItemsSize());
-  }, [isAuthenticated, signOut]);
+    if (!cart.cartTotals.quantity) {
+      router.push(pagePaths.nursery.index);
+    }
+  }, [cart.cartTotals.quantity, router]);
 
   return (
     <>
@@ -215,36 +223,37 @@ const Payment: NextPage = () => {
       <Header title="Pagamento" />
       <div id="container" className={styles.container}>
         <div id="data-section" className={styles.dataSection}>
-          <div id="title" className={styles.title}>
-            Pagamento
-          </div>
-          <div id="payment-type" className={styles.paymentType}>
-            Cartão de Crédito
-          </div>
-
           <div id="card-section" className={styles.cardSection}>
             <div id="form-section" className={styles.formSection}>
               <form className={styles.cardForm} onSubmit={handleSubmit}>
-                <span className={styles.inputText}>
-                  Nome impresso no cartão
-                </span>
-                <Input
-                  name="name"
-                  value={data.name}
-                  onChangeFunction={e => handleChangeInput(e, userNameMask)}
-                  maxLength={50}
-                  error={error.name}
-                />
-
-                <span className={styles.inputText}>Número do Cartão</span>
-                <Input
-                  name="cardNumber"
-                  inputMode="numeric"
-                  value={data.cardNumber}
-                  onChangeFunction={e => handleChangeInput(e, creditCardMask)}
-                  maxLength={19}
-                  error={error.cardNumber}
-                />
+                <p className={styles.title}>Dados do Cartão</p>
+                <div className={styles.inputLine}>
+                  <span className={styles.inputText}>Nome</span>
+                  <Input
+                    name="name"
+                    value={data.name}
+                    onChangeFunction={e => handleChangeInput(e, userNameMask)}
+                    maxLength={50}
+                    error={error.name}
+                    skin="light"
+                    placeholder="Escreva conforme o cartão"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className={styles.inputLine}>
+                  <span className={styles.inputText}>Número do Cartão</span>
+                  <Input
+                    name="cardNumber"
+                    inputMode="numeric"
+                    value={data.cardNumber}
+                    onChangeFunction={e => handleChangeInput(e, creditCardMask)}
+                    maxLength={19}
+                    error={error.cardNumber}
+                    skin="light"
+                    placeholder="Escreva o número do cartão"
+                    disabled={isLoading}
+                  />
+                </div>
 
                 <div className={styles.formLine}>
                   <div className={styles.formColumn}>
@@ -258,6 +267,9 @@ const Payment: NextPage = () => {
                         handleChangeInput(e, creditCardExpirationMask)
                       }
                       maxLength={7}
+                      skin="light"
+                      placeholder="00/00"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className={styles.formColumn}>
@@ -271,6 +283,9 @@ const Payment: NextPage = () => {
                         handleChangeInput(e, creditCardSecurityCode)
                       }
                       maxLength={4}
+                      skin="light"
+                      placeholder="000"
+                      disabled={isLoading}
                     />
                   </div>
                 </div>
@@ -284,8 +299,12 @@ const Payment: NextPage = () => {
                   height={300}
                 />
               </div>
-
-              <div className={styles.desktopPaymentButton}>
+              <p className={styles.totalTitle}>Valor Total</p>
+              <p className={styles.totalValue}>
+                R$
+                {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
+              </p>
+              <div className={styles.paymentButton}>
                 <FilledButton
                   color={FilledColor.budGreen}
                   onClick={handleSubmit}
@@ -297,41 +316,6 @@ const Payment: NextPage = () => {
                 </FilledButton>
               </div>
             </div>
-          </div>
-        </div>
-        <div id="summary-section" className={styles.summarySection}>
-          <div id="summary-box" className={styles.summaryBox}>
-            <div id="summary-box-title" className={styles.summaryBoxTitle}>
-              Resumo
-            </div>
-
-            <div id="summary-header" className={styles.summaryHeader}>
-              <span>Quantidade</span>
-              <span>Valor</span>
-            </div>
-            <div className={styles.divider}></div>
-
-            <div id="summary-items" className={styles.summaryItems}>
-              <span>{totalItems} Árvores</span>
-              <span>R$ {totalValue}</span>
-            </div>
-          </div>
-
-          <div className={styles.mobilePaymentButton}>
-            {Object.keys(error).length > 0 && (
-              <div className={styles.errorMessage}>
-                <AttentionMessage message="Verifique todos os campos!" />
-              </div>
-            )}
-            <FilledButton
-              color={FilledColor.budGreen}
-              width="100%"
-              type="submit"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Processando' : 'Pagar'}
-            </FilledButton>
           </div>
         </div>
       </div>

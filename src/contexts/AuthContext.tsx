@@ -25,7 +25,7 @@ export const AuthProvider: FC = ({ children }) => {
       maxAge: 60 * 60 * 1,
     });
     setUser(user);
-    Router.push(pagePaths.dashboard);
+    Router.push(pagePaths.nursery.index);
   }, []);
 
   const signOut = useCallback(() => {

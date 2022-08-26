@@ -4,6 +4,8 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import Header from '../../sections/header';
+import styles from './styles.module.scss';
+
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const { isAuthenticated, signOut } = useContext(AuthContext);
@@ -17,8 +19,15 @@ const Dashboard: NextPage = () => {
   return (
     <>
       <Header title="Dashboard" />
-      <div>Coming Soon</div>
-      <button onClick={e => router.push(pagePaths.payment.index)}>Pagar</button>
+      <div className={styles.container}>
+        <button onClick={e => router.push(pagePaths.nursery.index)}>
+          Viveiro
+        </button>
+        <br />
+        <button onClick={e => router.push(pagePaths.payment.index)}>
+          Pagar
+        </button>
+      </div>
     </>
   );
 };

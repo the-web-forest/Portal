@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cachios from 'cachios';
 import { parseCookies } from 'nookies';
 import AppConfig from './appConfig';
 import CookiesEnum from './CookiesEnum';
@@ -26,4 +27,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export const api = axiosInstance;
+const cachiosInstance = cachios.create(axiosInstance);
+
+export const api = cachiosInstance;
