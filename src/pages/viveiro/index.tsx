@@ -93,30 +93,47 @@ const Viveiro: NextPage = () => {
   }, [isAuthenticated, signOut]);
 
   useEffect(() => {
+    const biomeParam = router.query.biome
+      ? decodeURI(router.query.biome as string)
+      : null;
     getBiomesUseCase
       .run()
       .then(response => {
         setBiomes(
           response.map((biome, index) => {
-            return { name: biome, selected: index == 0 ? true : false };
+            if (!!biomeParam) {
+              return {
+                name: biome,
+                selected: biomeParam == biome ? true : false,
+              };
+            } else {
+              return { name: biome, selected: index == 0 ? true : false };
+            }
           }),
         );
       })
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [router.query.biome]);
 
   useEffect(() => {
     if (!biomes.length) {
       return;
     }
 
-    const selectedBiome = biomes.find(biome => biome.selected);
+    let selectedBiome = biomes.find(biome => biome.selected);
 
     if (!selectedBiome) {
-      return;
+      selectedBiome = biomes[0];
     }
+
+    router.push({
+      pathname: pagePaths.nursery.index,
+      query: {
+        biome: encodeURI(selectedBiome.name),
+      },
+    });
 
     getTreesByBiomeUseCase
       .run(selectedBiome.name, DEFAULT_TREE_QUANTITY, 0, true)

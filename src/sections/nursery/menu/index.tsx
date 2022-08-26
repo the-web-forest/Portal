@@ -12,6 +12,7 @@ const NurseryMenu = ({ biomes, changeBiomeFunction }: NurseryMenuProps) => {
     return (
       <>
         <div
+          key={`${name}-desktop`}
           className={selected ? styles.buttonSelected : styles.button}
           onClick={() => changeBiomeFunction(name)}
         >
@@ -20,6 +21,7 @@ const NurseryMenu = ({ biomes, changeBiomeFunction }: NurseryMenuProps) => {
         </div>
 
         <div
+          key={`${name}-mobile`}
           className={
             selected ? styles.buttonMobileSelected : styles.buttonMobile
           }
