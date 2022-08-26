@@ -114,7 +114,7 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const cardToken = await getCardHash().finally(() => setIsLoading(false));
+    const cardToken = await getCardHash().catch(() => setIsLoading(false));
 
     if (!cardToken) {
       return;
@@ -179,6 +179,12 @@ const Payment: NextPage = () => {
       signOut();
     }
   }, [error, isAuthenticated, signOut]);
+
+  useEffect(() => {
+    if (!cart.cartTotals.quantity) {
+      router.push(pagePaths.nursery.index);
+    }
+  }, [cart.cartTotals.quantity, router]);
 
   return (
     <>
