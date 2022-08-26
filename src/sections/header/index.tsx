@@ -4,8 +4,6 @@ import Image from 'next/image';
 import Router from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
 import Vibrate from '../../utils/vibrate';
-import Cart from '../../utils/cart-utils';
-import { useEffect, useState } from 'react';
 import { useCart } from '../../providers/cart';
 
 interface HeaderProps {
@@ -14,7 +12,6 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
-  const [cartSize, setCartSize] = useState<number>(0);
 
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
@@ -39,11 +36,6 @@ const Header = ({ title }: HeaderProps) => {
 
     return headerTitle;
   };
-
-  useEffect(() => {
-    const cart = new Cart();
-    setCartSize(cart.getItemsSize());
-  }, []);
 
   return (
     <header>

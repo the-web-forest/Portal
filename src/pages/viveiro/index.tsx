@@ -131,7 +131,9 @@ const Viveiro: NextPage = () => {
         <NurseryGallery treeList={treeList} showTreeModal={setTreeToShow} />
 
         {treeList?.trees.length !== treeList?.totalCount && (
-          <div className={styles.loadMore}>
+          <div
+            className={isLoading ? styles.loadMoreDisabled : styles.loadMore}
+          >
             <span onClick={() => loadMoreTrees()}>Visualizar mais árvores</span>
           </div>
         )}

@@ -28,6 +28,7 @@
     @media (max-width: 750px) {
         font-size: 1em;
         margin-bottom: 0;
+        padding: 0 3% 0 3%;
     }
 }
 
@@ -42,6 +43,11 @@
     span {
         cursor: pointer;
     }
+}
+
+.loadMoreDisabled {
+    @extend .loadMore;
+    color: var(--soft-gray);
 }
 
 .plantNow {

@@ -33,7 +33,7 @@ import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
 import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
-import Cart, { CartItem } from '../../utils/cart-utils';
+import { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
 import PaymentFormValidate from '../../validations/DTO/PaymentForm.validate';
 import styles from './styles.module.scss';
@@ -114,7 +114,6 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const checkoutCart = new Cart();
     const cardToken = await getCardHash().catch(() => setIsLoading(false));
 
     if (!cardToken) {
@@ -180,6 +179,12 @@ const Payment: NextPage = () => {
       signOut();
     }
   }, [error, isAuthenticated, signOut]);
+
+  useEffect(() => {
+    if (!cart.cartTotals.quantity) {
+      router.push(pagePaths.nursery.index);
+    }
+  }, [cart.cartTotals.quantity, router]);
 
   return (
     <>
