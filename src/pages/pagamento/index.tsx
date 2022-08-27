@@ -176,12 +176,6 @@ const Payment: NextPage = () => {
     [checkout, data, toast],
   );
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      signOut();
-    }
-  }, [error, isAuthenticated, signOut]);
-
   return (
     <>
       <Modal
