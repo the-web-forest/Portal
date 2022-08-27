@@ -22,7 +22,7 @@ import Router from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import Settings from '../../../infra/core/settings';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
@@ -143,6 +143,8 @@ export const LoginForm: FC = () => {
           </FilledButton>
           <div className={styles.googleLogin}>
             <GoogleLogin
+              auto_select
+              useOneTap
               onSuccess={credentialResponse => {
                 googleLogin(credentialResponse.credential!);
               }}
