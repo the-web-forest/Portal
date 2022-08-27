@@ -35,10 +35,11 @@ import styles from './styles.module.scss';
 const newPaymentUseCase = new NewPaymentUseCase();
 
 const Payment: NextPage = () => {
-  const { isAuthenticated, signOut } = useContext(AuthContext);
+
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
+
   const [data, setData] = useState<IPaymentData>({
     name: '',
     cardExpiration: '',
@@ -86,6 +87,7 @@ const Payment: NextPage = () => {
           expYear: pagSeguroYear,
           securityCode: data.cardCvv,
         });
+        console.log(card);
 
         if (!card.encryptedCard) {
           reject(error);
