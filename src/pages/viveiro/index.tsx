@@ -1,9 +1,8 @@
 import { useToast } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
-import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import ITreesResponseDTO, {
   ITreeResponse,

@@ -35,7 +35,6 @@ import styles from './styles.module.scss';
 const newPaymentUseCase = new NewPaymentUseCase();
 
 const Payment: NextPage = () => {
-
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
