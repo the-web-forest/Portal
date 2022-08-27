@@ -143,7 +143,7 @@ const Viveiro: NextPage = () => {
       .catch(err => {
         console.error(err);
       });
-  }, [biomes]);
+  }, [biomes, router]);
 
   return (
     <>

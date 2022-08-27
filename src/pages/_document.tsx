@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="icon" href="/favicon.ico" />
         <Script
           src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"
-          strategy="beforeInteractive"
+          strategy="lazyOnload"
         />
       </Head>
       <body>
