@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useCallback, useContext, useState } from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
-import { AuthContext } from '../../contexts/AuthContext';
 import CurrencyHelper from '../../helpers/currency';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
@@ -108,7 +107,10 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const cardToken = await getCardHash().finally(() => setIsLoading(false));
+    const cardToken = await getCardHash().catch(() => {
+      setIsLoading(false);
+      ToastCaller.Error(toast, 'Erro', 'Erro ao criptografar o cartão');
+    });
 
     if (!cardToken) {
       return;
@@ -273,6 +275,15 @@ const Payment: NextPage = () => {
                     />
                   </div>
                 </div>
+                <div className={styles.mobileValue}>
+                  <p>Valor Total</p>
+                  <p>
+                    R$
+                    {CurrencyHelper.mascaraMoeda(
+                      cart.cartTotals.value.toString(),
+                    )}
+                  </p>
+                </div>
               </form>
             </div>
             <div id="card-image-section" className={styles.cardImageSection}>
@@ -289,6 +300,20 @@ const Payment: NextPage = () => {
                 {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
               </p>
               <div className={styles.paymentButton}>
+                <FilledButton
+                  color={FilledColor.budGreen}
+                  onClick={handleSubmit}
+                  type="submit"
+                  width="100%"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Processando' : 'Pagar'}
+                </FilledButton>
+              </div>
+            </div>
+
+            <div className={styles.footerMobile}>
+              <div className={styles.buttonMobile}>
                 <FilledButton
                   color={FilledColor.budGreen}
                   onClick={handleSubmit}
