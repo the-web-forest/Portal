@@ -86,7 +86,6 @@ const Payment: NextPage = () => {
           expYear: pagSeguroYear,
           securityCode: data.cardCvv,
         });
-        console.log(card);
 
         if (!card.encryptedCard) {
           reject(error);
