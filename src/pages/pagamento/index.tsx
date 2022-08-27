@@ -182,12 +182,6 @@ const Payment: NextPage = () => {
     }
   }, [error, isAuthenticated, signOut]);
 
-  useEffect(() => {
-    if (!cart.cartTotals.quantity) {
-      router.push(pagePaths.nursery.index);
-    }
-  }, [cart.cartTotals.quantity, router]);
-
   return (
     <>
       <Modal
