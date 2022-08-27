@@ -276,9 +276,8 @@ const Payment: NextPage = () => {
                   </div>
                 </div>
                 <div className={styles.mobileValue}>
-                  <p>Valor Total</p>
                   <p>
-                    R$
+                    Total - R$
                     {CurrencyHelper.mascaraMoeda(
                       cart.cartTotals.value.toString(),
                     )}
