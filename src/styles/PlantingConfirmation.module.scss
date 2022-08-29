@@ -1,9 +1,12 @@
 .container {
-  position: relative;
+  position: absolute;
   width: 100vw;
   height: 100vh;
   background: var(--lightgray-background);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-image: url('/images/folhas.png');
+  background-position: left bottom;
+  background-repeat: no-repeat;
 
   @media (max-width: 1100px) {
     position: fixed;
@@ -13,44 +16,27 @@
 }
 
 .body {
-  position: absolute;
+  position: relative;
   width: 536px;
   height: 280px;
   left: 30%;
-  top: 234px;
+  top: 100px;
   background: var(--white);
   border-radius: 8px;
 
   @media (max-width: 1100px) {
-    left: 28%;
+    left: 25%;
     width: 450px;
     top: 30%;
 
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     left: 0%;
     width: 400px;
-    top: 30%;
+    top: 19%;
   }
 
-}
-
-.footer {
-position: absolute;
-left: 0%;
-right: 0%;
-bottom: 0%;
-height: 5rem;
-width: 100vh;
-background: #E0EFDD;
-flex-direction: row-reverse;
-justify-items: center;
-
-@media (max-width: 1100px) {
-  width: 100%;
-  position: fixed;
-}
 }
 
 .logo {
@@ -63,7 +49,7 @@ justify-items: center;
   @media (max-width: 1100px) {
    right: 40%;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     right: 30%;
    }
 }
@@ -76,7 +62,7 @@ top: 50px;
 @media (max-width: 1100px) {
   left: 200px;
 }
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   left: 130px;
 }
 }
@@ -84,21 +70,21 @@ top: 50px;
 .text {
 position: absolute;
 height: 30px;
-left: 112px;
+left: 135px;
 top: 116px;
 font-family: "Aprova", sans-serif;
 font-style: normal;
 font-weight: 600;
-font-size: 20px;
+font-size: 15px;
 line-height: 30px;
 color: var(--dark-gray-text);
 
 @media (max-width: 1100px) {
-  left: 120px;
-  font-size: 18px;
+  font-size: 15px;
+  left: 97px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   left: 40px;
   font-size: 13px;
 }
@@ -122,7 +108,7 @@ color: var(--dark-gray-text);
   @media (max-width: 1100px) {
     left: 110px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 750px) {
     left: 35px;
     font-size: 10px;
   }
@@ -130,10 +116,15 @@ color: var(--dark-gray-text);
 
 .doll {
   left: 260px;
-  top: -139px;
+  bottom: 48px;
   position: relative;
 
-  @media (max-width: 700px) {
+  @media (max-width: 1100px) {
+    bottom: 40px;
+    left: 240px;
+  }
+
+  @media (max-width: 750px) {
     left: 170px;
   }
 }
@@ -154,4 +145,10 @@ top: 67px;
 background: var(--bud-green);
 box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.13);
 border-radius: 4px;
+}
+
+.sheets{
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
