@@ -1,7 +1,5 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { Footer } from '../../components/Footer';
-import { WebForestLogo } from '../../components/WebForestLogo';
 import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/PlantingConfirmation.module.scss';
 import { useRouter } from 'next/router';
@@ -10,7 +8,6 @@ import pagePaths from '../../infra/core/pagePaths';
 const PlantingConfirmation: NextPage = () => {
   const router = useRouter();
   const id = router.query.id;
-  console.log(id, 'id');
   const changePage = () => {
     return router.push(pagePaths.dashboard);
   };
@@ -26,9 +23,7 @@ const PlantingConfirmation: NextPage = () => {
           </div>
           <div className={styles.text}>
             {' '}
-            {`Pedido: ${
-              id ? id : '630404149e66c190eb6214ec630404149e66c190eb6214ec'
-            }`}
+            {`Pedido: ${id ? id : '630404149e66c190eb6214ec'}`}
           </div>
           <div className={styles.textConfirm}>
             {' '}
@@ -40,9 +35,6 @@ const PlantingConfirmation: NextPage = () => {
               Ir para minha floresta
             </button>
           </div>
-        </div>
-        <div className={styles.sheets}>
-          <Image src="/images/folhas.png" width={'450vw'} height={'250vh'} />
         </div>
       </div>
     </>
