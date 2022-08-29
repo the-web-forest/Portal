@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   ChangeEventHandler,
   FC,
@@ -39,38 +40,40 @@ export const RecoverPasswordForm: FC = () => {
     }));
   }, [router.query.token, router.query.email]);
 
+  const validateEmptyFields = () => {
+    if (!!!data.email || !!!data.token) {
+      ToastCaller.Error(
+        toast,
+        'Erro',
+        'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
+        3000,
+      );
+      router.push(pagePaths.resendPassword.index);
+    }
+  };
+
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       event.preventDefault();
       try {
         setAwaitAsync(true);
-        if (data.email == undefined || data.token == undefined) {
-          ToastCaller.Error(
-            toast,
-            'Erro',
-            'O Link acessado obteve um erro, caso precise alterar sua senha requisite um novo link.',
-            3000,
-          );
-          router.push({
-            pathname: pagePaths.resendPassword.index,
-          });
-        } else {
-          const errors = await new RecoverPasswordValidate().validate(data);
-          if (Object.keys(errors)?.length > 0) {
-            setError(errors);
-            return;
-          }
-          if (!(data.password == data.confirm)) {
-            setStatusError(true);
-          } else {
-            setStatusError(false);
+        validateEmptyFields();
 
-            const response: boolean = await new PasswordChangeUseCase().run(
-              data,
-            );
-            response && router.push(pagePaths.newPassword.success);
-          }
+        const errors = await new RecoverPasswordValidate().validate(data);
+
+        if (Object.keys(errors)?.length > 0) {
+          setError(errors);
+          return;
         }
+
+        if (data.password !== data.confirm) {
+          setStatusError(true);
+          return;
+        }
+
+        setStatusError(false);
+        const response: boolean = await new PasswordChangeUseCase().run(data);
+        response && router.push(pagePaths.newPassword.success);
       } catch (err: any) {
         if (err instanceof AppError) {
           if (err.error.code == ErrorCode.invalidPasswordReset) {
@@ -78,25 +81,32 @@ export const RecoverPasswordForm: FC = () => {
               pathname: pagePaths.newPassword.expired,
               query: { email: data.email },
             });
-          } else if (err.error.code != null) {
+            return;
+          }
+
+          if (err.error.code) {
             ToastCaller.Error(
               toast,
               'Erro',
               err.error.code + ' - ' + err.error.message,
             );
+            return;
           }
-        } else {
-          ToastCaller.Error(
-            toast,
-            'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
-          );
+
+          return;
         }
+
+        ToastCaller.Error(
+          toast,
+          'Erro',
+          err.message ?? 'Erro imprevisto, contacte o suporte.',
+        );
+        return;
       } finally {
         setAwaitAsync(false);
       }
     },
-    [data, router, toast],
+    [data, router, toast, validateEmptyFields],
   );
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(

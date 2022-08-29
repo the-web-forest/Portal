@@ -1,32 +1,20 @@
-import CreditCardUtils from '../../utils/credit-card-utils';
 import { StrUtils } from '../../utils/str-utils';
 import IPaymentData from './IPaymentData';
 
 export default class PaymentFormValidate {
   private errors: IPaymentData = {} as IPaymentData;
 
-  async validate(formData: IPaymentData): Promise<IPaymentData> {
-    if (!StrUtils.isAValidUserName(formData.name)) {
-      Object.assign(this.errors, {
-        name: 'Nome inválido',
-      });
-    }
-
-    // if (!CreditCardUtils.validCardNumber(formData.cardNumber)) {
-    //   Object.assign(this.errors, {
-    //     cardNumber: 'Cartão de crédito inválido',
-    //   });
-    // }
-
-    // EMPTY AREA
-
+  private validateEmptyFields(formData: IPaymentData) {
     if (!formData.name) {
       Object.assign(this.errors, {
         name: 'Preencha o nome conforme o cartão',
       });
     }
 
-    if (!formData.cardNumber) {
+    if (
+      !formData.cardNumber ||
+      !StrUtils.hasExactCharQuantity(formData.cardNumber, 16)
+    ) {
       Object.assign(this.errors, {
         cardNumber: 'Preencha o número do cartão',
       });
@@ -43,6 +31,16 @@ export default class PaymentFormValidate {
         cardCvv: 'Preencha o código de segurança',
       });
     }
+  }
+
+  async validate(formData: IPaymentData): Promise<IPaymentData> {
+    if (!StrUtils.isAValidUserName(formData.name)) {
+      Object.assign(this.errors, {
+        name: 'Nome inválido',
+      });
+    }
+
+    this.validateEmptyFields(formData);
 
     if (formData.cardExpiration) {
       const currentMonth = new Date().getMonth() + 1;

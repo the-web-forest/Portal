@@ -37,31 +37,29 @@ export const RecoverPasswordForm: FC = () => {
         Response && router.push(pagePaths.resendPassword.success);
       } catch (err: any) {
         if (err instanceof AppError) {
-          switch (err.error.code) {
-            case ErrorCode.unverifiedEmail:
-              ToastCaller.Error(
-                toast,
-                'Erro',
-                'Email inserido não verificado, reencaminhando para a pagina de reenvio de email...',
-                4000,
-              );
-              router.push({ pathname: pagePaths.resendEmail.index });
-              break;
-            default:
-              ToastCaller.Error(
-                toast,
-                'Erro',
-                err.error.code + ' - ' + err.error.message,
-              );
-              break;
+          if (err.error.code && err.error.code === ErrorCode.unverifiedEmail) {
+            ToastCaller.Error(
+              toast,
+              'Erro',
+              'Email inserido não verificado, reencaminhando para a pagina de reenvio de email...',
+              4000,
+            );
+            router.push({ pathname: pagePaths.resendEmail.index });
+            return;
           }
-        } else {
+
           ToastCaller.Error(
             toast,
             'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
+            err.error.code + ' - ' + err.error.message,
           );
+          return;
         }
+        ToastCaller.Error(
+          toast,
+          'Erro',
+          err.message ?? 'Erro imprevisto, contacte o suporte.',
+        );
       } finally {
         setAwaitAsync(false);
       }

@@ -1,18 +1,19 @@
 .container {
-    position: relative;
+    background-color: #FFF;
     z-index: 99;
     height: 80px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    padding: 15px 10% 15px 10%;
+    padding: 15px 5% 15px 5%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    
+    position: fixed;
+    width: 100%;
+
     @media (max-width: 750px) {
         height: 60px;
         padding: 15px 5% 15px 5%;
     }
-
 }
 
 .logo {
@@ -58,13 +59,12 @@
     height: 30px;
     border-radius: 100%;
     color: #FFF;
-    font-family: 'Aprova';
+    font-family: "Aprova", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 30px;
     text-align: center;
-    font-size: 1em;
     margin-left: -15px;
     z-index: 2;
     position: relative;
@@ -89,10 +89,8 @@
     justify-content: center;
     height: auto;
     width: auto;
-    justify-content: space-between;
-    display: row;
     margin-left: 30px;
-    font-family: 'Aprova';
+    font-family: "Aprova", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

@@ -1,5 +1,6 @@
 import { ChangeEventHandler, FocusEventHandler, useState } from 'react';
-import styles from './styles.module.scss';
+import stylesNormal from './styles.module.scss';
+import stylesLight from './styles.light.module.scss';
 import { IoEyeOff, IoEye } from 'react-icons/io5';
 import { useScreen } from '../../providers/screen';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -27,8 +28,9 @@ interface InputProps {
     | 'tel'
     | 'url'
     | 'email'
-    | 'decimal'
-    | undefined;
+    | 'decimal';
+  skin?: 'normal' | 'light';
+  disabled?: boolean;
 }
 
 const Input = ({
@@ -45,6 +47,8 @@ const Input = ({
   inputMode = 'text',
   onBlurFunction,
   id = '',
+  skin = 'normal',
+  disabled = false,
 }: InputProps) => {
   const { isMobile } = useScreen();
   const [hide, setHide] = useState<boolean>(type === 'password');
@@ -65,6 +69,8 @@ const Input = ({
       setShowPasswordRules(false);
     }
   };
+
+  const styles = skin == 'normal' ? stylesNormal : stylesLight;
 
   return (
     <div
@@ -94,6 +100,7 @@ const Input = ({
           style={{ width: isMobile ? '100%' : width }}
           onFocus={unhideRules}
           onBlur={hideRules}
+          disabled={disabled}
         />
         {type === 'password' && (
           <div className={styles.password} onClick={togglePassword}>

@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { SignupHeader } from '../../sections/signup/SignupHeader';
 import styles from '../../styles/PlantingConfirmation.module.scss';
 import { useRouter } from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
+import { SignupHeader } from '../../sections/signup/SignupHeader';
 
 const PlantingConfirmation: NextPage = () => {
   const router = useRouter();
@@ -11,6 +11,7 @@ const PlantingConfirmation: NextPage = () => {
   const changePage = () => {
     return router.push(pagePaths.dashboard);
   };
+
   return (
     <>
       <div className={styles.container}>
@@ -28,11 +29,8 @@ const PlantingConfirmation: NextPage = () => {
           <div className={styles.textConfirm}>
             {' '}
             Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
-            <div className={styles.doll}>
-              <Image src="/images/doll.png" width={137} height={167} />
-            </div>
             <button onClick={() => changePage()} className={styles.button}>
-              Ir para minha floresta
+              Ir para minhas árvores
             </button>
           </div>
         </div>

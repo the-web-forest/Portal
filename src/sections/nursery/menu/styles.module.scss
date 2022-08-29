@@ -1,0 +1,95 @@
+.container {
+    display: flex;
+    border-bottom: 3px solid var(--dark-gray);
+    flex-direction: row;
+
+    @media (max-width: 750px) {
+        display: none;
+    }
+
+}
+
+.button {
+    width: auto;
+    padding: 0px 15px 10px 15px;
+    cursor: pointer;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    &:hover .selected{
+        display: block;
+    }
+
+    @media (max-width: 750px) {
+        display: none;
+    }
+
+}
+
+.selected {
+    background-color: var(--wf-green);
+    width: 90%;
+    height: 8px;
+    border-radius: 2px;
+    position: absolute;
+    bottom: -3px;
+    display: none;
+}
+
+.buttonSelected {
+    @extend .button;
+    .selected {
+        display: block;
+    }
+}
+
+.containerMobile {
+    display: none;
+    margin-top: 20px;
+    height: 35px;
+    
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-x: auto;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 750px) {
+        display: flex;
+       
+    }
+
+}
+
+.buttonMobile {
+    background-color: var(--soft-gray-button);
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    margin: 0px 10px 0px 10px;
+    color: var(--dark-gray-text);
+    font-weight: bold;
+    display: none;
+    text-align: center;
+
+    @media (max-width: 750px) {
+        display: block;
+    }
+}
+
+.buttonMobileSelected {
+    @extend .buttonMobile;
+    color: var(--white);
+    background-color: var(--wf-green);
+}
+
+.desktop {
+    @media (max-width: 750px) {
+        display: none;
+    }
+}

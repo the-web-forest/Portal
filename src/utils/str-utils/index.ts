@@ -17,6 +17,17 @@ export class StrUtils {
 
   public static isAValidUserName(name: string): boolean {
     const regName = /[^a-zà-ú]/gi;
-    return regName.test(name);
+    return regName.test(name.trim());
+  }
+
+  public static formatCurrency(value: number): string {
+    return Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  }
+
+  public static unformatCurrency(value: string): number {
+    return value ? Number(value.replace(/\D/g, '')) / 100 : 0;
   }
 }

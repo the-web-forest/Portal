@@ -22,6 +22,7 @@ import Router from 'next/router';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import Settings from '../../../infra/core/settings';
+import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
@@ -29,14 +30,13 @@ export const LoginForm: FC = () => {
   const [statusError, setStatusError] = useState(false);
   const [awaitAsync, setAwaitAsync] = useState(false);
   const toast = useToast();
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn } = useContext(AuthContext);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       try {
         setAwaitAsync(true);
         event.preventDefault();
-
         const errors = await new LoginFormValidate().validate(data);
         if (Object.keys(errors)?.length > 0) {
           setError(errors);
@@ -95,6 +95,11 @@ export const LoginForm: FC = () => {
     [error],
   );
 
+  const googleLogin = (googleToken: string) => {
+    setAwaitAsync(true);
+    googleSignIn(googleToken).finally(() => setAwaitAsync(false));
+  };
+
   return (
     <div className={styles.container}>
       <title>{`Login - ${Settings.APP_NAME}`}</title>
@@ -108,6 +113,7 @@ export const LoginForm: FC = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <Input
+            disabled={awaitAsync}
             id="email"
             name="email"
             placeholder="E-mail"
@@ -117,6 +123,7 @@ export const LoginForm: FC = () => {
             error={error.email}
           />
           <Input
+            disabled={awaitAsync}
             id="current-password"
             name="password"
             placeholder="Senha"
@@ -126,7 +133,6 @@ export const LoginForm: FC = () => {
             type="password"
             error={error.password}
           />
-
           <FilledButton
             disabled={awaitAsync}
             type="submit"
@@ -135,6 +141,22 @@ export const LoginForm: FC = () => {
           >
             Entrar
           </FilledButton>
+          <div className={styles.googleLogin}>
+            <GoogleLogin
+              auto_select
+              useOneTap
+              onSuccess={credentialResponse => {
+                googleLogin(credentialResponse.credential!);
+              }}
+              onError={() => {
+                ToastCaller.Error(
+                  toast,
+                  'Erro',
+                  'Erro ao realizar o login com o Google',
+                );
+              }}
+            />
+          </div>
 
           <div className={styles.linkContainer}>
             <Link href={pagePaths.resendPassword.index}>

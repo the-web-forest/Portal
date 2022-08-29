@@ -46,7 +46,7 @@
         .link {
           text-align: center;
           margin-top: 15px;
-          font-family: "Aprova";
+          font-family: "Aprova", sans-serif;
           color: var(--dark-gray-text);
           cursor: pointer;
           transition: 0.35s;
@@ -68,4 +68,13 @@
     margin-bottom: 15px;
     margin-top: 15px;
   }
+
+  .googleLogin {
+    width: auto;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }

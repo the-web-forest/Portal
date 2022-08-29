@@ -1,10 +1,4 @@
-import {
-  ChangeEventHandler,
-  CSSProperties,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import { CSSProperties, useCallback, useMemo, useState } from 'react';
 import { useClickOutside } from '../../hooks/outside-click';
 import { useScreen } from '../../providers/screen';
 import { Option } from './Option';
