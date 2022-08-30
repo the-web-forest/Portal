@@ -207,3 +207,4 @@ const CartProvider: FC = ({ children }) => {
 const useCart = () => useContext(CartContext);
 
 export { useCart, CartProvider };
+export type { IContextCartItem };
