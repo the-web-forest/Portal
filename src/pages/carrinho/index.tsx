@@ -62,6 +62,17 @@ const Carrinho: NextPage = () => {
             {cart.items.map(item => (
               <CartItem item={item} />
             ))}
+
+            {cart.cartTotals.quantity >= 1 && (
+              <div className={styles.mobileInfo}>
+                <span>Total R$</span>
+                <span>
+                  {CurrencyHelper.mascaraMoeda(
+                    cart.cartTotals.value.toString(),
+                  )}
+                </span>
+              </div>
+            )}
           </div>
           <div className={styles.summary}>
             <div className={styles.box}>
@@ -92,6 +103,18 @@ const Carrinho: NextPage = () => {
                 </FilledButton>
               </div>
             </div>
+          </div>
+        </div>
+        <div className={styles.footerMobile}>
+          <div className={styles.buttonMobile}>
+            <FilledButton
+              color={FilledColor.budGreen}
+              onClick={() => goToPayment()}
+              type="submit"
+              width="100%"
+            >
+              Continuar para pagamento
+            </FilledButton>
           </div>
         </div>
       </div>

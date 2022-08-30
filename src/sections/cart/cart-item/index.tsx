@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { AiOutlineDelete } from 'react-icons/ai';
 import CurrencyHelper from '../../../helpers/currency';
 import { IContextCartItem, useCart } from '../../../providers/cart';
 import styles from './styles.module.scss';
@@ -26,6 +27,34 @@ const CartItem = ({ item }: CartItemProps) => {
           >
             Remover
           </a>
+        </div>
+      </div>
+
+      <div className={styles.mobileData}>
+        <div className={styles.mobileName}>{item.name}</div>
+        <div className={styles.mobileMeta}>
+          <div>R$ {CurrencyHelper.mascaraMoeda(item.value.toString())}</div>
+          <div className={styles.mobileButtons}>
+            <button
+              onClick={() => cart.removeItemQuantity(item.id)}
+              className={styles.mobileButton}
+            >
+              -
+            </button>
+            <p className={styles.mobileQuantity}>{item.quantity}</p>
+            <button
+              onClick={() => cart.addItemToCart(item)}
+              className={styles.mobileButton}
+            >
+              +
+            </button>
+          </div>
+          <div onClick={() => cart.removeItemOfCart(item.id)}>
+            <AiOutlineDelete
+              color="#4C4C4C"
+              style={{ width: '25px', height: '25px' }}
+            />
+          </div>
         </div>
       </div>
 

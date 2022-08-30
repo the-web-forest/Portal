@@ -202,8 +202,9 @@
     @media (max-width: 750px) {
         display: flex;
     }
+
+    .buttonMobile {
+        width: 50%;
+    }
 }
 
-.buttonMobile {
-    width: 50%;
-}
