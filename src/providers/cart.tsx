@@ -13,6 +13,7 @@ import CookiesEnum from '../infra/core/CookiesEnum';
 
 export interface ICartItem {
   readonly id: string;
+  readonly photo: string;
   readonly name: string;
   readonly value: number;
 }

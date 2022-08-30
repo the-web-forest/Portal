@@ -3,16 +3,15 @@
   width: 100vw;
   height: 100vh;
   background: url('/images/folhas-bg.png') left bottom no-repeat;
+  align-items: center;
+  justify-content: center;
 }
 
 .boxCart {
   width: 80vw;
+  max-height: 70vh;
+  height: 70vh;
   margin: auto;
-
-  .containerTitle {
-    background-color: #ececec;
-  }
-
   .containerSummary {
     width: 260px;
     height: 344px;
@@ -74,14 +73,132 @@
     }
   }
 
-  .items {
-    flex: 1;
-    background-color: aqua;
+  .section {
+    display: flex;
   }
+
+  .items {
+    padding-right: 10px;
+    max-height: 70vh;
+    flex: 1;
+    background-color: var(--white);
+    overflow: scroll;
+
+    .headers {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      border-bottom: 2px solid var(--dark-gray-text);
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      
+      .valueText {
+        text-align: center;
+        background-color: red;
+      }
+
+      .headerTree {
+        width: 50%;
+        text-align: left;
+        color: var(--dark-gray-text);
+      }
+
+      .headerButtons {
+        text-align: center;
+        width: 25%;
+        text-align: center;
+      }
+
+      .headerPrice {
+        width: 25%;
+        text-align: center;
+      }
+
+    }
+
+  }
+
 }
 
 .title {
   text-rendering: optimizeLegibility;
   font-size: 1.7rem;
   color: var(--dark-gray-text);
+  margin-bottom: 30px;
+}
+
+
+.cartItem {
+  width: auto;
+  display: flex;
+  height: 90px;
+  flex-direction: row;
+  margin-bottom: 15px;
+
+  .name {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    color: var(--dark-gray-text);
+    
+    .data {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-left: 10px;
+    }
+
+    .text {
+      font-size: 1.5em;
+    }
+  
+    .remove {
+      color: var(--wf-green);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .buttons {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    .quantity {
+      margin: 0 10px 0 10px;
+      color: var(--dark-grey-text);
+      min-width: 25px;
+      text-align: center;
+      justify-content: center;
+    }
+  
+    .button {
+      border: 1px solid var(--wf-green);
+      border-radius: 100%;
+      width: 30px;
+      height: 30px;
+      color: var(--wf-green);
+      font-size: 1.5em;  
+      text-align: center;
+      line-height: 0px;
+    }
+  }
+
+  .price {
+    width: 25%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: var(--dark-gray-text);
+    justify-content: center;
+  }
+
+}
+
+.cartItem:last-child {
+  margin-bottom: 0px;
 }
