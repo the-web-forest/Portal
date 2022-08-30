@@ -1,7 +1,10 @@
 const ApiURI = {
   User: {
     index: '/User',
-    login: '/User/Login',
+    login: {
+      index: '/User/Login',
+      google: '/User/Login/Google',
+    },
     passwordChange: '/User/Password/Change',
     resetPassword: '/Email/Send/PasswordReset',
     verifyEmail: '/Email/Check',

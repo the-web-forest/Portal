@@ -2,6 +2,10 @@
     display: flex;
     margin-top: 30px;
     flex-wrap: wrap;
+
+    @media (max-width: 750px) {
+        margin-top: 10px;
+    }
 }
 
 .container::selection {

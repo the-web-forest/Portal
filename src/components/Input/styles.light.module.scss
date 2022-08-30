@@ -17,6 +17,16 @@
     font-style: normal;
     font-weight: normal;
     background-color: var(--lightgray-background);
+    border: 1px solid transparent;
+}
+
+.container:focus {
+    border: 1px solid var(--wf-green);
+}
+
+.container:disabled {
+    cursor: wait;
+   color: var(--soft-gray);
 }
 
 .password {
@@ -37,8 +47,8 @@
 .errorText {
     font-size: 14px;
     font-family: "Aprova", sans-serif;
-    color: var(--dark-gray-text);
     margin-top: 5px;
+    color: var(--red-error);
 }
 
 .rulesContainer {

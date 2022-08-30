@@ -1,21 +1,25 @@
 import { HttpService } from '../services/HTTP.service';
 import { IHTTPService } from '../services/interfaces/IHTTPService';
-import ILoginData from '../../validations/DTO/ILoginData';
 import ILoginResponseDTO from '../dtos/Login/ILoginResponse.dto';
 import ApiURI from '../core/apiURI';
 import ApiErrors from '../errors/ApiErrors';
 import loginError from '../errors/LoginErrors';
+import IGoogleLoginData from '../../validations/DTO/IGoogleLoginData';
 
-export default class LoginUserUseCase {
+export default class GoogleLoginUserUseCase {
   private readonly httpService: IHTTPService;
   constructor() {
     this.httpService = new HttpService();
   }
 
-  async run(formData: ILoginData): Promise<ILoginResponseDTO> {
+  async run(googleToken: string): Promise<ILoginResponseDTO> {
+    const formData: IGoogleLoginData = {
+      token: googleToken,
+    };
+
     try {
-      return await this.httpService.post<ILoginData, ILoginResponseDTO>(
-        ApiURI.User.login.index,
+      return await this.httpService.post<IGoogleLoginData, ILoginResponseDTO>(
+        ApiURI.User.login.google,
         formData,
       );
     } catch (error: any) {

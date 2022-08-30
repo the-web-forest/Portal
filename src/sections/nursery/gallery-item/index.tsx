@@ -24,7 +24,7 @@ const NurseryGalleryItem = ({
       value: data.value,
       name: data.name,
     };
-    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada com sucesso!');
+    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada no carrinho');
     cart.addItemToCart(item);
   };
 

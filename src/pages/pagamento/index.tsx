@@ -11,16 +11,9 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-  FormEventHandler,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { FormEventHandler, useCallback, useContext, useState } from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
-import { AuthContext } from '../../contexts/AuthContext';
 import CurrencyHelper from '../../helpers/currency';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
@@ -33,7 +26,7 @@ import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
 import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
-import Cart, { CartItem } from '../../utils/cart-utils';
+import { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
 import PaymentFormValidate from '../../validations/DTO/PaymentForm.validate';
 import styles from './styles.module.scss';
@@ -41,11 +34,16 @@ import styles from './styles.module.scss';
 const newPaymentUseCase = new NewPaymentUseCase();
 
 const Payment: NextPage = () => {
-  const { isAuthenticated, signOut } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
-  const [data, setData] = useState<IPaymentData>({} as IPaymentData);
+
+  const [data, setData] = useState<IPaymentData>({
+    name: '',
+    cardExpiration: '',
+    cardNumber: '',
+    cardCvv: '',
+  } as IPaymentData);
   const [error, setError] = useState<IPaymentData>({} as IPaymentData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
@@ -109,8 +107,10 @@ const Payment: NextPage = () => {
   const checkout = useCallback(async () => {
     setError({} as IPaymentData);
     setIsLoading(true);
-    const checkoutCart = new Cart();
-    const cardToken = await getCardHash().catch(() => setIsLoading(false));
+    const cardToken = await getCardHash().catch(() => {
+      setIsLoading(false);
+      ToastCaller.Error(toast, 'Erro', 'Erro ao criptografar o cartão');
+    });
 
     if (!cardToken) {
       return;
@@ -123,11 +123,13 @@ const Payment: NextPage = () => {
     newPaymentUseCase
       .run(items, cardToken)
       .then(res => {
-        cart.clearCart();
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
         });
+        setTimeout(() => {
+          cart.clearCart();
+        }, 500);
       })
       .catch(err => {
         setShowErrorModal(true);
@@ -135,7 +137,7 @@ const Payment: NextPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [cart, getCardHash, router]);
+  }, [cart, getCardHash, router, toast]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
@@ -169,12 +171,6 @@ const Payment: NextPage = () => {
     },
     [checkout, data, toast],
   );
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      signOut();
-    }
-  }, [error, isAuthenticated, signOut]);
 
   return (
     <>
@@ -227,6 +223,7 @@ const Payment: NextPage = () => {
                     error={error.name}
                     skin="light"
                     placeholder="Escreva conforme o cartão"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className={styles.inputLine}>
@@ -240,6 +237,7 @@ const Payment: NextPage = () => {
                     error={error.cardNumber}
                     skin="light"
                     placeholder="Escreva o número do cartão"
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -257,6 +255,7 @@ const Payment: NextPage = () => {
                       maxLength={7}
                       skin="light"
                       placeholder="00/00"
+                      disabled={isLoading}
                     />
                   </div>
                   <div className={styles.formColumn}>
@@ -272,8 +271,17 @@ const Payment: NextPage = () => {
                       maxLength={4}
                       skin="light"
                       placeholder="000"
+                      disabled={isLoading}
                     />
                   </div>
+                </div>
+                <div className={styles.mobileValue}>
+                  <p>
+                    Total - R$
+                    {CurrencyHelper.mascaraMoeda(
+                      cart.cartTotals.value.toString(),
+                    )}
+                  </p>
                 </div>
               </form>
             </div>
@@ -291,6 +299,20 @@ const Payment: NextPage = () => {
                 {CurrencyHelper.mascaraMoeda(cart.cartTotals.value.toString())}
               </p>
               <div className={styles.paymentButton}>
+                <FilledButton
+                  color={FilledColor.budGreen}
+                  onClick={handleSubmit}
+                  type="submit"
+                  width="100%"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Processando' : 'Pagar'}
+                </FilledButton>
+              </div>
+            </div>
+
+            <div className={styles.footerMobile}>
+              <div className={styles.buttonMobile}>
                 <FilledButton
                   color={FilledColor.budGreen}
                   onClick={handleSubmit}

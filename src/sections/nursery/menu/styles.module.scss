@@ -1,7 +1,12 @@
 .container {
-    border-bottom: 3px solid var(--dark-gray);
     display: flex;
+    border-bottom: 3px solid var(--dark-gray);
     flex-direction: row;
+
+    @media (max-width: 750px) {
+        display: none;
+    }
+
 }
 
 .button {
@@ -18,13 +23,10 @@
         display: block;
     }
 
-}
-
-.buttonSelected {
-    @extend .button;
-    .selected {
-        display: block;
+    @media (max-width: 750px) {
+        display: none;
     }
+
 }
 
 .selected {
@@ -35,4 +37,59 @@
     position: absolute;
     bottom: -3px;
     display: none;
+}
+
+.buttonSelected {
+    @extend .button;
+    .selected {
+        display: block;
+    }
+}
+
+.containerMobile {
+    display: none;
+    margin-top: 20px;
+    height: 35px;
+    
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-x: auto;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 750px) {
+        display: flex;
+       
+    }
+
+}
+
+.buttonMobile {
+    background-color: var(--soft-gray-button);
+    padding: 5px 10px 5px 10px;
+    border-radius: 30px;
+    margin: 0px 10px 0px 10px;
+    color: var(--dark-gray-text);
+    font-weight: bold;
+    display: none;
+    text-align: center;
+
+    @media (max-width: 750px) {
+        display: block;
+    }
+}
+
+.buttonMobileSelected {
+    @extend .buttonMobile;
+    color: var(--white);
+    background-color: var(--wf-green);
+}
+
+.desktop {
+    @media (max-width: 750px) {
+        display: none;
+    }
 }
