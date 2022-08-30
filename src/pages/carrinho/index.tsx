@@ -7,95 +7,92 @@ import FilledButton, { FilledColor } from '../../components/FilledButton';
 import CurrencyHelper from '../../helpers/currency';
 import { useRouter } from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
+import CartItem from '../../sections/cart/cart-item';
+import ToastCaller from '../../infra/toast/ToastCaller';
+import { useToast } from '@chakra-ui/react';
 
 const Carrinho: NextPage = () => {
   const cart = useCart();
   const router = useRouter();
+  const toast = useToast();
+
+  const goToPayment = async (): Promise<boolean> => {
+    if (cart.cartTotals.quantity <= 0) {
+      ToastCaller.Warning(toast, 'Atenção', 'Seu carrinho está vazio');
+      return false;
+    }
+
+    return router.push(pagePaths.payment.index);
+  };
+
   return (
     <>
-      <Header title="carrinho" />
-      <div id="container" className={styles.container}>
-        <div className={styles.boxCart}>
-          <div className={styles.containerTitle}>
-            <p className={styles.title}>Meu Carrinho</p>
-          </div>
-          <section style={{ display: 'flex' }}>
-            <div className={styles.items}>
-              <div className={styles.headers}>
-                <div className={`${styles.headerTree}`}>Árvore escolhida</div>
-                <div className={styles.headerButtons}>Quantidade</div>
-                <div className={styles.headerPrice}>Valor</div>
+      <Header title="Carrinho" />
+      <div className={styles.container}>
+        <div className={styles.title}>Meu carrinho</div>
+        <div className={styles.data}>
+          <div className={styles.items}>
+            <div className={styles.headers}>
+              <div className={styles.tree}>
+                <span>Árvore escolhida</span>
               </div>
-              {cart.items.map(item => {
-                return (
-                  <div className={styles.cartItem}>
-                    <div className={styles.name}>
-                      <Image src={item.photo} width={160} height={90} />
-                      <div className={styles.data}>
-                        <span className={styles.text}>{item.name}</span>
-                        <span
-                          onClick={() => cart.removeItemOfCart(item.id)}
-                          className={styles.remove}
-                        >
-                          Remover
-                        </span>
-                      </div>
-                    </div>
-                    <div className={styles.buttons}>
-                      <button
-                        onClick={() => cart.removeItemQuantity(item.id)}
-                        className={styles.button}
-                      >
-                        -
-                      </button>
-                      <p className={styles.quantity}>
-                        {cart.getItemQuantity(item.id)}
-                      </p>
-                      <button
-                        onClick={() => cart.addItemToCart(item)}
-                        className={styles.button}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className={styles.price}>
-                      R$
-                      {CurrencyHelper.mascaraMoeda(item.value.toString())}
-                    </div>
-                  </div>
-                );
-              })}
+              <div className={styles.buttons}>
+                <span>Quantidade</span>
+              </div>
+              <div className={styles.price}>
+                <span>Valor</span>
+              </div>
             </div>
+            {cart.items.length == 0 && (
+              <div className={styles.emptyCart}>
+                <span>Seu carrinho está vazio</span>
+                <div className={styles.button}>
+                  <FilledButton
+                    color={FilledColor.budGreen}
+                    onClick={() => router.push(pagePaths.nursery.index)}
+                    type="submit"
+                    width="250px"
+                  >
+                    Selecionar Árvores
+                  </FilledButton>
+                </div>
+              </div>
+            )}
 
-            <div className={styles.containerSummary}>
-              <div className={styles.headerTitle}>
-                <Image src="/images/icons/summary.svg" width={28} height={28} />
+            {cart.items.map(item => (
+              <CartItem item={item} />
+            ))}
+          </div>
+          <div className={styles.summary}>
+            <div className={styles.box}>
+              <div className={styles.header}>
                 <span>Resumo</span>
               </div>
-              <div className={styles.contentSummary}>
-                <div className={styles.quantityRow}>
-                  <p>Quantidade Total</p>
-                  <span>{cart.cartTotals.quantity}</span>
-                </div>
-                <div className={styles.valueRow}>
-                  <p>Valor Total</p>
-                  <span>
-                    R$
-                    {CurrencyHelper.mascaraMoeda(
-                      cart.cartTotals.value.toString(),
-                    )}
-                  </span>
-                </div>
+              <div className={styles.boxData}>
+                <span>Quantidade Total</span>
+                <span className={styles.cartTotals}>
+                  {cart.cartTotals.quantity}
+                </span>
+                <span className={styles.totalValueText}>Valor Total</span>
+                <span className={styles.totalValue}>
+                  R$
+                  {CurrencyHelper.mascaraMoeda(
+                    cart.cartTotals.value.toString(),
+                  )}
+                </span>
+
                 <FilledButton
                   color={FilledColor.budGreen}
-                  width="220px"
-                  onClick={() => router.push(pagePaths.payment.index)}
+                  onClick={() => goToPayment()}
+                  type="submit"
+                  width="80%"
+                  disabled={false}
                 >
                   Continuar
                 </FilledButton>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </>
