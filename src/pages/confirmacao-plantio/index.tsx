@@ -1,38 +1,19 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
-import styles from '../../styles/PlantingConfirmation.module.scss';
+import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
-import pagePaths from '../../infra/core/pagePaths';
-import { SignupHeader } from '../../sections/signup/SignupHeader';
+import { PlantSuccess } from '../../sections/plant/success';
+import Header from '../../sections/header';
 
 const PlantingConfirmation: NextPage = () => {
   const router = useRouter();
-  const id = router.query.id;
-  const changePage = () => {
-    return router.push(pagePaths.dashboard);
-  };
+  const id = router.query.id as string;
 
   return (
     <>
+      <Header title={'Plantio realizado com sucesso'} />
       <div className={styles.container}>
-        <div>
-          <SignupHeader />
-        </div>
         <div className={styles.body}>
-          <div className={styles.circle}>
-            <Image src="/images/check-circle.png" width={48} height={48} />
-          </div>
-          <div className={styles.text}>
-            {' '}
-            {`Pedido: ${id ? id : '630404149e66c190eb6214ec'}`}
-          </div>
-          <div className={styles.textConfirm}>
-            {' '}
-            Parabéns as árvores escolhidas foram plantadas com sucesso!{' '}
-            <button onClick={() => changePage()} className={styles.button}>
-              Ir para minhas árvores
-            </button>
-          </div>
+          <PlantSuccess plantId={id} />
         </div>
       </div>
     </>
