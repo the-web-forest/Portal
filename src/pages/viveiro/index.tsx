@@ -74,7 +74,7 @@ const Viveiro: NextPage = () => {
 
   const plantTrees = () => {
     if (cart.cartTotals.quantity > 0) {
-      router.push(pagePaths.payment.index);
+      router.push(pagePaths.payment.shoppingCart);
     } else {
       ToastCaller.Warning(
         toast,

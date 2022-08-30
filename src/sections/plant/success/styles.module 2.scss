@@ -1,0 +1,53 @@
+.container {
+    height: 300px;
+    position: absolute;
+    z-index: 100;
+    background-color: var(--white);
+    align-self: center;
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    h2 {
+      font-family: "Aprova", sans-serif;
+      font-size: 1em;
+      font-weight: bold;
+    }
+  
+    span {
+      font-family: "Aprova", sans-serif;
+      font-size: 1em;
+      opacity: 0.8;
+    }
+  
+    .buttonDiv {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 750px)  {
+      width: 90%;
+    }
+  
+    @media (min-width: 750px) {
+      width: 600px;
+    }
+  }
+  
+  .iconWrapper {
+    position: absolute;
+    right: -65px;
+    bottom: -40px;
+  
+    svg {
+      transition: 0.3s;
+    }
+  
+    @media (max-width: 750px) {
+      right: -5px;
+      > svg {
+        width: 100px;
+      }
+    }
+  }
