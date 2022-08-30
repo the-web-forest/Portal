@@ -137,7 +137,7 @@ const Payment: NextPage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [cart, getCardHash, router]);
+  }, [cart, getCardHash, router, toast]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {

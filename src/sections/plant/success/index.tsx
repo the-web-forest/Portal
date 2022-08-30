@@ -1,5 +1,4 @@
-import router, { useRouter } from 'next/router';
-import { FC } from 'react';
+import { useRouter } from 'next/router';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import pagePaths from '../../../infra/core/pagePaths';
@@ -10,7 +9,6 @@ interface PlantSuccessProps {
 }
 
 export const PlantSuccess = ({ plantId }: PlantSuccessProps) => {
-
   const router = useRouter();
   const changePage = () => {
     return router.push(pagePaths.forest.index);
