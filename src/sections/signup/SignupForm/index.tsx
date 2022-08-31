@@ -26,6 +26,8 @@ import Settings from '../../../infra/core/settings';
 import { useToast } from '@chakra-ui/react';
 import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
+import userNameMask from '../../../masks/userName.mask';
+import { StrUtils } from '../../../utils/str-utils';
 
 interface Props {
   states: StateEntity[];
@@ -44,8 +46,10 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
       try {
         setAwaitAsync(true);
         event.preventDefault();
-        if (!!formErrors.email) return;
-        const errors = await new SignUpFormValidade().validate(formData);
+        const errors = await new SignUpFormValidade().validate(
+          formData,
+          formErrors,
+        );
         if (Object.keys(errors)?.length > 0) {
           setFormErrors(errors);
         } else {
@@ -86,12 +90,22 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formData, formErrors, router, toast],
   );
 
-  const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
+  const handleSelectChange: OnChangeSelect = useCallback(
+    (name, value) => {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+
+      if (formErrors[name as keyof ISignupData]) {
+        setFormErrors(prevState => ({
+          ...prevState,
+          [name]: undefined,
+        }));
+      }
+    },
+    [formErrors],
+  );
 
   const handleCities = useCallback(async (state: string) => {
     try {
@@ -105,9 +119,13 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     }
   }, []);
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    event => {
-      const { name, value } = event.target;
+  const handleChange = useCallback(
+    (event, mask?) => {
+      let { name, value } = event.target;
+
+      if (mask) {
+        value = mask(value);
+      }
       setFormData(prevState => ({
         ...prevState,
         [name]: value,
@@ -127,23 +145,42 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     async event => {
       const { name, value } = event.target;
       try {
-        await new VerifyEmailUseCase().run(value);
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value,
-        }));
+        if (StrUtils.isEmailValid(value)) {
+          await new VerifyEmailUseCase().run(value);
+          setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+          }));
 
-        if (formErrors[name as keyof ISignupData]) {
+          if (formErrors[name as keyof ISignupData]) {
+            setFormErrors(prevState => ({
+              ...prevState,
+              [name]: undefined,
+            }));
+          }
+        } else if (value != '') {
           setFormErrors(prevState => ({
             ...prevState,
-            [name]: undefined,
+            email: 'Email informado é inválido',
+          }));
+        } else {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: 'Email é obrigatório',
           }));
         }
-      } catch {
-        setFormErrors(prevState => ({
-          ...prevState,
-          email: 'E-mail já cadastrado',
-        }));
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: err.message,
+          }));
+        } else {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: 'Erro imprevisto',
+          }));
+        }
       }
     },
     [formErrors],
@@ -176,15 +213,17 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           placeholder="Nome"
           name="name"
           id="name"
+          inputMode="text"
           value={formData.name}
           error={formErrors.name}
-          onChangeFunction={handleChange}
+          onChangeFunction={e => handleChange(e, userNameMask)}
           width="352px"
         />
         <Input
           placeholder="Email"
           name="email"
           id="email"
+          inputMode="email"
           value={formData.email}
           error={formErrors.email}
           onChangeFunction={handleChange}
