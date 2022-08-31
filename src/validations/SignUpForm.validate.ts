@@ -4,29 +4,30 @@ import ISignupData from './DTO/ISignupData';
 export default class SignUpFormValidade {
   private errors: ISignupData = {} as ISignupData;
 
-  async validate(formData: ISignupData, formCurrentErrors: ISignupData): Promise<ISignupData> {
+  async validate(
+    formData: ISignupData,
+    formCurrentErrors: ISignupData,
+  ): Promise<ISignupData> {
     !formData.name &&
       Object.assign(this.errors, {
         name: 'Nome é obrigatório',
       });
-    
+
     !StrUtils.isAValidUserName(formData.name) &&
       Object.assign(this.errors, {
         name: 'Nome inválido',
       });
 
-    if(formCurrentErrors.email == null){
+    if (formCurrentErrors.email == null) {
       !formData.email &&
         Object.assign(this.errors, {
           email: 'Email é obrigatório',
         });
-    }
-    else{
+    } else {
       Object.assign(this.errors, {
         email: formCurrentErrors.email,
       });
     }
-    
 
     !formData.state &&
       Object.assign(this.errors, {

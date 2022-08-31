@@ -126,7 +126,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     (event, mask?) => {
       let { name, value } = event.target;
 
-      if(mask){
+      if (mask) {
         value = mask(value);
       }
       setFormData(prevState => ({
@@ -148,7 +148,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     async event => {
       const { name, value } = event.target;
       try {
-        if(StrUtils.isEmailValid(value)){
+        if (StrUtils.isEmailValid(value)) {
           await new VerifyEmailUseCase().run(value);
           setFormData(prevState => ({
             ...prevState,
@@ -161,14 +161,12 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
               [name]: undefined,
             }));
           }
-        }
-        else if(value != ""){
+        } else if (value != '') {
           setFormErrors(prevState => ({
             ...prevState,
-            email: "Email informado é inválido",
+            email: 'Email informado é inválido',
           }));
-        }
-        else{
+        } else {
           setFormErrors(prevState => ({
             ...prevState,
             email: 'Email é obrigatório',
@@ -221,7 +219,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           inputMode="text"
           value={formData.name}
           error={formErrors.name}
-          onChangeFunction={e=> handleChange(e, userNameMask)}
+          onChangeFunction={e => handleChange(e, userNameMask)}
           width="352px"
         />
         <Input

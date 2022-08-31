@@ -16,20 +16,18 @@ export default class VerifyEmailUseCase {
   }
 
   async run(email: string): Promise<boolean> {
-    try{
+    try {
       const response = await this.httpService.get<Response>(
         `${ApiURI.User.verifyEmail}?email=${email}`,
       );
-      return !!(response.status);
-    }
-    catch(error : any){
+      return !!response.status;
+    } catch (error: any) {
       const { data } = error.response;
-      if(data === undefined){
+      if (data === undefined) {
         console.error('Unknow Error:', error);
       }
-      console.log(data)
+      console.log(data);
       throw new ApiErrors(SendEmailToValidateError).getError(data.Code);
     }
-    
   }
 }
