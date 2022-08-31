@@ -29,7 +29,6 @@ import ErrorCode from '../../../infra/errors/ErrorCodes';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
-import { stringify } from 'querystring';
 
 interface Props {
   states: StateEntity[];
@@ -48,7 +47,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
       try {
         setAwaitAsync(true);
         event.preventDefault();
-        //if (!!formErrors.email) return;
         const errors = await new SignUpFormValidade().validate(
           formData,
           formErrors,
