@@ -7,6 +7,7 @@ import Vibrate from '../../utils/vibrate';
 import { useCart } from '../../providers/cart';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import Settings from '../../infra/core/settings';
 
 interface HeaderProps {
   title?: string;
@@ -31,7 +32,7 @@ const Header = ({ title }: HeaderProps) => {
   };
 
   const renderTitle = () => {
-    let headerTitle = 'Web Forest';
+    let headerTitle = Settings.APP_NAME;
 
     if (title) {
       headerTitle = `${headerTitle} - ${title}`;
