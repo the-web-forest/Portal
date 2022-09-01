@@ -1,11 +1,11 @@
 import axios from 'axios';
 import cachios from 'cachios';
 import { parseCookies } from 'nookies';
-import AppConfig from './appConfig';
 import CookiesEnum from './CookiesEnum';
+import Settings from './settings';
 
 const axiosInstance = axios.create({
-  baseURL: AppConfig.baseURL,
+  baseURL: Settings.getApiUrl(),
 });
 
 axiosInstance.interceptors.request.use(config => {

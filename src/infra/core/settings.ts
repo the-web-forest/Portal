@@ -20,4 +20,8 @@ export default class Settings {
   public static getGoogleTagKey(): string {
     return process.env.NEXT_PUBLIC_GOOGLE_TAG_KEY!;
   }
+
+  public static getApiUrl(): string {
+    return process.env.NEXT_PUBLIC_API_URL!;
+  }
 }
