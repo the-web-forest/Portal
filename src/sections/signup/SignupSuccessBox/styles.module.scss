@@ -40,9 +40,13 @@
   }
 
   @media (max-width: 750px) {
-    right: -5px;
+    right: -15px;
     > svg {
-      width: 100px;
+      width: 90px;
     }
+  }
+
+  @media (max-width: 350px) {
+    position: initial;
   }
 }
