@@ -35,6 +35,10 @@ const pagePaths = {
   nursery: {
     index: '/viveiro',
   },
+  forest: {
+    index: '/minha-floresta',
+    plant: '/minha-floresta/plantio',
+  },
 };
 
 export default pagePaths;

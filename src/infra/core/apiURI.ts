@@ -1,7 +1,10 @@
 const ApiURI = {
   User: {
     index: '/User',
-    login: '/User/Login',
+    login: {
+      index: '/User/Login',
+      google: '/User/Login/Google',
+    },
     passwordChange: '/User/Password/Change',
     resetPassword: '/Email/Send/PasswordReset',
     verifyEmail: '/Email/Check',
@@ -10,7 +13,11 @@ const ApiURI = {
   },
   States: '/States',
   Cities: '/Cities',
-  Plant: '/Plant',
+  Plant: {
+    index: '/Plant',
+    detail: '/Plant/{plantId}',
+    customize: '/Plant/Customize',
+  },
   Trees: {
     index: '/Tree',
     biomes: {

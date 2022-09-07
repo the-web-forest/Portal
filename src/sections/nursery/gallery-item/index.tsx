@@ -19,13 +19,13 @@ const NurseryGalleryItem = ({
   const cart = useCart();
 
   const addItem = () => {
-    const item: ICartItem = {
+    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada no carrinho');
+    cart.addItemToCart({
       id: data.id,
       value: data.value,
       name: data.name,
-    };
-    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada com sucesso!');
-    cart.addItemToCart(item);
+      photo: data.image,
+    });
   };
 
   const removeItem = () => {

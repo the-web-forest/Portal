@@ -1,6 +1,8 @@
-import styles from './styles.module.scss';
+import stylesNormal from './styles.module.scss';
+import stylesLight from './styles.light.module.scss';
 
 interface TextAreaProps {
+  skin: 'normal' | 'light';
   name: string;
   cols: number;
   rows: number;
@@ -9,6 +11,7 @@ interface TextAreaProps {
   value: string;
   onChangeFunction: (val: string) => void;
   error?: boolean;
+  disabled?: boolean;
 }
 
 const TextArea = ({
@@ -20,6 +23,8 @@ const TextArea = ({
   value,
   onChangeFunction,
   error = false,
+  skin,
+  disabled = false,
 }: TextAreaProps) => {
   const isOnErrorState = () => error === true;
 
@@ -27,17 +32,19 @@ const TextArea = ({
     return isOnErrorState() ? styles.error : String.call(null);
   };
 
+  const styles = skin == 'normal' ? stylesNormal : stylesLight;
+
   return (
     <textarea
       name={name}
-      id={styles.container}
       cols={cols}
       rows={rows}
       placeholder={placeholder}
       maxLength={maxLength}
       value={value}
       onChange={e => onChangeFunction(e.target.value)}
-      className={getClass()}
+      className={styles.container}
+      disabled={disabled}
     />
   );
 };

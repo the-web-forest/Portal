@@ -1,5 +1,5 @@
 export default class Settings {
-  public static APP_NAME = 'Web Forest';
+  public static APP_NAME = 'Portal - Web Forest';
   public static APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   public static FACEBOOK_URL = 'https://facebook.com/webforesteco';
   public static INSTAGRAM_URL = 'https://www.instagram.com/webforesteco';
@@ -19,5 +19,9 @@ export default class Settings {
 
   public static getGoogleTagKey(): string {
     return process.env.NEXT_PUBLIC_GOOGLE_TAG_KEY!;
+  }
+
+  public static getApiUrl(): string {
+    return process.env.NEXT_PUBLIC_API_URL!;
   }
 }

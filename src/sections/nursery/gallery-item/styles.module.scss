@@ -46,24 +46,24 @@
 .buttons {
     display: flex;
     flex-direction: row;
-}
 
-.quantity {
-    margin: 0 10px 0 10px;
-    color: var(--dark-grey-text);
-    min-width: 25px;
-    text-align: center;
-}
-
-.button {
-    background-color: #E5ECE1;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    color: var(--wf-green);
-    font-size: 1.5em;  
-    text-align: center;
-    line-height: 0px;
+    .quantity {
+        margin: 0 10px 0 10px;
+        color: var(--dark-grey-text);
+        min-width: 25px;
+        text-align: center;
+    }
+    
+    .button {
+        border: 1px solid var(--wf-green);
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        color: var(--wf-green);
+        font-size: 1.5em;  
+        text-align: center;
+        line-height: 0px;
+    }
 }
 
 .details {

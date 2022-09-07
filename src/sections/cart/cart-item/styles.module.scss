@@ -1,0 +1,150 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 100px;
+    border-radius: 5px;
+    padding: 5px;
+    overflow: hidden;
+
+    @media (max-width: 750px) {
+        background-color: var(--white);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .mobileData {
+        display: none;
+        width: 75%;
+        flex-direction: column;
+        padding: 5px;
+        justify-content: space-between;
+        
+        @media (max-width: 750px) {
+            display: flex;
+        }
+
+        .mobileName {
+            color: var(--dark-gray-text);
+        }
+
+        .mobileMeta {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            .mobileButtons {
+                display: none;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+        
+                @media (max-width: 750px) {
+                    display: flex;
+                }
+        
+                .mobileQuantity {
+                    margin: 0 10px 0 10px;
+                    color: var(--dark-grey-text);
+                    min-width: 25px;
+                    text-align: center;
+                }
+                
+                .mobileButton {
+                    border: 1px solid var(--wf-green);
+                    border-radius: 100%;
+                    width: 25px;
+                    height: 25px;
+                    color: var(--wf-green);
+                    font-size: 1.5em;  
+                    text-align: center;
+                    line-height: 0px;
+                }
+            }
+        }
+    }
+
+    .photoName {
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+
+        @media (max-width: 750px) {
+            width: 25%;   
+        }
+
+        .photo {
+            border-radius: 5px;
+        }
+        
+        .text {
+            justify-content: flex-end;
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+
+            @media (max-width: 750px) {
+                display: none;
+            }
+
+            .name {
+                font-size: 1.2em;
+                color: var(--dark-gray-text);
+            }
+
+            .remove {
+                text-decoration: underline;
+                cursor: pointer;
+                color: var(--wf-green);
+            }
+        }
+
+    }
+
+   
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        width: 25%;
+        align-items: center;
+        justify-content: center;
+
+        @media (max-width: 750px) {
+            display: none;
+        }
+
+        .quantity {
+            margin: 0 10px 0 10px;
+            color: var(--dark-grey-text);
+            min-width: 25px;
+            text-align: center;
+        }
+        
+        .button {
+            border: 1px solid var(--wf-green);
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            color: var(--wf-green);
+            font-size: 1.5em;  
+            text-align: center;
+            line-height: 0px;
+        }
+    }
+
+    .value {
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        text-align: center;
+        justify-content: center;
+        font-size: 1.2em;
+        color: var(--dark-grey-text);
+
+        @media (max-width: 750px) {
+            display: none;
+        }
+    }
+
+}

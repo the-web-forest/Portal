@@ -5,6 +5,9 @@ import Router from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
 import Vibrate from '../../utils/vibrate';
 import { useCart } from '../../providers/cart';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import Settings from '../../infra/core/settings';
 
 interface HeaderProps {
   title?: string;
@@ -12,6 +15,9 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
+  const { signOut } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
@@ -19,7 +25,7 @@ const Header = ({ title }: HeaderProps) => {
 
   const goToDashboard = () => {
     Vibrate.vibrate(200);
-    Router.push(pagePaths.dashboard);
+    Router.push(pagePaths.nursery.index);
   };
 
   const goToMyAccount = () => {
@@ -28,7 +34,7 @@ const Header = ({ title }: HeaderProps) => {
   };
 
   const renderTitle = () => {
-    let headerTitle = 'Web Forest';
+    let headerTitle = Settings.APP_NAME;
 
     if (title) {
       headerTitle = `${headerTitle} - ${title}`;
@@ -41,15 +47,117 @@ const Header = ({ title }: HeaderProps) => {
     <header>
       <title>{renderTitle()}</title>
       <div className={styles.container}>
-        <div
-          id="logo"
-          className={styles.logo}
-          onClick={goToDashboard}
-          title={'Web Forest'}
-        >
-          <WebForestLogo />
+        <div className={styles.desktop}>
+          <div
+            id="logo"
+            className={styles.logo}
+            onClick={goToDashboard}
+            title={'Web Forest'}
+          >
+            <WebForestLogo />
+          </div>
+          <div className={styles.otherSide}>
+            <div className={styles.icon}>
+              <div
+                id="cart-icon"
+                className={styles.shoppingCart}
+                onClick={goToShoppingCart}
+              >
+                <Image
+                  width={30}
+                  height={30}
+                  src="/icons/shopping-cart-white.svg"
+                />
+                <div id="cart-number" className={styles.cartNumber}>
+                  {cart.cartTotals.quantity}
+                </div>
+              </div>
+            </div>
+            <div id="right-section" className={styles.rightSection}>
+              <div
+                id="my-account"
+                onClick={goToMyAccount}
+                className={styles.myAccount}
+              >
+                <div id="my-photo" className={styles.myPhoto}>
+                  <Image
+                    src={'/images/icons/user.svg'}
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <span id="my-account-text" className={styles.myAccountText}>
+                  Minha Conta
+                </span>
+              </div>
+              <div
+                id="menu"
+                className={styles.menu}
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <Image
+                  src={'/icons/sandwich-menu.svg'}
+                  width={35}
+                  height={35}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => setMenuIsOpen(!menuIsOpen)}
+            className={menuIsOpen ? styles.blackout : styles.blackoutClosed}
+          >
+            <div
+              onClick={e => e.stopPropagation()}
+              className={menuIsOpen ? styles.sideMenu : styles.sideMenuClosed}
+            >
+              <span
+                onClick={() => Router.push(pagePaths.nursery.index)}
+                className={styles.item}
+              >
+                Viveiro
+              </span>
+              <span
+                onClick={() => Router.push(pagePaths.forest.index)}
+                className={styles.item}
+              >
+                Minhas árvores
+              </span>
+              <span
+                onClick={() => Router.push(pagePaths.myAccount)}
+                className={styles.item}
+              >
+                Minha conta
+              </span>
+              <span onClick={() => signOut()} className={styles.item}>
+                Sair da conta
+              </span>
+
+              <span className={styles.message}>
+                Atualmente estamos na fase beta do projeto. Caso encontre
+                qualquer problema, entre em contato pelo e-mail{' '}
+                <a
+                  className={styles.support}
+                  href="mailto:suporte@webforest.eco?subject=Preciso de Suporte"
+                >
+                  suporte@webforest.com
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-        <div id="right-section" className={styles.rightSection}>
+
+        <div className={styles.mobile}>
+          <div id="my-photo" className={styles.myPhoto}>
+            <Image src={'/images/icons/user.svg'} width={40} height={40} />
+          </div>
+          <div
+            className={styles.logoMobile}
+            onClick={goToDashboard}
+            title={'Web Forest'}
+          >
+            <WebForestLogo />
+          </div>
           <div
             id="cart-icon"
             className={styles.shoppingCart}
@@ -58,23 +166,11 @@ const Header = ({ title }: HeaderProps) => {
             <Image
               width={30}
               height={30}
-              src="/images/icons/shopping-cart.svg"
+              src="/icons/shopping-cart-white.svg"
             />
             <div id="cart-number" className={styles.cartNumber}>
               {cart.cartTotals.quantity}
             </div>
-          </div>
-          <div
-            id="my-account"
-            onClick={goToMyAccount}
-            className={styles.myAccount}
-          >
-            <div id="my-photo" className={styles.myPhoto}>
-              <Image src={'/images/icons/user.svg'} width={40} height={40} />
-            </div>
-            <span id="my-account-text" className={styles.myAccountText}>
-              Minha Conta
-            </span>
           </div>
         </div>
       </div>
