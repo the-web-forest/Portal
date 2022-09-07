@@ -152,8 +152,7 @@ const Header = ({ title }: HeaderProps) => {
             <Image src={'/images/icons/user.svg'} width={40} height={40} />
           </div>
           <div
-            id="logo"
-            className={styles.logo}
+            className={styles.logoMobile}
             onClick={goToDashboard}
             title={'Web Forest'}
           >

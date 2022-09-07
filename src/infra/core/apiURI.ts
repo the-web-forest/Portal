@@ -13,7 +13,11 @@ const ApiURI = {
   },
   States: '/States',
   Cities: '/Cities',
-  Plant: '/Plant',
+  Plant: {
+    index: '/Plant',
+    detail: '/Plant/{plantId}',
+    customize: '/Plant/Customize',
+  },
   Trees: {
     index: '/Tree',
     biomes: {

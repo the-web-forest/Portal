@@ -218,7 +218,7 @@ const Payment: NextPage = () => {
                   de crédito.
                 </p>
                 <div className={styles.inputLine}>
-                  <span className={styles.inputText}>Nome</span>
+                  <span className={styles.label}>Nome</span>
                   <Input
                     name="name"
                     value={data.name}
