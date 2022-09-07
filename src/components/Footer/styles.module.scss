@@ -1,94 +1,63 @@
 .container {
-  background-color: var(--footer-surface);
-  width: 100%;
+  background-color: var(--dark-gray-text);
+  width: 100vw;
+  min-height: 80px;
   display: flex;
-  flex-direction: column;
-  padding: 40px 120px;
-  margin-top: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 5%;
+
   @media (max-width: 750px) {
-    padding: 30px 30px;
-  }
-  @media (min-width: 750px) {
-    padding: 40px 120px;
+    display: none;
   }
 }
 
-.main {
-  display: flex;
-
-  @media (max-width: 750px) {
-    flex-direction: column;
-    width: auto;
-    align-items: flex-start;
-  }
-  @media (min-width: 750px) {
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-  }
+.main,
+.logo,
+.social {
+  width: calc(100% / 3);
 }
 
 .logoWrapper {
-  @media (max-width: 750px) {
-    height: 60px;
-    width: 160px;
-  }
-
-  @media (min-width: 750px) {
-    height: 100px;
-    width: 250px;
-  }
+  display: flex;
+  align-items: center;
 }
 
 .links {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 
   a {
-    color: var(--dark-gray-text);
+    color: var(--white);
     text-decoration: underline;
     cursor: pointer;
     font-family: "Aprova", sans-serif;
     font-size: 14px;
-  }
-
-  > a:first-of-type {
-    margin-bottom: 15px;
-  }
-
-  @media (max-width: 750px) {
-    margin-left: 0px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  @media (min-width: 750px) {
-    margin-left: 100px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    text-decoration: none;
   }
 }
 
 .social {
   display: flex;
-  flex-direction: column;
-  margin-top: 20px;
+  align-items: center;
+  justify-content: end;
 
-  > span {
+  >span {
     font-size: 14px;
     font-family: "Aprova", sans-serif;
+    color: var(--white);
+    margin-right: 10px;
+    letter-spacing: 2px;
   }
 }
 
 .items {
   display: flex;
-  flex-direction: row;
   gap: 20px;
-  margin-top: 15px;
 
   svg {
     width: 30px;
-    height: 30px;    
+    height: 30px;
     cursor: pointer;
   }
 }
