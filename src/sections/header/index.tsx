@@ -5,7 +5,7 @@ import Router from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
 import Vibrate from '../../utils/vibrate';
 import { useCart } from '../../providers/cart';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Settings from '../../infra/core/settings';
 
@@ -15,6 +15,8 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
   const { signOut } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
@@ -46,7 +48,6 @@ const Header = ({ title }: HeaderProps) => {
       <title>{renderTitle()}</title>
       <div className={styles.container}>
         <div className={styles.desktop}>
-          {' '}
           <div
             id="logo"
             className={styles.logo}
@@ -55,39 +56,93 @@ const Header = ({ title }: HeaderProps) => {
           >
             <WebForestLogo />
           </div>
-          <div id="right-section" className={styles.rightSection}>
-            <div
-              id="cart-icon"
-              className={styles.shoppingCart}
-              onClick={goToShoppingCart}
-            >
-              <Image
-                width={30}
-                height={30}
-                src="/icons/shopping-cart-white.svg"
-              />
-              <div id="cart-number" className={styles.cartNumber}>
-                {cart.cartTotals.quantity}
+          <div className={styles.otherSide}>
+            <div className={styles.icon}>
+              <div
+                id="cart-icon"
+                className={styles.shoppingCart}
+                onClick={goToShoppingCart}
+              >
+                <Image
+                  width={30}
+                  height={30}
+                  src="/icons/shopping-cart-white.svg"
+                />
+                <div id="cart-number" className={styles.cartNumber}>
+                  {cart.cartTotals.quantity}
+                </div>
               </div>
             </div>
-            <div
-              id="my-account"
-              onClick={goToMyAccount}
-              className={styles.myAccount}
-            >
-              <div id="my-photo" className={styles.myPhoto}>
-                <Image src={'/images/icons/user.svg'} width={40} height={40} />
+            <div id="right-section" className={styles.rightSection}>
+              <div
+                id="my-account"
+                onClick={goToMyAccount}
+                className={styles.myAccount}
+              >
+                <div id="my-photo" className={styles.myPhoto}>
+                  <Image
+                    src={'/images/icons/user.svg'}
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <span id="my-account-text" className={styles.myAccountText}>
+                  Minha Conta
+                </span>
               </div>
-              <span id="my-account-text" className={styles.myAccountText}>
-                Minha Conta
+              <div
+                id="menu"
+                className={styles.menu}
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <Image
+                  src={'/icons/sandwich-menu.svg'}
+                  width={35}
+                  height={35}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            onClick={() => setMenuIsOpen(!menuIsOpen)}
+            className={menuIsOpen ? styles.blackout : styles.blackoutClosed}
+          >
+            <div
+              onClick={e => e.stopPropagation()}
+              className={menuIsOpen ? styles.sideMenu : styles.sideMenuClosed}
+            >
+              <span
+                onClick={() => Router.push(pagePaths.nursery.index)}
+                className={styles.item}
+              >
+                Viveiro
               </span>
-            </div>
-            <div
-              className={styles.logout}
-              onClick={() => signOut()}
-              title="Sair"
-            >
-              <Image src={'/icons/exit-icon.svg'} width={40} height={40} />
+              <span
+                onClick={() => Router.push(pagePaths.forest.index)}
+                className={styles.item}
+              >
+                Minhas árvores
+              </span>
+              <span
+                onClick={() => Router.push(pagePaths.myAccount)}
+                className={styles.item}
+              >
+                Minha conta
+              </span>
+              <span onClick={() => signOut()} className={styles.item}>
+                Sair da conta
+              </span>
+
+              <span className={styles.message}>
+                Atualmente estamos na fase beta do projeto. Caso encontre
+                qualquer problema, entre em contato pelo e-mail{' '}
+                <a
+                  className={styles.support}
+                  href="mailto:suporte@webforest.eco?subject=Preciso de Suporte"
+                >
+                  suporte@webforest.com
+                </a>
+              </span>
             </div>
           </div>
         </div>

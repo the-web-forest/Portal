@@ -213,6 +213,10 @@ const Payment: NextPage = () => {
             <div id="form-section" className={styles.formSection}>
               <form className={styles.cardForm} onSubmit={handleSubmit}>
                 <p className={styles.title}>Dados do Cartão</p>
+                <p className={styles.cardMessage}>
+                  No momento, estamos recebendo pagamentos somente com cartões
+                  de crédito.
+                </p>
                 <div className={styles.inputLine}>
                   <span className={styles.inputText}>Nome</span>
                   <Input
