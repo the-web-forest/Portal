@@ -5,7 +5,9 @@ import {
   IoLogoLinkedin,
 } from 'react-icons/io5';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './styles.module.scss';
+import Settings from '../../infra/core/settings';
 
 export const Footer: FC = () => {
   return (
@@ -23,9 +25,21 @@ export const Footer: FC = () => {
       <div className={styles.social}>
         <span>Siga nossas Redes Sociais</span>
         <div className={styles.items}>
-          <IoLogoFacebook color="#FFFFFF" />
-          <IoLogoInstagram color="#FFFFFF" />
-          <IoLogoLinkedin color="#FFFFFF" />
+          <Link href={Settings.FACEBOOK_URL} passHref>
+            <a target="_blank">
+              <IoLogoFacebook color="#FFFFFF" />
+            </a>
+          </Link>
+          <Link href={Settings.INSTAGRAM_URL} passHref>
+            <a target="_blank">
+              <IoLogoInstagram color="#FFFFFF" />
+            </a>
+          </Link>
+          <Link href={Settings.LINKEDIN_URL} passHref>
+            <a target="_blank">
+              <IoLogoLinkedin color="#FFFFFF" />
+            </a>
+          </Link>
         </div>
       </div>
     </div>

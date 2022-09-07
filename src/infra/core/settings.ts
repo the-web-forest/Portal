@@ -1,8 +1,8 @@
 export default class Settings {
   public static APP_NAME = 'Web Forest';
   public static APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-  public static FACEBOOK_URL = 'https://facebook.com';
-  public static INSTAGRAM_URL = 'https://www.instagram.com/web_forest';
+  public static FACEBOOK_URL = 'https://facebook.com/webforesteco';
+  public static INSTAGRAM_URL = 'https://www.instagram.com/webforesteco';
   public static LINKEDIN_URL = 'https://www.linkedin.com/company/77021618';
   public static CONTACT_EMAIL = 'contato@webforest.eco';
   public static FORUM_URL = 'https://www.reddit.com/r/webforest/';
