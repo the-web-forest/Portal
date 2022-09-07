@@ -7,6 +7,7 @@ export enum FilledColor {
   darkGreen = '#00635D',
   budGreen = '#63AF53',
   green = '#28ab38',
+  white = '#fff',
 }
 
 interface FilledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -25,9 +26,14 @@ const FilledButton: FC<FilledButtonProps> = ({
   const { isMobile } = useScreen();
   return (
     <button
-      className={`${styles.container} ${disabled ? styles.disabled : ''}`}
+      className={`${
+        color == FilledColor.white ? styles.containerEmpty : styles.container
+      } ${disabled ? styles.disabled : ''}`}
       type={type}
-      style={{ width: isMobile ? '100%' : width, backgroundColor: color }}
+      style={{
+        width: isMobile ? '100%' : width,
+        backgroundColor: color,
+      }}
       {...rest}
     >
       {disabled ? <span className={styles.loader}></span> : `${children}`}
