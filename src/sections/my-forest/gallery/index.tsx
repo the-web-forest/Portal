@@ -1,15 +1,13 @@
-import ITreesResponseDTO, {
-  ITreeResponse,
-} from '../../../infra/dtos/Trees/ITreesResponse.dto';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import ForestGalleryItem from '../gallery-item';
+import IPlantResponseDTO from '../../../infra/dtos/Plant/IPlantResponse.dto';
 
 interface ForestGalleryProps {
-  treeList?: ITreesResponseDTO;
+  plantList?: IPlantResponseDTO;
 }
 
-const ForestGallery = ({ treeList }: ForestGalleryProps) => {
+const ForestGallery = ({ plantList }: ForestGalleryProps) => {
   const renderLoader = () => {
     return (
       <div className={styles.loader}>
@@ -21,9 +19,9 @@ const ForestGallery = ({ treeList }: ForestGalleryProps) => {
 
   return (
     <div className={styles.container}>
-      {!treeList && renderLoader()}
-      {treeList?.trees.map(tree => (
-        <ForestGalleryItem key={tree.id} data={tree} />
+      {!plantList && renderLoader()}
+      {plantList?.plants.map(plant => (
+        <ForestGalleryItem key={plant.id} data={plant} />
       ))}
     </div>
   );
