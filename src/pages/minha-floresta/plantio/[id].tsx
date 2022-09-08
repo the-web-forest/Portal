@@ -144,9 +144,7 @@ const PlantDetails = () => {
             <div className={styles.message}>
               {plant.canEdit
                 ? 'Lembre-se: você poderá personalizar sua árvore apenas uma vez.'
-                : `Essa árvore foi personalizada em ${formatDate(
-                    plant.updatedAt,
-                  )}.`}
+                : `Personalizada em ${formatDate(plant.updatedAt)}.`}
             </div>
             <div className={styles.box}>
               <div className={styles.header}>
