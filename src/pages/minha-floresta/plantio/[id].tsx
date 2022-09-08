@@ -87,7 +87,7 @@ const PlantDetails = () => {
       );
       return;
     }
-
+    setIsLoading(true);
     customizePlantUseCase
       .run({
         plantId: plant.plantId,
@@ -100,12 +100,15 @@ const PlantDetails = () => {
       })
       .catch(() => {
         ToastCaller.Error(toast, 'Erro', 'Erro ao personalizar a árvore');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
     const plantId = router.query.id as string;
-    setIsLoading(false);
+    setIsLoading(true);
 
     if (!plantId) {
       return;
@@ -131,9 +134,13 @@ const PlantDetails = () => {
     <>
       <Header title="Meu Plantio" />
       <div className={styles.container}>
-        <div className={styles.title}>Personalize sua árvore</div>
+        <div className={styles.title}>
+          {plant?.canEdit ? 'Personalize sua árvore' : 'Visualize sua árvore'}
+        </div>
         <div className={styles.message}>
-          Lembre-se: você poderá personalizar sua árvore apenas uma vez.
+          {plant?.canEdit
+            ? 'Lembre-se: você poderá personalizar sua árvore apenas uma vez.'
+            : 'Lembre-se: Você já personalizou essa árvore'}
         </div>
         {plant && (
           <div className={styles.box}>
