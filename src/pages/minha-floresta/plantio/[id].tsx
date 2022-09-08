@@ -92,7 +92,7 @@ const PlantDetails = () => {
       .run({
         plantId: plant.plantId,
         treeName: plant.name || '',
-        treeHastags: plant.hastags,
+        treeHastags: plant.hastags.filter(x => !!x).map(x => x.trim()),
         treeMessage: plant.message || '',
       })
       .then(() => {
