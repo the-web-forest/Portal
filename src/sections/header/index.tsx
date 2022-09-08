@@ -17,7 +17,7 @@ const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  const { signOut } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
@@ -76,7 +76,7 @@ const Header = ({ title }: HeaderProps) => {
             <div id="right-section" className={styles.rightSection}>
               <div
                 id="my-account"
-                onClick={goToMyAccount}
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
                 className={styles.myAccount}
               >
                 <div id="my-photo" className={styles.myPhoto}>
@@ -87,7 +87,7 @@ const Header = ({ title }: HeaderProps) => {
                   />
                 </div>
                 <span id="my-account-text" className={styles.myAccountText}>
-                  Minha Conta
+                  {user?.name}
                 </span>
               </div>
               <div
@@ -115,7 +115,7 @@ const Header = ({ title }: HeaderProps) => {
                 onClick={() => Router.push(pagePaths.nursery.index)}
                 className={styles.item}
               >
-                Viveiro
+                Plante uma árvore
               </span>
               <span
                 onClick={() => Router.push(pagePaths.forest.index)}
@@ -138,9 +138,9 @@ const Header = ({ title }: HeaderProps) => {
                 qualquer problema, entre em contato pelo e-mail{' '}
                 <a
                   className={styles.support}
-                  href="mailto:suporte@webforest.eco?subject=Preciso de Suporte"
+                  href={`mailto:${Settings.SUPPORT_EMAIL}?subject=Preciso de Suporte`}
                 >
-                  suporte@webforest.com
+                  {Settings.SUPPORT_EMAIL}
                 </a>
               </span>
             </div>

@@ -19,7 +19,7 @@ export const Footer: FC = () => {
       </div>
       <div className={styles.main}>
         <div className={styles.links}>
-          <a>contato@webforest.eco</a>
+          <a>{Settings.CONTACT_EMAIL}</a>
         </div>
       </div>
       <div className={styles.social}>

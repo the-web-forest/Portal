@@ -1,5 +1,5 @@
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
-import { createContext, FC, useCallback, useState } from 'react';
+import { createContext, FC, useCallback, useEffect, useState } from 'react';
 import CookiesEnum from '../infra/core/CookiesEnum';
 import UserEntity from '../infra/entities/UserEntity';
 import LoginUserUseCase from '../infra/useCases/loginUser.usecase';
@@ -27,6 +27,9 @@ export const AuthProvider: FC = ({ children }) => {
     setCookie(undefined, CookiesEnum.USER_TOKEN, accessToken, {
       maxAge: 60 * 60 * 1,
     });
+    setCookie(undefined, CookiesEnum.USER_DATA, JSON.stringify(user), {
+      maxAge: 60 * 60 * 1,
+    });
     setUser(user);
     Router.push(pagePaths.nursery.index);
   }, []);
@@ -38,6 +41,9 @@ export const AuthProvider: FC = ({ children }) => {
     setCookie(undefined, CookiesEnum.USER_TOKEN, accessToken, {
       maxAge: 60 * 60 * 1,
     });
+    setCookie(undefined, CookiesEnum.USER_DATA, JSON.stringify(user), {
+      maxAge: 60 * 60 * 1,
+    });
     setUser(user);
     Router.push(pagePaths.nursery.index);
   }, []);
@@ -45,6 +51,17 @@ export const AuthProvider: FC = ({ children }) => {
   const signOut = useCallback(() => {
     destroyCookie(undefined, CookiesEnum.USER_TOKEN);
     Router.push(pagePaths.index);
+  }, []);
+
+  useEffect(() => {
+    const { [CookiesEnum.USER_DATA]: userData } = parseCookies();
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData) as UserEntity);
+      } catch {
+        setUser(null);
+      }
+    }
   }, []);
 
   return (
