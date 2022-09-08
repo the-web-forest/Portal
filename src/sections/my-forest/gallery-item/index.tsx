@@ -1,19 +1,19 @@
-import { ITreeResponse } from '../../../infra/dtos/Trees/ITreesResponse.dto';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import pagePaths from '../../../infra/core/pagePaths';
 import { AiFillEye } from 'react-icons/ai';
+import { IPlantResponse } from '../../../infra/dtos/Plant/IPlantResponse.dto';
 
 interface ForestGalleryItemProps {
-  data: ITreeResponse;
+  data: IPlantResponse;
 }
 
 const ForestGalleryItem = ({ data }: ForestGalleryItemProps) => {
   const router = useRouter();
 
   const canCustomize = (): boolean => {
-    return false;
+    return !data.name && !data.message && data.hastags.length == 0;
   };
 
   const customizePlant = (plantId: string) => {
@@ -33,9 +33,9 @@ const ForestGalleryItem = ({ data }: ForestGalleryItemProps) => {
             layout="responsive"
             className={styles.photo}
           />
-          <div className={styles.species}>{data.name}</div>
+          <div className={styles.species}>{data.species}</div>
         </div>
-        <p className={styles.name}>{data.name}</p>
+        <p className={styles.name}>{data.name || data.species}</p>
         <p className={styles.order}>Pedido {data.id}</p>
         <div className={styles.line}>
           {canCustomize() ? (
