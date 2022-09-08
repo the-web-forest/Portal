@@ -76,7 +76,7 @@ const Viveiro: NextPage = () => {
     <>
       <Header title="Minha Floresta" />
       <div id="container" className={styles.container}>
-        <p className={styles.title}>Minhas árvores</p>
+        <p className={styles.title}>Minhas árvores ({plantList?.totalCount})</p>
 
         <div className={styles.inputLine}>
           <div className={styles.search}>
