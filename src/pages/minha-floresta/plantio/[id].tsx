@@ -134,90 +134,96 @@ const PlantDetails = () => {
     <>
       <Header title="Meu Plantio" />
       <div className={styles.container}>
-        <div className={styles.title}>
-          {plant?.canEdit ? 'Personalize sua árvore' : 'Visualize sua árvore'}
-        </div>
-        <div className={styles.message}>
-          {plant?.canEdit
-            ? 'Lembre-se: você poderá personalizar sua árvore apenas uma vez.'
-            : 'Lembre-se: Você já personalizou essa árvore'}
-        </div>
         {plant && (
-          <div className={styles.box}>
-            <div className={styles.header}>
-              <div className={styles.order}>Pedido {plant.orderId}</div>
-              <div className={styles.date}>
-                <div className={styles.icon}>
-                  <Image src={'/icons/calendar.svg'} width={20} height={20} />
-                </div>
-                Plantio: {formatDate(plant.createdAt)}
-              </div>
+          <>
+            <div className={styles.title}>
+              {plant.canEdit
+                ? 'Personalize sua árvore'
+                : 'Visualize sua árvore'}
             </div>
-            <div className={styles.body}>
-              <div className={styles.line}>
-                <div className={styles.input}>
-                  <span className={styles.label}>
-                    Nome da árvore ({plant.species})
-                  </span>
-                  <Input
-                    skin={'light'}
-                    name={'name'}
-                    placeholder={plant.species}
-                    maxLength={50}
-                    value={plant.name || ''}
-                    type={'text'}
-                    onChangeFunction={e =>
-                      setPlant({ ...plant, name: e.target.value })
-                    }
-                    disabled={!plant.canEdit}
-                  />
+            <div className={styles.message}>
+              {plant.canEdit
+                ? 'Lembre-se: você poderá personalizar sua árvore apenas uma vez.'
+                : `Essa árvore foi personalizada em ${formatDate(
+                    plant.updatedAt,
+                  )}.`}
+            </div>
+            <div className={styles.box}>
+              <div className={styles.header}>
+                <div className={styles.order}>Pedido {plant.orderId}</div>
+                <div className={styles.date}>
+                  <div className={styles.icon}>
+                    <Image src={'/icons/calendar.svg'} width={20} height={20} />
+                  </div>
+                  Plantio: {formatDate(plant.createdAt)}
                 </div>
-
-                <div className={styles.input}>
-                  <div className={styles.labelWithTooltip}>
-                    Inserir tags (
-                    {plant.hastags.filter(item => item != '').length})
-                    <Tooltip
-                      color="white"
-                      label="Separe suas tags com espaços. Exemplo: amerelo filhos natureza"
-                    >
-                      <div className={styles.tooltip}>i</div>
-                    </Tooltip>
+              </div>
+              <div className={styles.body}>
+                <div className={styles.line}>
+                  <div className={styles.input}>
+                    <span className={styles.label}>
+                      Nome da árvore ({plant.species})
+                    </span>
+                    <Input
+                      skin={'light'}
+                      name={'name'}
+                      placeholder={plant.species}
+                      maxLength={50}
+                      value={plant.name || ''}
+                      type={'text'}
+                      onChangeFunction={e =>
+                        setPlant({ ...plant, name: e.target.value })
+                      }
+                      disabled={!plant.canEdit}
+                    />
                   </div>
 
-                  <Input
-                    skin={'light'}
-                    name={'hastags'}
-                    placeholder={'Exemplo: amarelo filhos natureza'}
-                    value={printHastags(plant.hastags)}
-                    type={'text'}
-                    onChangeFunction={e => parseHastags(e.target.value)}
-                    disabled={!plant.canEdit}
-                  />
+                  <div className={styles.input}>
+                    <div className={styles.labelWithTooltip}>
+                      Inserir tags (
+                      {plant.hastags.filter(item => item != '').length})
+                      <Tooltip
+                        color="white"
+                        label="Separe suas tags com espaços. Exemplo: amerelo filhos natureza"
+                      >
+                        <div className={styles.tooltip}>i</div>
+                      </Tooltip>
+                    </div>
+
+                    <Input
+                      skin={'light'}
+                      name={'hastags'}
+                      placeholder={'Exemplo: amarelo filhos natureza'}
+                      value={printHastags(plant.hastags)}
+                      type={'text'}
+                      onChangeFunction={e => parseHastags(e.target.value)}
+                      disabled={!plant.canEdit}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className={styles.line}>
-                <div className={styles.input} style={{ width: '100%' }}>
-                  <span className={styles.label}>
-                    Mensagem ({plant.message?.length || 0})
-                  </span>
-                  <TextArea
-                    skin={'light'}
-                    name={'name'}
-                    placeholder={
-                      'O comentário fica disponível em sua floresta individual e em nossa floresta coletiva.'
-                    }
-                    cols={10}
-                    rows={3}
-                    maxLength={280}
-                    value={plant.message || ''}
-                    onChangeFunction={e => setPlant({ ...plant, message: e })}
-                    disabled={!plant.canEdit}
-                  />
+                <div className={styles.line}>
+                  <div className={styles.input} style={{ width: '100%' }}>
+                    <span className={styles.label}>
+                      Mensagem ({plant.message?.length || 0})
+                    </span>
+                    <TextArea
+                      skin={'light'}
+                      name={'name'}
+                      placeholder={
+                        'O comentário fica disponível em sua floresta individual e em nossa floresta coletiva.'
+                      }
+                      cols={10}
+                      rows={3}
+                      maxLength={280}
+                      value={plant.message || ''}
+                      onChangeFunction={e => setPlant({ ...plant, message: e })}
+                      disabled={!plant.canEdit}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </>
         )}
       </div>
       <div className={styles.customizeNow}>
