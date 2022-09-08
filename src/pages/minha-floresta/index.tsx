@@ -23,7 +23,6 @@ const Viveiro: NextPage = () => {
       }
       const newState = { ...plantList };
       newState.plants.push(...plants.plants);
-      console.log(newState);
       setPlantList(newState);
     },
     [plantList],
@@ -34,13 +33,8 @@ const Viveiro: NextPage = () => {
   }, []);
 
   const handlePlants = useCallback(
-    (plants: IPlantResponseDTO) => {
-      if (plants.plants.length == 0) {
-        setPlantList(null);
-        return;
-      }
-
-      if (!plantList || !plantList.totalCount) {
+    (plants: IPlantResponseDTO, reset: boolean = false) => {
+      if (reset || !plantList || !plantList.totalCount) {
         setPlants(plants);
       } else {
         appendPlants(plants);
@@ -56,7 +50,7 @@ const Viveiro: NextPage = () => {
       setIsLoading(true);
       getPlantsByFilterUseCase
         .run(search, DEFAULT_PLANT_QUANTITY, skip, requireTotal)
-        .then(plants => handlePlants(plants))
+        .then(plants => handlePlants(plants, reset))
         .catch(err => {
           console.error(err);
         })
@@ -70,6 +64,7 @@ const Viveiro: NextPage = () => {
   };
 
   const searchPlants = () => {
+    setPlantList(null);
     loadPlants(true, true);
   };
 
