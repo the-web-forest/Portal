@@ -11,7 +11,13 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FormEventHandler, useCallback, useContext, useState } from 'react';
+import {
+  FormEventHandler,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import CurrencyHelper from '../../helpers/currency';
@@ -133,11 +139,15 @@ const Payment: NextPage = () => {
       })
       .catch(err => {
         setShowErrorModal(true);
-      })
-      .finally(() => {
         setIsLoading(false);
       });
   }, [cart, getCardHash, router, toast]);
+
+  useEffect(() => {
+    if (cart.cartTotals.quantity < 1 && !isLoading) {
+      router.push(pagePaths.nursery.index);
+    }
+  }, [cart.cartTotals.quantity, isLoading, router]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
