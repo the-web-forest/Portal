@@ -86,7 +86,7 @@ const Carrinho: NextPage = () => {
                 </span>
                 <span className={styles.totalValueText}>Valor Total</span>
                 <span className={styles.totalValue}>
-                  R$
+                  R${' '}
                   {CurrencyHelper.mascaraMoeda(
                     cart.cartTotals.value.toString(),
                   )}
