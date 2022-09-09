@@ -284,6 +284,8 @@
     height: 40px;
     width: 40px;
     margin-right: 10px;
+    border-radius: 100%;
+    overflow: hidden;
     
     @media (max-width: 750px) {
         margin-right: none;

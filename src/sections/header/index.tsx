@@ -79,9 +79,13 @@ const Header = ({ title }: HeaderProps) => {
                 onClick={() => setMenuIsOpen(!menuIsOpen)}
                 className={styles.myAccount}
               >
-                <div id="my-photo" className={styles.myPhoto}>
+                <div
+                  id="my-photo"
+                  className={styles.myPhoto}
+                  title="Foto do usuário"
+                >
                   <Image
-                    src={'/images/icons/user.svg'}
+                    src={user?.photo || '/images/icons/user.svg'}
                     width={40}
                     height={40}
                   />
@@ -149,7 +153,11 @@ const Header = ({ title }: HeaderProps) => {
 
         <div className={styles.mobile}>
           <div id="my-photo" className={styles.myPhoto}>
-            <Image src={'/images/icons/user.svg'} width={40} height={40} />
+            <Image
+              src={user?.photo || '/images/icons/user.svg'}
+              width={40}
+              height={40}
+            />
           </div>
           <div
             className={styles.logoMobile}
