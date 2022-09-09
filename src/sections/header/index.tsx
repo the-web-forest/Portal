@@ -91,7 +91,7 @@ const Header = ({ title }: HeaderProps) => {
                   />
                 </div>
                 <span id="my-account-text" className={styles.myAccountText}>
-                  {user?.name}
+                  {user?.name.split(' ')[0]}
                 </span>
               </div>
               <div
