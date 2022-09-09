@@ -8,6 +8,8 @@ import { useCart } from '../../providers/cart';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Settings from '../../infra/core/settings';
+import DesktopSidebar from '../desktop-sidebar';
+import MobileSidebar from '../mobile-sidebar';
 
 interface HeaderProps {
   title?: string;
@@ -17,7 +19,7 @@ const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  const { signOut, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
@@ -27,12 +29,6 @@ const Header = ({ title }: HeaderProps) => {
     Vibrate.vibrate(200);
     Router.push(pagePaths.nursery.index);
   };
-
-  const goToMyAccount = () => {
-    Vibrate.vibrate(200);
-    Router.push(pagePaths.myAccount);
-  };
-
   const renderTitle = () => {
     let headerTitle = Settings.APP_NAME;
 
@@ -107,54 +103,20 @@ const Header = ({ title }: HeaderProps) => {
               </div>
             </div>
           </div>
-          <div
-            onClick={() => setMenuIsOpen(!menuIsOpen)}
-            className={menuIsOpen ? styles.blackout : styles.blackoutClosed}
-          >
-            <div
-              onClick={e => e.stopPropagation()}
-              className={menuIsOpen ? styles.sideMenu : styles.sideMenuClosed}
-            >
-              <span
-                onClick={() => Router.push(pagePaths.nursery.index)}
-                className={styles.item}
-              >
-                Plante uma árvore
-              </span>
-              <span
-                onClick={() => Router.push(pagePaths.forest.index)}
-                className={styles.item}
-              >
-                Minhas árvores
-              </span>
-              <span
-                onClick={() => Router.push(pagePaths.myAccount)}
-                className={styles.item}
-              >
-                Minha conta
-              </span>
-              <span onClick={() => signOut()} className={styles.item}>
-                Sair da conta
-              </span>
-
-              <span className={styles.message}>
-                Atualmente estamos na fase beta do projeto. Caso encontre
-                qualquer problema, entre em contato pelo e-mail{' '}
-                <a
-                  className={styles.support}
-                  href={`mailto:${Settings.SUPPORT_EMAIL}?subject=Preciso de Suporte`}
-                >
-                  {Settings.SUPPORT_EMAIL}
-                </a>
-              </span>
-            </div>
-          </div>
+          <DesktopSidebar
+            setMenuIsOpen={setMenuIsOpen}
+            menuIsOpen={menuIsOpen}
+          />
         </div>
 
         <div className={styles.mobile}>
-          <div id="my-photo" className={styles.myPhoto}>
+          <div
+            id="my-photo"
+            onClick={() => setMenuIsOpen(!menuIsOpen)}
+            className={styles.myPhoto}
+          >
             <Image
-              src={user?.photo || '/images/icons/user.svg'}
+              src={'/icons/mobile-sandwich-menu.svg'}
               width={40}
               height={40}
             />
@@ -180,6 +142,12 @@ const Header = ({ title }: HeaderProps) => {
               {cart.cartTotals.quantity}
             </div>
           </div>
+          <MobileSidebar
+            setMenuIsOpen={setMenuIsOpen}
+            menuIsOpen={menuIsOpen}
+            userPhoto={user?.photo}
+            userName={user?.name.split(' ')[0]}
+          />
         </div>
       </div>
     </header>
