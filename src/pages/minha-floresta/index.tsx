@@ -90,9 +90,11 @@ const Viveiro: NextPage = () => {
 
         {plantList && <ForestGallery plantList={plantList} />}
 
-        {(!plantList || !plantList.plants.length) && (
-          <div className={styles.noRegister}>Nenhum registro encontrado</div>
+        {plantList && !plantList.plants.length && !isLoading && (
+          <div className={styles.infoMessage}>Nenhum registro encontrado</div>
         )}
+
+        {isLoading && <div className={styles.infoMessage}>Carregando</div>}
 
         {plantList && plantList.plants.length !== plantList.totalCount && (
           <div
