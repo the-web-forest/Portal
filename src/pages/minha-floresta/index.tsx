@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { NextPage } from 'next';
 import { useCallback, useEffect, useState } from 'react';
+import { Footer } from '../../components/Footer';
 import SearchInput from '../../components/SearchInput';
 import IPlantResponseDTO from '../../infra/dtos/Plant/IPlantResponse.dto';
 import GetPlantsByFilterUseCase from '../../infra/useCases/getPlantsByFilter.usecase';
@@ -106,6 +107,7 @@ const Viveiro: NextPage = () => {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 };
