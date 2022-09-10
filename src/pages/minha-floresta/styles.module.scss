@@ -11,7 +11,7 @@
         flex-direction: column;
         min-height: calc(100vh - 60px);
         background: linear-gradient(to top, #E4ECE1 70%, var(--white) 30%);
-        padding: 0 5% 100px 5%;
+        padding: 0 5% 5% 5%;
     }
 }
 
@@ -62,7 +62,7 @@
     color: var(--soft-gray);
 }
 
-.noRegister {
+.infoMessage {
     width: 100%;
     text-align: center;
     margin-top: 10px;
