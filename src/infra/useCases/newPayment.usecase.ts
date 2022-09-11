@@ -27,7 +27,7 @@ export default class NewPaymentUseCase {
     const response = await this.httpService.post<
       INewPaymentRequest,
       INewPaymentResponse
-    >(ApiURI.Plant, requestBody);
+    >(ApiURI.Plant.index, requestBody);
 
     if (!response.planted || !response.orderId) {
       throw new Error('Error on Plant');

@@ -5,9 +5,11 @@ import Router from 'next/router';
 import pagePaths from '../../infra/core/pagePaths';
 import Vibrate from '../../utils/vibrate';
 import { useCart } from '../../providers/cart';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Settings from '../../infra/core/settings';
+import DesktopSidebar from '../desktop-sidebar';
+import MobileSidebar from '../mobile-sidebar';
 
 interface HeaderProps {
   title?: string;
@@ -15,7 +17,9 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   const cart = useCart();
-  const { signOut } = useContext(AuthContext);
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
+  const { user } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
     Router.push(pagePaths.payment.shoppingCart);
@@ -25,12 +29,6 @@ const Header = ({ title }: HeaderProps) => {
     Vibrate.vibrate(200);
     Router.push(pagePaths.nursery.index);
   };
-
-  const goToMyAccount = () => {
-    Vibrate.vibrate(200);
-    Router.push(pagePaths.myAccount);
-  };
-
   const renderTitle = () => {
     let headerTitle = Settings.APP_NAME;
 
@@ -46,7 +44,6 @@ const Header = ({ title }: HeaderProps) => {
       <title>{renderTitle()}</title>
       <div className={styles.container}>
         <div className={styles.desktop}>
-          {' '}
           <div
             id="logo"
             className={styles.logo}
@@ -55,50 +52,77 @@ const Header = ({ title }: HeaderProps) => {
           >
             <WebForestLogo />
           </div>
-          <div id="right-section" className={styles.rightSection}>
-            <div
-              id="cart-icon"
-              className={styles.shoppingCart}
-              onClick={goToShoppingCart}
-            >
-              <Image
-                width={30}
-                height={30}
-                src="/icons/shopping-cart-white.svg"
-              />
-              <div id="cart-number" className={styles.cartNumber}>
-                {cart.cartTotals.quantity}
+          <div className={styles.otherSide}>
+            <div className={styles.icon}>
+              <div
+                id="cart-icon"
+                className={styles.shoppingCart}
+                onClick={goToShoppingCart}
+              >
+                <Image
+                  width={30}
+                  height={30}
+                  src="/icons/shopping-cart-white.svg"
+                />
+                <div id="cart-number" className={styles.cartNumber}>
+                  {cart.cartTotals.quantity}
+                </div>
               </div>
             </div>
-            <div
-              id="my-account"
-              onClick={goToMyAccount}
-              className={styles.myAccount}
-            >
-              <div id="my-photo" className={styles.myPhoto}>
-                <Image src={'/images/icons/user.svg'} width={40} height={40} />
+            <div id="right-section" className={styles.rightSection}>
+              <div
+                id="my-account"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+                className={styles.myAccount}
+              >
+                <div
+                  id="my-photo"
+                  className={styles.myPhoto}
+                  title="Foto do usuário"
+                >
+                  <Image
+                    src={user?.photo || '/images/icons/user.svg'}
+                    width={40}
+                    height={40}
+                  />
+                </div>
+                <span id="my-account-text" className={styles.myAccountText}>
+                  {user?.name.split(' ')[0]}
+                </span>
               </div>
-              <span id="my-account-text" className={styles.myAccountText}>
-                Minha Conta
-              </span>
-            </div>
-            <div
-              className={styles.logout}
-              onClick={() => signOut()}
-              title="Sair"
-            >
-              <Image src={'/icons/exit-icon.svg'} width={40} height={40} />
+              <div
+                id="menu"
+                className={styles.menu}
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <Image
+                  src={'/icons/sandwich-menu.svg'}
+                  width={35}
+                  height={35}
+                />
+              </div>
             </div>
           </div>
+          <DesktopSidebar
+            setMenuIsOpen={setMenuIsOpen}
+            menuIsOpen={menuIsOpen}
+          />
         </div>
 
         <div className={styles.mobile}>
-          <div id="my-photo" className={styles.myPhoto}>
-            <Image src={'/images/icons/user.svg'} width={40} height={40} />
+          <div
+            id="my-photo"
+            onClick={() => setMenuIsOpen(!menuIsOpen)}
+            className={styles.myPhoto}
+          >
+            <Image
+              src={'/icons/mobile-sandwich-menu.svg'}
+              width={40}
+              height={40}
+            />
           </div>
           <div
-            id="logo"
-            className={styles.logo}
+            className={styles.logoMobile}
             onClick={goToDashboard}
             title={'Web Forest'}
           >
@@ -118,6 +142,12 @@ const Header = ({ title }: HeaderProps) => {
               {cart.cartTotals.quantity}
             </div>
           </div>
+          <MobileSidebar
+            setMenuIsOpen={setMenuIsOpen}
+            menuIsOpen={menuIsOpen}
+            userPhoto={user?.photo}
+            userName={user?.name.split(' ')[0]}
+          />
         </div>
       </div>
     </header>

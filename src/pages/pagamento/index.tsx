@@ -11,7 +11,13 @@ import {
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { FormEventHandler, useCallback, useContext, useState } from 'react';
+import {
+  FormEventHandler,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import CurrencyHelper from '../../helpers/currency';
@@ -25,6 +31,7 @@ import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
 import { useCart } from '../../providers/cart';
+import { useConfig } from '../../providers/config';
 import Header from '../../sections/header';
 import { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
@@ -37,6 +44,7 @@ const Payment: NextPage = () => {
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
+  const config = useConfig();
 
   const [data, setData] = useState<IPaymentData>({
     name: '',
@@ -78,7 +86,7 @@ const Payment: NextPage = () => {
 
         // @ts-ignore
         const card = PagSeguro.encryptCard({
-          publicKey: Settings.PAGSEGURO_PUBLIC_KEY,
+          publicKey: config.values.pagseguroPublicKey,
           holder: data.name,
           number: data.cardNumber.split(' ').join(''),
           expMonth: data.cardExpiration.split('/')[0],
@@ -96,6 +104,7 @@ const Payment: NextPage = () => {
       }
     });
   }, [
+    config.values.pagseguroPublicKey,
     data.cardCvv,
     data.cardExpiration,
     data.cardNumber,
@@ -133,11 +142,15 @@ const Payment: NextPage = () => {
       })
       .catch(err => {
         setShowErrorModal(true);
-      })
-      .finally(() => {
         setIsLoading(false);
       });
   }, [cart, getCardHash, router, toast]);
+
+  useEffect(() => {
+    if (cart.cartTotals.quantity < 1 && !isLoading) {
+      router.push(pagePaths.nursery.index);
+    }
+  }, [cart.cartTotals.quantity, isLoading, router]);
 
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
@@ -213,8 +226,12 @@ const Payment: NextPage = () => {
             <div id="form-section" className={styles.formSection}>
               <form className={styles.cardForm} onSubmit={handleSubmit}>
                 <p className={styles.title}>Dados do Cartão</p>
+                <p className={styles.cardMessage}>
+                  No momento, estamos recebendo pagamentos somente com cartões
+                  de crédito.
+                </p>
                 <div className={styles.inputLine}>
-                  <span className={styles.inputText}>Nome</span>
+                  <span className={styles.label}>Nome</span>
                   <Input
                     name="name"
                     value={data.name}

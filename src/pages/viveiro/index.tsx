@@ -17,7 +17,7 @@ import NurseryMenu from '../../sections/nursery/menu';
 import NurseryModal from '../../sections/nursery/modal';
 import styles from './styles.module.scss';
 
-const DEFAULT_TREE_QUANTITY = 10;
+const DEFAULT_TREE_QUANTITY = 12;
 const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 

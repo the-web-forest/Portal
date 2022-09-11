@@ -37,6 +37,7 @@ const pagePaths = {
   },
   forest: {
     index: '/minha-floresta',
+    plant: '/minha-floresta/plantio',
   },
 };
 

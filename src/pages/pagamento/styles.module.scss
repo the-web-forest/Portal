@@ -75,6 +75,12 @@
 
 .cardForm {
     width: 100%;
+
+    .cardMessage {
+        margin-bottom: 10px;
+        font-size: .8em;
+        color: var(--attention-red);
+    }
 }
 
 .formLine {
