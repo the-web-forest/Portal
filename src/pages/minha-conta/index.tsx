@@ -194,6 +194,7 @@ const MinhaConta = () => {
                 value={formData.name}
                 error={formErrors.name}
                 onChangeFunction={handleChange}
+                disabled={isLoading}
                 width="352px"
               />
               <span className={styles.label}>E-mail</span>

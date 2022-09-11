@@ -50,7 +50,8 @@ export const AuthProvider: FC = ({ children }) => {
 
   const signOut = useCallback(() => {
     destroyCookie(undefined, CookiesEnum.USER_TOKEN);
-    Router.push(pagePaths.index);
+    destroyCookie(undefined, CookiesEnum.USER_DATA);
+    Router.push(pagePaths.index).then(() => Router.reload());
   }, []);
 
   useEffect(() => {
