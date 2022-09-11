@@ -70,7 +70,7 @@ const CustomSelect = ({
   }
 
   const currentValue = useMemo(() => {
-    const opt = options.find(opt => opt.value === value);
+    const opt = options.find(opt => opt.value === value) ?? null;
     return opt;
   }, [options, value]);
 
