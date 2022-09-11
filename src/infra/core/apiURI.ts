@@ -24,6 +24,9 @@ const ApiURI = {
       active: '/Tree/Biomes/Active',
     },
   },
+  Configuration: {
+    index: '/Configuration',
+  },
 };
 
 export default ApiURI;

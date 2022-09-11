@@ -31,6 +31,7 @@ import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
 import userNameMask from '../../masks/userName.mask';
 import { useCart } from '../../providers/cart';
+import { useConfig } from '../../providers/config';
 import Header from '../../sections/header';
 import { CartItem } from '../../utils/cart-utils';
 import IPaymentData from '../../validations/DTO/IPaymentData';
@@ -43,6 +44,7 @@ const Payment: NextPage = () => {
   const toast = useToast();
   const router = useRouter();
   const cart = useCart();
+  const config = useConfig();
 
   const [data, setData] = useState<IPaymentData>({
     name: '',
@@ -84,7 +86,7 @@ const Payment: NextPage = () => {
 
         // @ts-ignore
         const card = PagSeguro.encryptCard({
-          publicKey: Settings.PAGSEGURO_PUBLIC_KEY,
+          publicKey: config.values.pagseguroPublicKey,
           holder: data.name,
           number: data.cardNumber.split(' ').join(''),
           expMonth: data.cardExpiration.split('/')[0],
@@ -102,6 +104,7 @@ const Payment: NextPage = () => {
       }
     });
   }, [
+    config.values.pagseguroPublicKey,
     data.cardCvv,
     data.cardExpiration,
     data.cardNumber,
