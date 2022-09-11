@@ -248,7 +248,8 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           value={formData.city}
           error={formErrors.city}
           onChange={handleSelectChange}
-          width="259px" />
+          width="259px"
+          noOptionsMessage='Selecione um estado' />
 
         <span className={styles.passwordTitle}>Informe uma senha</span>
 

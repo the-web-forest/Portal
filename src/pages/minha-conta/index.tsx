@@ -10,10 +10,10 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Header from '../../sections/header';
 import styles from './styles.module.scss';
 import Input from '../../components/Input';
-import ComboBox, {
+import Select, {
   ISelectOptionsEntity,
   OnChangeSelect,
-} from '../../components/ComboBox';
+} from '../../components/Select';
 import GetStatesUseCase from '../../infra/useCases/getStates.usecase';
 import GetCitiesUseCase from '../../infra/useCases/getCities.usecase';
 import GetUserInfoUseCase from '../../infra/useCases/user/getUserInfo.usecase';
@@ -212,7 +212,7 @@ const MinhaConta = () => {
           </div>
           <div className={styles.form}>
             <span className={styles.label}>Estado</span>
-            <ComboBox
+            <Select
               name="state"
               placeHolder={statesOption.length ? 'Estado' : 'Carregando'}
               options={statesOption}
@@ -222,7 +222,7 @@ const MinhaConta = () => {
               width="259px"
             />
             <span className={styles.label}>Cidade</span>
-            <ComboBox
+            <Select
               name="city"
               placeHolder={citiesOption.length ? 'Cidade' : 'Carregando'}
               options={citiesOption}
@@ -230,6 +230,7 @@ const MinhaConta = () => {
               error={formErrors.city}
               onChange={handleSelectChange}
               width="259px"
+              noOptionsMessage='Selecione um estado'
             />
           </div>
 
