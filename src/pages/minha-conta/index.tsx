@@ -230,7 +230,7 @@ const MinhaConta = () => {
               error={formErrors.city}
               onChange={handleSelectChange}
               width="259px"
-              noOptionsMessage='Selecione um estado'
+              noOptionsMessage="Selecione um estado"
             />
           </div>
 

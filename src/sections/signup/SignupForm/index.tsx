@@ -1,5 +1,4 @@
 import {
-  ChangeEventHandler,
   FC,
   FocusEventHandler,
   FormEventHandler,
@@ -24,7 +23,10 @@ import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
-import Select, { ISelectOptionsEntity, OnChangeSelect } from '../../../components/Select';
+import Select, {
+  ISelectOptionsEntity,
+  OnChangeSelect,
+} from '../../../components/Select';
 
 interface Props {
   states: StateEntity[];
@@ -239,7 +241,8 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           value={formData.state}
           error={formErrors.state}
           onChange={handleSelectChange}
-          width="259px" />
+          width="259px"
+        />
 
         <Select
           name="city"
@@ -249,7 +252,8 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           error={formErrors.city}
           onChange={handleSelectChange}
           width="259px"
-          noOptionsMessage='Selecione um estado' />
+          noOptionsMessage="Selecione um estado"
+        />
 
         <span className={styles.passwordTitle}>Informe uma senha</span>
 
