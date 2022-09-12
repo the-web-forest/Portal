@@ -93,5 +93,13 @@ An special thanks for the following people who contributed to this project:
         </sub>
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/hiagoindalecio">
+        <img src="https://avatars.githubusercontent.com/u/60201082?v=4" width="100px;" alt="Hiago Indalecio Picture on GitHub"/><br>
+        <sub>
+          <b>Hiago Indalecio</b>
+        </sub>
+      </a>
+    </td>
   </tr>
 </table>
