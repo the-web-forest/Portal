@@ -1,0 +1,16 @@
+.errorText {
+  font-size: 14px;
+  font-family: "Aprova", sans-serif;
+  color: var(--dark-gray-text);
+  margin-top: 5px;
+}
+
+.selectDiv {
+  @media (max-width: 750px) {
+    margin-bottom: 30px,
+  }
+  
+  @media (min-width: 750px) {
+    margin-bottom: 15px,
+  }
+}

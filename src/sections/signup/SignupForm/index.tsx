@@ -7,10 +7,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import ComboBox, {
-  OnChangeSelect,
-  ISelectOptionsEntity,
-} from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
 import RegisterUserUseCase from '../../../infra/useCases/registerUser.usecase';
@@ -28,6 +24,7 @@ import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
+import Select, { ISelectOptionsEntity, OnChangeSelect } from '../../../components/Select';
 
 interface Props {
   states: StateEntity[];
@@ -201,6 +198,10 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
   useEffect(() => {
     if (formData.state) {
       handleCities(formData.state);
+      setFormData(prevState => ({
+        ...prevState,
+        ['city']: '',
+      }));
     }
   }, [formData.state, handleCities]);
 
@@ -231,17 +232,16 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           width="352px"
         />
 
-        <ComboBox
+        <Select
           name="state"
           placeHolder="Estado"
           options={statesOption}
           value={formData.state}
           error={formErrors.state}
           onChange={handleSelectChange}
-          width="259px"
-        />
+          width="259px" />
 
-        <ComboBox
+        <Select
           name="city"
           placeHolder="Cidade"
           options={citiesOption}
@@ -249,7 +249,7 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           error={formErrors.city}
           onChange={handleSelectChange}
           width="259px"
-        />
+          noOptionsMessage='Selecione um estado' />
 
         <span className={styles.passwordTitle}>Informe uma senha</span>
 
