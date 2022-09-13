@@ -36,7 +36,7 @@ const ForestGalleryItem = ({ data }: ForestGalleryItemProps) => {
           <div className={styles.species}>{data.species}</div>
         </div>
         <p className={styles.name}>{data.name || data.species}</p>
-        <p className={styles.order}>Pedido {data.id}</p>
+        <p className={styles.order}>Pedido {data.orderId}</p>
         <div className={styles.line}>
           {canCustomize() ? (
             <div
