@@ -17,11 +17,16 @@
     font-style: normal;
     font-weight: normal;
     background-color: var(--lightgray-background);
+    border: 1px solid transparent;
+}
+
+.container:focus {
+    border: 1px solid var(--wf-green);
 }
 
 .container:disabled {
-    cursor: wait;
-   color: var(--soft-gray);
+    cursor: no-drop;
+    color: var(--dark-gray);
 }
 
 .password {

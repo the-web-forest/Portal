@@ -12,9 +12,15 @@
     cursor: pointer;
     background-color: var(--white);
     margin: 10px;
-    padding: 10px 10px 25px 10px;
+    padding: 10px 10px 10px 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
+
+    @media (max-width: 750px) {
+        margin: 0;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
 }
 
 .photo {
@@ -46,24 +52,24 @@
 .buttons {
     display: flex;
     flex-direction: row;
-}
 
-.quantity {
-    margin: 0 10px 0 10px;
-    color: var(--dark-grey-text);
-    min-width: 25px;
-    text-align: center;
-}
-
-.button {
-    background-color: #E5ECE1;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-    color: var(--wf-green);
-    font-size: 1.5em;  
-    text-align: center;
-    line-height: 0px;
+    .quantity {
+        margin: 0 10px 0 10px;
+        color: var(--dark-grey-text);
+        min-width: 25px;
+        text-align: center;
+    }
+    
+    .button {
+        border: 1px solid var(--wf-green);
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        color: var(--wf-green);
+        font-size: 1.5em;  
+        text-align: center;
+        line-height: 0px;
+    }
 }
 
 .details {

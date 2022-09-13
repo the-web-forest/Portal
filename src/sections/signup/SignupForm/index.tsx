@@ -1,5 +1,4 @@
 import {
-  ChangeEventHandler,
   FC,
   FocusEventHandler,
   FormEventHandler,
@@ -7,10 +6,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import ComboBox, {
-  OnChangeSelect,
-  ISelectOptionsEntity,
-} from '../../../components/ComboBox';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
 import Input from '../../../components/Input';
 import RegisterUserUseCase from '../../../infra/useCases/registerUser.usecase';
@@ -18,24 +13,19 @@ import ISignupData from '../../../validations/DTO/ISignupData';
 import SignUpFormValidade from '../../../validations/SignUpForm.validate';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
-import StateEntity from '../../../infra/entities/StateEntity';
-import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
 import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 import Settings from '../../../infra/core/settings';
 import { useToast } from '@chakra-ui/react';
 import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
+import userNameMask from '../../../masks/userName.mask';
+import { StrUtils } from '../../../utils/str-utils';
+import { OnChangeSelect } from '../../../components/Select';
 
-interface Props {
-  states: StateEntity[];
-}
-
-export const SignupForm: FC<Props> = ({ states }: Props) => {
+export const SignupForm: FC = () => {
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
-  const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([]);
-  const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([]);
   const [awaitAsync, setAwaitAsync] = useState<boolean | undefined>(false);
   const toast = useToast();
   const router = useRouter();
@@ -44,8 +34,10 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
       try {
         setAwaitAsync(true);
         event.preventDefault();
-        if (!!formErrors.email) return;
-        const errors = await new SignUpFormValidade().validate(formData);
+        const errors = await new SignUpFormValidade().validate(
+          formData,
+          formErrors,
+        );
         if (Object.keys(errors)?.length > 0) {
           setFormErrors(errors);
         } else {
@@ -86,28 +78,30 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formData, formErrors, router, toast],
   );
 
-  const handleSelectChange: OnChangeSelect = useCallback((name, value) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
+  const handleSelectChange: OnChangeSelect = useCallback(
+    (name, value) => {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
 
-  const handleCities = useCallback(async (state: string) => {
-    try {
-      const response = await new GetCitiesUseCase().run(state);
-      const parsedCitiesOption: ISelectOptionsEntity[] = response.cities.map(
-        city => ({ label: city, value: city }),
-      );
-      setCitiesOption(parsedCitiesOption);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+      if (formErrors[name as keyof ISignupData]) {
+        setFormErrors(prevState => ({
+          ...prevState,
+          [name]: undefined,
+        }));
+      }
+    },
+    [formErrors],
+  );
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    event => {
-      const { name, value } = event.target;
+  const handleChange = useCallback(
+    (event, mask?) => {
+      let { name, value } = event.target;
+
+      if (mask) {
+        value = mask(value);
+      }
       setFormData(prevState => ({
         ...prevState,
         [name]: value,
@@ -127,45 +121,46 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     async event => {
       const { name, value } = event.target;
       try {
-        await new VerifyEmailUseCase().run(value);
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value,
-        }));
+        if (StrUtils.isEmailValid(value)) {
+          await new VerifyEmailUseCase().run(value);
+          setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+          }));
 
-        if (formErrors[name as keyof ISignupData]) {
+          if (formErrors[name as keyof ISignupData]) {
+            setFormErrors(prevState => ({
+              ...prevState,
+              [name]: undefined,
+            }));
+          }
+        } else if (value != '') {
           setFormErrors(prevState => ({
             ...prevState,
-            [name]: undefined,
+            email: 'Email informado é inválido',
+          }));
+        } else {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: 'Email é obrigatório',
           }));
         }
-      } catch {
-        setFormErrors(prevState => ({
-          ...prevState,
-          email: 'E-mail já cadastrado',
-        }));
+      } catch (err: any) {
+        if (err instanceof AppError) {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: err.message,
+          }));
+        } else {
+          setFormErrors(prevState => ({
+            ...prevState,
+            email: 'Erro imprevisto',
+          }));
+        }
       }
     },
     [formErrors],
   );
-
-  useEffect(() => {
-    try {
-      const newOption: ISelectOptionsEntity[] = states.map(state => ({
-        label: state.name,
-        value: state.initial,
-      }));
-      setStatesOption(newOption);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [states]);
-
-  useEffect(() => {
-    if (formData.state) {
-      handleCities(formData.state);
-    }
-  }, [formData.state, handleCities]);
 
   return (
     <>
@@ -176,40 +171,22 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           placeholder="Nome"
           name="name"
           id="name"
+          inputMode="text"
           value={formData.name}
           error={formErrors.name}
-          onChangeFunction={handleChange}
+          onChangeFunction={e => handleChange(e, userNameMask)}
           width="352px"
         />
         <Input
           placeholder="Email"
           name="email"
           id="email"
+          inputMode="email"
           value={formData.email}
           error={formErrors.email}
           onChangeFunction={handleChange}
           onBlurFunction={handleVerifyEmail}
           width="352px"
-        />
-
-        <ComboBox
-          name="state"
-          placeHolder="Estado"
-          options={statesOption}
-          value={formData.state}
-          error={formErrors.state}
-          onChange={handleSelectChange}
-          width="259px"
-        />
-
-        <ComboBox
-          name="city"
-          placeHolder="Cidade"
-          options={citiesOption}
-          value={formData.city}
-          error={formErrors.city}
-          onChange={handleSelectChange}
-          width="259px"
         />
 
         <span className={styles.passwordTitle}>Informe uma senha</span>

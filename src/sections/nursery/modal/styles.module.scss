@@ -1,5 +1,10 @@
 .modal {
     padding: 30px;
+
+    @media (max-width: 750px) {
+        margin: 5%;
+    }
+
 }
 
 .modalHeaderSpan {

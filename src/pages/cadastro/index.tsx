@@ -7,33 +7,17 @@ import { SignupHeader } from '../../sections/signup/SignupHeader';
 import { SignupTitle } from '../../sections/signup/SignupTitle';
 import styles from '../../styles/Signup.module.scss';
 
-interface IProps {
-  states: StateEntity[];
-}
-
-const Signup: NextPage<IProps> = ({ states }: IProps) => {
+const Signup: NextPage = () => {
   const { isMobile } = useScreen();
   return (
     <div className={styles.container}>
       <SignupHeader />
       <div className={isMobile ? styles.mobileBody : styles.body}>
         <SignupTitle />
-        <SignupForm states={states} />
+        <SignupForm />
       </div>
     </div>
   );
 };
-
-export async function getServerSideProps({
-  req,
-  res,
-}: GetServerSidePropsContext) {
-  const response = await new GetStatesUseCase().run();
-  return {
-    props: {
-      states: response.states,
-    },
-  };
-}
 
 export default Signup;

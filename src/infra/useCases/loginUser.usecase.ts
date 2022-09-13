@@ -15,7 +15,7 @@ export default class LoginUserUseCase {
   async run(formData: ILoginData): Promise<ILoginResponseDTO> {
     try {
       return await this.httpService.post<ILoginData, ILoginResponseDTO>(
-        ApiURI.User.login,
+        ApiURI.User.login.index,
         formData,
       );
     } catch (error: any) {

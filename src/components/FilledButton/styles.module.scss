@@ -13,6 +13,13 @@
     outline: none;
 }
 
+.containerEmpty {
+    @extend .container;
+    color: var(--wf-green);
+    border: 2px solid var(--wf-green);
+
+}
+
 .container:disabled {
     filter: opacity(80%);
 }

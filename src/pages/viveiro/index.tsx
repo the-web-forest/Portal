@@ -1,27 +1,31 @@
+import { useToast } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
-import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import ITreesResponseDTO, {
   ITreeResponse,
 } from '../../infra/dtos/Trees/ITreesResponse.dto';
+import ToastCaller from '../../infra/toast/ToastCaller';
 import GetBiomesUseCase from '../../infra/useCases/getBiomes.usecase';
 import GetTreesByBiomeUseCase from '../../infra/useCases/getTreesByBiome.usecase';
+import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
 import NurseryGallery from '../../sections/nursery/gallery';
 import NurseryMenu from '../../sections/nursery/menu';
 import NurseryModal from '../../sections/nursery/modal';
 import styles from './styles.module.scss';
 
-const DEFAULT_TREE_QUANTITY = 10;
+const DEFAULT_TREE_QUANTITY = 12;
 const getBiomesUseCase = new GetBiomesUseCase();
 const getTreesByBiomeUseCase = new GetTreesByBiomeUseCase();
 
 const Viveiro: NextPage = () => {
+  const toast = useToast();
+  const cart = useCart();
   const router = useRouter();
-  const { isAuthenticated, signOut } = useContext(AuthContext);
+
   const [biomes, setBiomes] = useState<{ name: string; selected: boolean }[]>(
     [],
   );
@@ -68,11 +72,17 @@ const Viveiro: NextPage = () => {
       });
   };
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      signOut();
+  const plantTrees = () => {
+    if (cart.cartTotals.quantity > 0) {
+      router.push(pagePaths.payment.shoppingCart);
+    } else {
+      ToastCaller.Warning(
+        toast,
+        'Atenção!',
+        'Selecione ao menos uma árvore para plantar',
+      );
     }
-  }, [isAuthenticated, signOut]);
+  };
 
   useEffect(() => {
     getBiomesUseCase
@@ -94,10 +104,10 @@ const Viveiro: NextPage = () => {
       return;
     }
 
-    const selectedBiome = biomes.find(biome => biome.selected);
+    let selectedBiome = biomes.find(biome => biome.selected);
 
     if (!selectedBiome) {
-      return;
+      selectedBiome = biomes[0];
     }
 
     getTreesByBiomeUseCase
@@ -108,7 +118,7 @@ const Viveiro: NextPage = () => {
       .catch(err => {
         console.error(err);
       });
-  }, [biomes]);
+  }, [biomes, router]);
 
   return (
     <>
@@ -143,7 +153,7 @@ const Viveiro: NextPage = () => {
         <div className={styles.button}>
           <FilledButton
             color={FilledColor.budGreen}
-            onClick={() => router.push(pagePaths.payment.shoppingCart)}
+            onClick={() => plantTrees()}
             type="submit"
             width="100%"
             disabled={false}
