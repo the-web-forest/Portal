@@ -29,16 +29,6 @@ export default class SignUpFormValidade {
       });
     }
 
-    !formData.state &&
-      Object.assign(this.errors, {
-        state: 'Estado é obrigatório',
-      });
-
-    !formData.city &&
-      Object.assign(this.errors, {
-        city: 'Cidade é obrigatória',
-      });
-
     formData.confirm !== formData.password &&
       Object.assign(this.errors, {
         password: 'As senhas informadas não são iguais.',

@@ -13,8 +13,6 @@ import ISignupData from '../../../validations/DTO/ISignupData';
 import SignUpFormValidade from '../../../validations/SignUpForm.validate';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
-import StateEntity from '../../../infra/entities/StateEntity';
-import GetCitiesUseCase from '../../../infra/useCases/getCities.usecase';
 import pagePaths from '../../../infra/core/pagePaths';
 import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 import Settings from '../../../infra/core/settings';
@@ -23,20 +21,11 @@ import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
-import Select, {
-  ISelectOptionsEntity,
-  OnChangeSelect,
-} from '../../../components/Select';
+import { OnChangeSelect } from '../../../components/Select';
 
-interface Props {
-  states: StateEntity[];
-}
-
-export const SignupForm: FC<Props> = ({ states }: Props) => {
+export const SignupForm: FC = () => {
   const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
-  const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([]);
-  const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([]);
   const [awaitAsync, setAwaitAsync] = useState<boolean | undefined>(false);
   const toast = useToast();
   const router = useRouter();
@@ -106,18 +95,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formErrors],
   );
 
-  const handleCities = useCallback(async (state: string) => {
-    try {
-      const response = await new GetCitiesUseCase().run(state);
-      const parsedCitiesOption: ISelectOptionsEntity[] = response.cities.map(
-        city => ({ label: city, value: city }),
-      );
-      setCitiesOption(parsedCitiesOption);
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   const handleChange = useCallback(
     (event, mask?) => {
       let { name, value } = event.target;
@@ -185,28 +162,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
     [formErrors],
   );
 
-  useEffect(() => {
-    try {
-      const newOption: ISelectOptionsEntity[] = states.map(state => ({
-        label: state.name,
-        value: state.initial,
-      }));
-      setStatesOption(newOption);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [states]);
-
-  useEffect(() => {
-    if (formData.state) {
-      handleCities(formData.state);
-      setFormData(prevState => ({
-        ...prevState,
-        ['city']: '',
-      }));
-    }
-  }, [formData.state, handleCities]);
-
   return (
     <>
       <title>{`Novo Cadastro - ${Settings.APP_NAME}`}</title>
@@ -232,27 +187,6 @@ export const SignupForm: FC<Props> = ({ states }: Props) => {
           onChangeFunction={handleChange}
           onBlurFunction={handleVerifyEmail}
           width="352px"
-        />
-
-        <Select
-          name="state"
-          placeHolder="Estado"
-          options={statesOption}
-          value={formData.state}
-          error={formErrors.state}
-          onChange={handleSelectChange}
-          width="259px"
-        />
-
-        <Select
-          name="city"
-          placeHolder="Cidade"
-          options={citiesOption}
-          value={formData.city}
-          error={formErrors.city}
-          onChange={handleSelectChange}
-          width="259px"
-          noOptionsMessage="Selecione um estado"
         />
 
         <span className={styles.passwordTitle}>Informe uma senha</span>
