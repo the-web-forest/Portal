@@ -23,6 +23,7 @@ import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import Settings from '../../../infra/core/settings';
 import { GoogleLogin } from '@react-oauth/google';
+import { useConfig } from '../../../providers/config';
 
 export const LoginForm: FC = () => {
   const [data, setData] = useState<ILoginData>({} as ILoginData);
@@ -30,6 +31,7 @@ export const LoginForm: FC = () => {
   const [statusError, setStatusError] = useState(false);
   const [awaitAsync, setAwaitAsync] = useState(false);
   const toast = useToast();
+  const config = useConfig();
   const { signIn, googleSignIn } = useContext(AuthContext);
 
   const handleSubmit: FormEventHandler = useCallback(
@@ -111,61 +113,69 @@ export const LoginForm: FC = () => {
         >
           <AttentionMessage message="Ops.. E-mail ou senha incorreto!" />
         </div>
-        <form onSubmit={handleSubmit}>
-          <Input
-            disabled={awaitAsync}
-            id="email"
-            name="email"
-            placeholder="E-mail"
-            width="100%"
-            value={data.email}
-            onChangeFunction={handleChangeInput}
-            error={error.email}
-          />
-          <Input
-            disabled={awaitAsync}
-            id="current-password"
-            name="password"
-            placeholder="Senha"
-            width="100%"
-            value={data.password}
-            onChangeFunction={handleChangeInput}
-            type="password"
-            error={error.password}
-          />
-          <FilledButton
-            disabled={awaitAsync}
-            type="submit"
-            color={FilledColor.budGreen}
-            width="100%"
-          >
-            Entrar
-          </FilledButton>
-          <div className={styles.googleLogin}>
-            <GoogleLogin
-              useOneTap
-              onSuccess={credentialResponse => {
-                googleLogin(credentialResponse.credential!);
-              }}
-              onError={() => {
-                ToastCaller.Error(
-                  toast,
-                  'Erro',
-                  'Erro ao realizar o login com o Google',
-                );
-              }}
+        {config.values.googleClientId && (
+          <form onSubmit={handleSubmit}>
+            <Input
+              disabled={awaitAsync}
+              id="email"
+              name="email"
+              placeholder="E-mail"
+              width="100%"
+              value={data.email}
+              onChangeFunction={handleChangeInput}
+              error={error.email}
             />
-          </div>
+            <Input
+              disabled={awaitAsync}
+              id="current-password"
+              name="password"
+              placeholder="Senha"
+              width="100%"
+              value={data.password}
+              onChangeFunction={handleChangeInput}
+              type="password"
+              error={error.password}
+            />
+            <FilledButton
+              disabled={awaitAsync}
+              type="submit"
+              color={FilledColor.budGreen}
+              width="100%"
+            >
+              Entrar
+            </FilledButton>
+            <div className={styles.googleLogin}>
+              <GoogleLogin
+                useOneTap
+                onSuccess={credentialResponse => {
+                  googleLogin(credentialResponse.credential!);
+                }}
+                onError={() => {
+                  ToastCaller.Error(
+                    toast,
+                    'Erro',
+                    'Erro ao realizar o login com o Google',
+                  );
+                }}
+              />
+            </div>
 
-          <div className={styles.linkContainer}>
-            <Link href={pagePaths.resendPassword.index}>
-              <span className={styles.link}>Esqueci minha senha</span>
-            </Link>
-            <Link href={pagePaths.signup.index}>
-              <span className={styles.link}>Criar cadastro</span>
-            </Link>
-          </div>
-        </form>
+            <div className={styles.linkContainer}>
+              <Link href={pagePaths.resendPassword.index}>
+                <span className={styles.link}>Esqueci minha senha</span>
+              </Link>
+              <Link href={pagePaths.signup.index}>
+                <span className={styles.link}>Criar cadastro</span>
+              </Link>
+            </div>
+          </form>
+        )}
+
+        {!config.values.googleClientId && (
+          <>
+            <div className={styles.loading}>Carregando...</div>
+          </>
+        )}
       </div>
     </div>
   );
