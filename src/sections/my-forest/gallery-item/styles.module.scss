@@ -9,7 +9,6 @@
 }
 
 .inner {
-    cursor: pointer;
     background-color: var(--white);
     margin: 10px;
     padding: 10px 10px 10px 10px;
@@ -52,6 +51,7 @@
 .line {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     .customize {
         display: flex;
@@ -72,4 +72,5 @@
 .details {
     color: var(--green);
     text-decoration: underline;
+    cursor: pointer;
 }
