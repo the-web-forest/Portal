@@ -3,10 +3,13 @@ import { NextPage } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 import { Footer } from '../../components/Footer';
 import SearchInput from '../../components/SearchInput';
-import IPlantResponseDTO from '../../infra/dtos/Plant/IPlantResponse.dto';
+import IPlantResponseDTO, {
+  IPlantResponse,
+} from '../../infra/dtos/Plant/IPlantResponse.dto';
 import GetPlantsByFilterUseCase from '../../infra/useCases/getPlantsByFilter.usecase';
 import Header from '../../sections/header';
 import ForestGallery from '../../sections/my-forest/gallery';
+import GalleryModal from '../../sections/my-forest/modal';
 import styles from './styles.module.scss';
 
 const DEFAULT_PLANT_QUANTITY = 12;
@@ -16,6 +19,7 @@ const Viveiro: NextPage = () => {
   const [plantList, setPlantList] = useState<IPlantResponseDTO | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [plantToShow, setPlantToShow] = useState<IPlantResponse | null>(null);
 
   const appendPlants = useCallback(
     (plants: IPlantResponseDTO) => {
@@ -77,6 +81,11 @@ const Viveiro: NextPage = () => {
     <>
       <Header title="Minha Floresta" />
       <div id="container" className={styles.container}>
+        <GalleryModal
+          plant={plantToShow}
+          closeModal={() => setPlantToShow(null)}
+        />
+
         <p className={styles.title}>Minhas árvores ({plantList?.totalCount})</p>
 
         <div className={styles.inputLine}>
@@ -89,7 +98,9 @@ const Viveiro: NextPage = () => {
           </div>
         </div>
 
-        {plantList && <ForestGallery plantList={plantList} />}
+        {plantList && (
+          <ForestGallery plantList={plantList} openModal={setPlantToShow} />
+        )}
 
         {plantList && !plantList.plants.length && !isLoading && (
           <div className={styles.infoMessage}>Nenhum registro encontrado</div>
