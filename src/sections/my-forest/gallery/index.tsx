@@ -1,13 +1,17 @@
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import ForestGalleryItem from '../gallery-item';
-import IPlantResponseDTO from '../../../infra/dtos/Plant/IPlantResponse.dto';
+import IPlantResponseDTO, {
+  IPlantResponse,
+} from '../../../infra/dtos/Plant/IPlantResponse.dto';
+import { SetStateAction } from 'react';
 
 interface ForestGalleryProps {
   plantList?: IPlantResponseDTO;
+  openModal: any;
 }
 
-const ForestGallery = ({ plantList }: ForestGalleryProps) => {
+const ForestGallery = ({ plantList, openModal }: ForestGalleryProps) => {
   const renderLoader = () => {
     return (
       <div className={styles.loader}>
@@ -21,7 +25,7 @@ const ForestGallery = ({ plantList }: ForestGalleryProps) => {
     <div className={styles.container}>
       {!plantList && renderLoader()}
       {plantList?.plants.map(plant => (
-        <ForestGalleryItem key={plant.id} data={plant} />
+        <ForestGalleryItem openModal={openModal} key={plant.id} data={plant} />
       ))}
     </div>
   );
