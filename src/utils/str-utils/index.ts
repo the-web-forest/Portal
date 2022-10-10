@@ -12,13 +12,16 @@ export class StrUtils {
 
   public static isEmailValid(value: string): boolean {
     const reg =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return reg.test(value);
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return reg.test(value.toLocaleLowerCase());
   }
 
   public static isAValidUserName(name: string): boolean {
     const regName = /[^a-zà-ú]/gi;
-    return regName.test(name.trim());
+    if (name === undefined || name === "" || !regName.test(name.trim()))
+      return false;
+      
+    return true;
   }
 
   public static formatCurrency(value: number): string {
