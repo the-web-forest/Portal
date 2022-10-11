@@ -12,7 +12,7 @@ export class StrUtils {
 
   public static isEmailValid(value: string): boolean {
     const reg =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return reg.test(value.toLocaleLowerCase());
   }
 
@@ -20,7 +20,7 @@ export class StrUtils {
     const regName = /[^a-zà-ú]/gi;
     if (name === undefined || name === "" || !regName.test(name.trim()))
       return false;
-      
+
     return true;
   }
 
