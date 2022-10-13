@@ -70,9 +70,8 @@ export const SignupForm: FC = () => {
           ToastCaller.Error(
             toast,
             'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
+            'As informações precisam ser preenchidas.',
           );
-          console.error(err);
         }
       } finally {
         setAwaitAsync(false);
