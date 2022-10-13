@@ -18,6 +18,11 @@ export default class SignUpFormValidade {
         name: 'Nome inválido',
       });
 
+    formData.terms === false &&
+      Object.assign(this.errors, {
+        terms: 'Termos inválido',
+      });
+
     if (formCurrentErrors.email == null) {
       !formData.email &&
         Object.assign(this.errors, {
@@ -53,6 +58,11 @@ export default class SignUpFormValidade {
     !formData.confirm &&
       Object.assign(this.errors, {
         confirm: 'A confirmação de senha é obrigatória.',
+      });
+
+    formData.terms === false &&
+      Object.assign(this.errors, {
+        confirmTerms: 'A confirmação dos termos é obrigatória.',
       });
 
     return this.errors;
