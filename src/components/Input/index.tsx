@@ -99,7 +99,7 @@ const Input = ({
           className={styles.container}
           style={{ width: isMobile ? '100%' : width }}
           onFocus={unhideRules}
-          onBlur={hideRules}
+          onBlur={() => StrUtils.hasEightChars(value) && StrUtils.hasUppercase(value) ? hideRules() : unhideRules()}
           disabled={disabled}
         />
         {type === 'password' && (
@@ -109,13 +109,8 @@ const Input = ({
         )}
       </div>
       {error && <span className={styles.errorText}>* {error}</span>}
-      {showRules && (
-        <div
-          className={styles.rulesContainer}
-          style={{
-            opacity: showPasswordRules ? 1 : 0,
-          }}
-        >
+      {showRules && showPasswordRules ? (
+        <div className={styles.rulesContainer}>
           <div className={styles.ruleItem}>
             {StrUtils.hasUppercase(value) ? (
               <AiFillCheckCircle
@@ -145,7 +140,7 @@ const Input = ({
             <span>Pelo menos oito caracteres</span>
           </div>
         </div>
-      )}
+      ) : <></>}
     </div>
   );
 };
