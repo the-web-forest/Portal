@@ -11,14 +11,13 @@ export class StrUtils {
   }
 
   public static isEmailValid(value: string): boolean {
-    const reg =
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return reg.test(value.toLocaleLowerCase());
   }
 
   public static isAValidUserName(name: string): boolean {
     const regName = /[^a-zà-ú]/gi;
-    if (name === undefined || name === "" || !regName.test(name.trim()))
+    if (name === undefined || name === '' || !regName.test(name.trim()))
       return false;
 
     return true;

@@ -99,7 +99,11 @@ const Input = ({
           className={styles.container}
           style={{ width: isMobile ? '100%' : width }}
           onFocus={unhideRules}
-          onBlur={() => StrUtils.hasEightChars(value) && StrUtils.hasUppercase(value) ? hideRules() : unhideRules()}
+          onBlur={() =>
+            StrUtils.hasEightChars(value) && StrUtils.hasUppercase(value)
+              ? hideRules()
+              : unhideRules()
+          }
           disabled={disabled}
         />
         {type === 'password' && (
@@ -140,7 +144,9 @@ const Input = ({
             <span>Pelo menos oito caracteres</span>
           </div>
         </div>
-      ) : <></>}
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
