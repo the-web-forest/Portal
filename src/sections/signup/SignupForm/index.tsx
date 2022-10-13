@@ -21,6 +21,7 @@ import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
 import { OnChangeSelect } from '../../../components/Select';
+import Consts from '../../../infra/core/consts';
 
 export const SignupForm: FC = () => {
   const [formData, setFormData] = useState<ISignupData>({
@@ -241,7 +242,7 @@ export const SignupForm: FC = () => {
               <span>
                 Li e concordo com os{' '}
                 <a
-                  href="https://storage.webforest.eco/legal/terms-web-forest.pdf"
+                  href={Consts.TERMS_URL}
                   target="_blank"
                   className={styles.terms}
                 >
