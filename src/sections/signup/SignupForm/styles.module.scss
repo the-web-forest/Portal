@@ -18,3 +18,22 @@
   font-family: "Aprova", sans-serif;
   font-size: 18px;
 }
+
+.inputCheckbox{
+  display: grid;
+  gap: 3px;
+  margin-bottom: 10px;
+   label {
+    border-color: #65A944;
+    span {
+      color: #4C4C4C;
+      font-size: 14px;
+      font-weight: 600;
+    }
+   }
+}
+
+.terms {
+  color: #65A944;
+  font-weight: bold;
+}

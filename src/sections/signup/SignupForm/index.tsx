@@ -3,7 +3,6 @@ import {
   FocusEventHandler,
   FormEventHandler,
   useCallback,
-  useEffect,
   useState,
 } from 'react';
 import FilledButton, { FilledColor } from '../../../components/FilledButton';
@@ -16,17 +15,22 @@ import { useRouter } from 'next/router';
 import pagePaths from '../../../infra/core/pagePaths';
 import VerifyEmailUseCase from '../../../infra/useCases/verifyEmail.usecase';
 import Settings from '../../../infra/core/settings';
-import { useToast } from '@chakra-ui/react';
+import { Checkbox, useToast } from '@chakra-ui/react';
 import AppError from '../../../infra/errors/AppError';
 import ToastCaller from '../../../infra/toast/ToastCaller';
 import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
 import { OnChangeSelect } from '../../../components/Select';
+import Consts from '../../../infra/core/consts';
 
 export const SignupForm: FC = () => {
-  const [formData, setFormData] = useState<ISignupData>({} as ISignupData);
+  const [formData, setFormData] = useState<ISignupData>({
+    terms: false,
+  } as ISignupData);
   const [formErrors, setFormErrors] = useState<ISignupData>({} as ISignupData);
   const [awaitAsync, setAwaitAsync] = useState<boolean | undefined>(false);
+  const [terms, setTerms] = useState<boolean>(false);
+  const [emailInformation, setEmailInformation] = useState<boolean>(false);
   const toast = useToast();
   const router = useRouter();
   const handleSubmit: FormEventHandler = useCallback(
@@ -67,9 +71,8 @@ export const SignupForm: FC = () => {
           ToastCaller.Error(
             toast,
             'Erro',
-            err.message ?? 'Erro imprevisto, contacte o suporte.',
+            'As informações precisam ser preenchidas.',
           );
-          console.error(err);
         }
       } finally {
         setAwaitAsync(false);
@@ -162,6 +165,16 @@ export const SignupForm: FC = () => {
     [formErrors],
   );
 
+  const handleTerms = useCallback(() => {
+    setTerms(!terms);
+    setFormData(prevState => ({
+      ...prevState,
+      terms: !terms,
+    }));
+  }, [terms]);
+  const handleEmailInformation = useCallback(() => {
+    setEmailInformation(!emailInformation);
+  }, [emailInformation]);
   return (
     <>
       <title>{`Novo Cadastro - ${Settings.APP_NAME}`}</title>
@@ -213,7 +226,53 @@ export const SignupForm: FC = () => {
           onChangeFunction={handleChange}
           width="259px"
         />
-
+        <div className={styles.inputCheckbox}>
+          <label itemID="terms">
+            <Checkbox
+              iconColor="#65A944"
+              colorScheme="write"
+              type="checkbox"
+              id="checkbox-terms"
+              name="terms"
+              size="md"
+              onChange={handleTerms}
+              isChecked={terms}
+              className={styles.checked}
+            >
+              <span>
+                Li e concordo com os{' '}
+                <a
+                  href={Consts.TERMS_URL}
+                  target="_blank"
+                  className={styles.terms}
+                >
+                  Termos de Uso e Privacidade
+                </a>{' '}
+                do site{' '}
+              </span>
+            </Checkbox>
+          </label>
+          <label itemID="information">
+            <Checkbox
+              iconColor="#65A944"
+              colorScheme="write"
+              size="md"
+              type="checkbox"
+              id="email-information"
+              name="information"
+              onChange={handleEmailInformation}
+              isChecked={emailInformation}
+            >
+              <span>
+                Desejo receber e-mail promocionais e informativos da Web Forest
+              </span>
+            </Checkbox>
+          </label>
+          {!terms &&
+            !awaitAsync &&
+            formErrors.terms &&
+            ToastCaller.Error(toast, 'Erro', 'Os termos são Obrigatórios.')}
+        </div>
         <FilledButton
           disabled={awaitAsync}
           type="submit"
