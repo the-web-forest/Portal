@@ -1,10 +1,15 @@
 import type { AppProps } from 'next/app';
 import '../styles/globals.scss';
 import { GlobalProviders } from '../providers/global-providers';
-import Script from 'next/script';
 import { ConfigurationProvider } from '../providers/config';
+import { hotjar } from 'react-hotjar'
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    hotjar.initialize(3218753, 6);
+  }, []);
+
   return (
     <>
       <meta
