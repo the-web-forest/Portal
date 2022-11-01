@@ -22,7 +22,7 @@ import FilledButton, { FilledColor } from '../../components/FilledButton';
 import UpdateUserFormValidate from '../../validations/DTO/UpdateUserForm.validate';
 import UpdateUserUseCase from '../../infra/useCases/user/updateUser.usecase';
 import ToastCaller from '../../infra/toast/ToastCaller';
-import { useToast } from '@chakra-ui/react';
+import { Checkbox, useToast } from '@chakra-ui/react';
 
 const getStatesUseCase = new GetStatesUseCase();
 const getCitiesUseCase = new GetCitiesUseCase();
@@ -40,20 +40,24 @@ const MinhaConta = () => {
   const [statesOption, setStatesOption] = useState<ISelectOptionsEntity[]>([]);
   const [citiesOption, setCitiesOption] = useState<ISelectOptionsEntity[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [acceptedEmailInformation, setAcceptedEmailInformation] =
+    useState<boolean>(false);
   const toast = useToast();
 
   const handleChange = useCallback(
     (event, mask?) => {
       let { name, value } = event.target;
-
+      if (name === 'allowNewsletter') {
+        setAcceptedEmailInformation(!acceptedEmailInformation);
+      }
       if (mask) {
         value = mask(value);
       }
       setFormData(prevState => ({
         ...prevState,
         [name]: value,
+        allowNewsletter: acceptedEmailInformation,
       }));
-
       if (formErrors[name as keyof IUserInfoResponseDTO]) {
         setFormErrors(prevState => ({
           ...prevState,
@@ -61,7 +65,7 @@ const MinhaConta = () => {
         }));
       }
     },
-    [formErrors],
+    [formErrors, acceptedEmailInformation],
   );
 
   const handleSelectChange: OnChangeSelect = useCallback(
@@ -80,7 +84,6 @@ const MinhaConta = () => {
     },
     [formErrors],
   );
-
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       event.preventDefault();
@@ -169,7 +172,7 @@ const MinhaConta = () => {
       }));
     }
   }, [citiesOption, formData.city]);
-
+  console.log(formData);
   return (
     <>
       <Header title="Minha Conta" />
@@ -234,14 +237,33 @@ const MinhaConta = () => {
             />
           </div>
 
-          <FilledButton
-            disabled={isLoading || !formData}
-            type="submit"
-            color={FilledColor.budGreen}
-            width="153px"
-          >
-            Atualizar
-          </FilledButton>
+          <label itemID="allowNewsletter">
+            <Checkbox
+              iconColor="#65A944"
+              colorScheme="write"
+              size="md"
+              type="checkbox"
+              id="email-information"
+              name="allowNewsletter"
+              className={styles.emailInformation}
+              onChange={handleChange}
+              isChecked={formData.allowNewsletter}
+            >
+              <span>
+                Desejo receber e-mails promocionais e informativos da Web Forest
+              </span>
+            </Checkbox>
+          </label>
+          <div>
+            <FilledButton
+              disabled={isLoading || !formData}
+              type="submit"
+              color={FilledColor.budGreen}
+              width="153px"
+            >
+              Atualizar
+            </FilledButton>
+          </div>
         </form>
       </div>
     </>
