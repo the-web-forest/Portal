@@ -172,7 +172,6 @@ const MinhaConta = () => {
       }));
     }
   }, [citiesOption, formData.city]);
-  console.log(formData);
   return (
     <>
       <Header title="Minha Conta" />
