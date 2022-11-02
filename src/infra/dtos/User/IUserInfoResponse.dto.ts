@@ -3,4 +3,5 @@ export default interface IUserInfoResponseDTO {
   state: string;
   email: string;
   name: string;
+  allowNewsletter: boolean;
 }

@@ -4,4 +4,5 @@ export default interface ISignupData {
   readonly password: string;
   readonly confirm: string;
   readonly terms: boolean | string;
+  readonly allowNewsletter: boolean;
 }
