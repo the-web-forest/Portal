@@ -174,6 +174,10 @@ export const SignupForm: FC = () => {
   }, [terms]);
   const handleEmailInformation = useCallback(() => {
     setEmailInformation(!emailInformation);
+    setFormData(prevState => ({
+      ...prevState,
+      allowNewsletter: !emailInformation,
+    }));
   }, [emailInformation]);
   return (
     <>
@@ -264,7 +268,7 @@ export const SignupForm: FC = () => {
               isChecked={emailInformation}
             >
               <span>
-                Desejo receber e-mail promocionais e informativos da Web Forest
+                Desejo receber e-mails promocionais e informativos da Web Forest
               </span>
             </Checkbox>
           </label>
