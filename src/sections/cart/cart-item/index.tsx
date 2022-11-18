@@ -51,7 +51,7 @@ const CartItem = ({ item }: CartItemProps) => {
           </div>
           <div onClick={() => cart.removeItemOfCart(item.id)}>
             <AiOutlineDelete
-              color="#4C4C4C"
+              color="#A00E01"
               style={{ width: '25px', height: '25px' }}
             />
           </div>

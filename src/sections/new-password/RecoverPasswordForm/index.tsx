@@ -140,7 +140,7 @@ export const RecoverPasswordForm: FC = () => {
       <form onSubmit={handleSubmit}>
         <Input
           name="password"
-          placeholder="Informar nova senha"
+          placeholder="Insira sua nova senha"
           width="100%"
           value={data.password}
           onChangeFunction={handleChangeInput}
@@ -149,7 +149,7 @@ export const RecoverPasswordForm: FC = () => {
         />
         <Input
           name="confirm"
-          placeholder="Repetir nova senha"
+          placeholder="Repita a nova senha"
           width="100%"
           value={data.confirm}
           onChangeFunction={handleChangeInput}
@@ -163,7 +163,7 @@ export const RecoverPasswordForm: FC = () => {
           color={FilledColor.budGreen}
           width="100%"
         >
-          Cadastrar nova senha
+          Confirmar nova senha
         </FilledButton>
       </form>
     </div>

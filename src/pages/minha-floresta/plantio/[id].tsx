@@ -245,7 +245,7 @@ const PlantDetails = () => {
               width="100%"
               disabled={isLoading}
             >
-              {isLoading ? 'Carregando' : 'Salvar Alterações'}
+              {isLoading ? 'Carregando' : 'Salvar personalização'}
             </FilledButton>
           </div>
         )}
