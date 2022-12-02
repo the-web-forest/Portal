@@ -260,7 +260,7 @@ const MinhaConta = () => {
               color={FilledColor.budGreen}
               width="153px"
             >
-              Atualizar
+              Atualizar perfil
             </FilledButton>
           </div>
         </form>

@@ -213,7 +213,7 @@ const Payment: NextPage = () => {
               className={styles.modalButton}
               onClick={() => setShowErrorModal(false)}
             >
-              OK
+              Tentar novamente
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -231,7 +231,7 @@ const Payment: NextPage = () => {
                   de crédito.
                 </p>
                 <div className={styles.inputLine}>
-                  <span className={styles.label}>Nome</span>
+                  <span className={styles.label}>Nome do titular</span>
                   <Input
                     name="name"
                     value={data.name}
@@ -239,7 +239,7 @@ const Payment: NextPage = () => {
                     maxLength={50}
                     error={error.name}
                     skin="light"
-                    placeholder="Escreva conforme o cartão"
+                    placeholder="Ex: João da Silva"
                     disabled={isLoading}
                   />
                 </div>
@@ -253,14 +253,14 @@ const Payment: NextPage = () => {
                     maxLength={19}
                     error={error.cardNumber}
                     skin="light"
-                    placeholder="Escreva o número do cartão"
+                    placeholder="XXXX XXXX XXXX XXXX"
                     disabled={isLoading}
                   />
                 </div>
 
                 <div className={styles.formLine}>
                   <div className={styles.formColumn}>
-                    <span className={styles.inputText}>Vencimento</span>
+                    <span className={styles.inputText}>Validade</span>
                     <Input
                       name="cardExpiration"
                       inputMode="numeric"
@@ -271,7 +271,7 @@ const Payment: NextPage = () => {
                       }
                       maxLength={7}
                       skin="light"
-                      placeholder="00/00"
+                      placeholder="MM/AAAA"
                       disabled={isLoading}
                     />
                   </div>
@@ -287,7 +287,7 @@ const Payment: NextPage = () => {
                       }
                       maxLength={4}
                       skin="light"
-                      placeholder="000"
+                      placeholder="xxx"
                       disabled={isLoading}
                     />
                   </div>
