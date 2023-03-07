@@ -1,5 +1,5 @@
 const userNameMask = (name: string): string => {
-  return name.replace(/[^a-z A-Z à-ù À-Ù]/g, '');
+  return name.replace(/[^a-zA-Zà-ùÀ-Ù ]/g, '');
 };
 
 export default userNameMask;
