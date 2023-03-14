@@ -4,6 +4,7 @@ import { GlobalProviders } from '../providers/global-providers';
 import { ConfigurationProvider } from '../providers/config';
 import { hotjar } from 'react-hotjar';
 import { useEffect } from 'react';
+import Analytics from '../components/Analytics';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
+      <Analytics/>
       <ConfigurationProvider>
         <GlobalProviders>
           {/* @ts-ignore */}
