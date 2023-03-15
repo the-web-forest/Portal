@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { ITreeResponse } from '../../../infra/dtos/Trees/ITreesResponse.dto';
 import styles from './styles.module.scss';
 interface INurseryModalProps {

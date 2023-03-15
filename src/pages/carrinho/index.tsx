@@ -10,6 +10,7 @@ import pagePaths from '../../infra/core/pagePaths';
 import CartItem from '../../sections/cart/cart-item';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import { useToast } from '@chakra-ui/react';
+import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
 
 const Carrinho: NextPage = () => {
   const cart = useCart();
@@ -22,9 +23,24 @@ const Carrinho: NextPage = () => {
       return false;
     }
 
+    sendGoogleEvent({
+      action: 'go_to_checkout',
+      category: 'conversion',
+      label: 'cart',
+      value: cart.cartTotals.value,
+    });
+
     return router.push(pagePaths.payment.index);
   };
 
+  const selectTrees = () => {
+    sendGoogleEvent({
+      action: 'select_trees_from_empty_cart',
+      category: 'conversion',
+      label: 'cart',
+    });
+    router.push(pagePaths.nursery.index);
+  };
   return (
     <>
       <Header title="Carrinho" />
@@ -49,7 +65,7 @@ const Carrinho: NextPage = () => {
                 <div className={styles.button}>
                   <FilledButton
                     color={FilledColor.budGreen}
-                    onClick={() => router.push(pagePaths.nursery.index)}
+                    onClick={() => selectTrees()}
                     type="submit"
                     width="250px"
                   >
