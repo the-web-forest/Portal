@@ -1,9 +1,10 @@
-import { Router, useRouter } from 'next/router';
-import { SetStateAction, useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
-import pagePaths from '../../infra/core/pagePaths';
-import Settings from '../../infra/core/settings';
-import styles from './styles.module.scss';
+import { Router, useRouter } from "next/router";
+import { SetStateAction, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import pagePaths from "../../infra/core/pagePaths";
+import Settings from "../../infra/core/settings";
+import { sendGoogleEvent } from "../../lib/GoogleAnalytics";
+import styles from "./styles.module.scss";
 
 interface DesktopSidebarProps {
   menuIsOpen: boolean;
@@ -14,6 +15,33 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
   const router = useRouter();
   const { signOut } = useContext(AuthContext);
 
+  const goToNurseryDesktop = () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_nursery_desktop",
+      category: "conversion",
+      label: "menu",
+    });
+    router.push(pagePaths.nursery.index);
+  };
+
+  const goToForestDesktop = () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_forest_desktop",
+      category: "conversion",
+      label: "menu",
+    });
+    router.push(pagePaths.forest.index);
+  };
+
+  const goToMyAccountDesktop = () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_my_account_desktop",
+      category: "conversion",
+      label: "menu",
+    });
+    router.push(pagePaths.myAccount);
+  };
+
   return (
     <>
       <div
@@ -21,25 +49,16 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
         className={menuIsOpen ? styles.blackout : styles.blackoutClosed}
       >
         <div
-          onClick={e => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
           className={menuIsOpen ? styles.sideMenu : styles.sideMenuClosed}
         >
-          <span
-            onClick={() => router.push(pagePaths.nursery.index)}
-            className={styles.item}
-          >
+          <span onClick={() => goToNurseryDesktop()} className={styles.item}>
             Plante uma árvore
           </span>
-          <span
-            onClick={() => router.push(pagePaths.forest.index)}
-            className={styles.item}
-          >
+          <span onClick={() => goToForestDesktop()} className={styles.item}>
             Minhas árvores
           </span>
-          <span
-            onClick={() => router.push(pagePaths.myAccount)}
-            className={styles.item}
-          >
+          <span onClick={() => goToMyAccountDesktop()} className={styles.item}>
             Minha conta
           </span>
           <span onClick={() => signOut()} className={styles.item}>
@@ -48,7 +67,7 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
 
           <span className={styles.message}>
             Atualmente estamos na fase beta do projeto. Caso encontre qualquer
-            problema, entre em contato pelo e-mail{' '}
+            problema, entre em contato pelo e-mail{" "}
             <a
               className={styles.support}
               href={`mailto:${Settings.SUPPORT_EMAIL}?subject=Preciso de Suporte`}

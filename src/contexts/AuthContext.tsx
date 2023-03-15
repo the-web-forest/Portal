@@ -7,6 +7,7 @@ import ILoginData from '../validations/DTO/ILoginData';
 import Router from 'next/router';
 import pagePaths from '../infra/core/pagePaths';
 import GoogleLoginUserUseCase from '../infra/useCases/googleLoginUser.usecase';
+import { sendGoogleEvent } from '../lib/GoogleAnalytics';
 
 type AuthcontextType = {
   isAuthenticated: boolean | undefined;
@@ -49,6 +50,11 @@ export const AuthProvider: FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
+    sendGoogleEvent({
+      action: 'sign_out',
+      category: 'conversion',
+      label: 'menu',
+    });
     destroyCookie(undefined, CookiesEnum.USER_TOKEN);
     destroyCookie(undefined, CookiesEnum.USER_DATA);
     Router.push(pagePaths.index).then(() => Router.reload());

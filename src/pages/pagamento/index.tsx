@@ -26,6 +26,7 @@ import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import NewPaymentUseCase from '../../infra/useCases/newPayment.usecase';
+import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
 import creditCardMask from '../../masks/creditCard.mask';
 import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
@@ -132,6 +133,11 @@ const Payment: NextPage = () => {
     newPaymentUseCase
       .run(items, cardToken)
       .then(res => {
+        sendGoogleEvent({
+          action: 'payment_success',
+          category: 'conversion',
+          label: 'payment',
+        });
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
@@ -141,6 +147,11 @@ const Payment: NextPage = () => {
         }, 500);
       })
       .catch(err => {
+        sendGoogleEvent({
+          action: 'payment_error',
+          category: 'conversion',
+          label: 'payment',
+        });
         setShowErrorModal(true);
         setIsLoading(false);
       });
@@ -156,6 +167,13 @@ const Payment: NextPage = () => {
     async event => {
       try {
         event.preventDefault();
+
+        sendGoogleEvent({
+          action: 'pay_button_pressed',
+          category: 'conversion',
+          label: 'payment',
+        });
+
         const errors = await new PaymentFormValidate().validate(data);
         if (Object.keys(errors)?.length > 0) {
           setError(errors);

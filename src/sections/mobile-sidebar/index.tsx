@@ -1,10 +1,11 @@
-import { SetStateAction, useContext } from 'react';
-import styles from './styles.module.scss';
-import Image from 'next/image';
-import pagePaths from '../../infra/core/pagePaths';
-import { useRouter } from 'next/router';
-import { AuthContext } from '../../contexts/AuthContext';
-import Settings from '../../infra/core/settings';
+import { SetStateAction, useContext } from "react";
+import styles from "./styles.module.scss";
+import Image from "next/image";
+import pagePaths from "../../infra/core/pagePaths";
+import { useRouter } from "next/router";
+import { AuthContext } from "../../contexts/AuthContext";
+import Settings from "../../infra/core/settings";
+import { sendGoogleEvent } from "../../lib/GoogleAnalytics";
 
 interface MobileSidebarProps {
   menuIsOpen: boolean;
@@ -25,6 +26,42 @@ const MobileSidebar = ({
     setMenuIsOpen(!menuIsOpen);
   };
 
+  const goToNurseryMobile = async () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_nursery_mobile",
+      category: "conversion",
+      label: "menu",
+    });
+    return router.push(pagePaths.nursery.index);
+  };
+
+  const goToForestMobile = async () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_forest_mobile",
+      category: "conversion",
+      label: "menu",
+    });
+    return router.push(pagePaths.forest.index);
+  };
+
+  const goToMyAccountMobile = async () => {
+    sendGoogleEvent({
+      action: "side_menu_go_to_my_account_mobile",
+      category: "conversion",
+      label: "menu",
+    });
+    return router.push(pagePaths.myAccount);
+  };
+
+  const closeMenu = () => {
+    sendGoogleEvent({
+      action: "close_menu_mobile",
+      category: "conversion",
+      label: "menu",
+    });
+    setMenuIsOpen(!menuIsOpen);
+  };
+
   return (
     <>
       <div className={menuIsOpen ? styles.container : styles.containerIsClosed}>
@@ -32,7 +69,7 @@ const MobileSidebar = ({
           <div className={styles.left}>
             <div className={styles.photo}>
               <Image
-                src={userPhoto || '/images/icons/user.svg'}
+                src={userPhoto || "/images/icons/user.svg"}
                 width={45}
                 height={45}
               />
@@ -43,33 +80,26 @@ const MobileSidebar = ({
             </div>
           </div>
 
-          <div
-            className={styles.exit}
-            onClick={() => setMenuIsOpen(!menuIsOpen)}
-          >
-            <Image src={'/icons/x-close-menu.svg'} width={30} height={30} />
+          <div className={styles.exit} onClick={() => closeMenu()}>
+            <Image src={"/icons/x-close-menu.svg"} width={30} height={30} />
           </div>
         </div>
         <div
           className={styles.menuItem}
-          onClick={() =>
-            router.push(pagePaths.myAccount).then(() => toggleMenu())
-          }
+          onClick={() => goToMyAccountMobile().then(() => toggleMenu())}
         >
           Minha conta
         </div>
         <div
           className={styles.menuItem}
-          onClick={() =>
-            router.push(pagePaths.nursery.index).then(() => toggleMenu())
-          }
+          onClick={() => goToNurseryMobile().then(() => toggleMenu())}
         >
           Plante uma árvore
         </div>
         <div
           className={styles.menuItem}
           onClick={() => {
-            router.push(pagePaths.forest.index).then(() => toggleMenu());
+            goToForestMobile().then(() => toggleMenu());
           }}
         >
           Minhas árvores
