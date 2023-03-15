@@ -1,68 +1,69 @@
 .container {
-    width: 100vw;
-    display: flex;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 150px);
+  margin-top: 80px;
+  padding: 2% 5% 80px 5%;
+  background: url('/images/folhas-bg.png') left bottom no-repeat,
+    url('/images/folhas-bg-2.png') right top no-repeat,
+    linear-gradient(to top, #e4ece1 60%, var(--white) 40%);
+
+  @media (max-width: 750px) {
     flex-direction: column;
-    min-height: calc(100vh - 150px);
-    margin-top: 80px;
-    padding: 2% 5% 80px 5%;
-    background: url('/images/folhas-bg.png') left bottom no-repeat, url('/images/folhas-bg-2.png') right top no-repeat, linear-gradient(to top, #E4ECE1 60%, var(--white) 40%);
-    
-    @media (max-width: 750px) {
-        flex-direction: column;
-        height: auto;
-        background: linear-gradient(to top, #E4ECE1 70%, var(--white) 30%);
-        padding: 0 5% 100px 5%;
-    }
+    height: auto;
+    background: linear-gradient(to top, #e4ece1 70%, var(--white) 30%);
+    padding: 0 5% 100px 5%;
+  }
 }
 
 .title {
-    text-rendering: optimizeLegibility;
-    font-size: 1.7em;
-    color: var(--dark-gray-text);
-    margin-bottom: 40px;
+  text-rendering: optimizeLegibility;
+  font-size: 1.7em;
+  color: var(--dark-gray-text);
+  margin-bottom: 40px;
 
-    @media (max-width: 750px) {
-        font-size: 1em;
-        margin-bottom: 0;
-        padding: 0 3% 0 3%;
-    }
+  @media (max-width: 750px) {
+    font-size: 1em;
+    margin-bottom: 0;
+    padding: 0 3% 0 3%;
+  }
 }
 
 .loadMore {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    color: var(--dark-blue);
-    text-decoration: underline;
-    
-    span {
-        cursor: pointer;
-    }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--dark-blue);
+  text-decoration: underline;
+
+  span {
+    cursor: pointer;
+  }
 }
 
 .loadMoreDisabled {
-    @extend .loadMore;
-    color: var(--soft-gray);
+  @extend .loadMore;
+  color: var(--soft-gray);
 }
 
 .plantNow {
-    width: 100%;
-    height: 70px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
 
-    .button {
-        width: 10%;
-        @media (max-width: 750px) {
-            width: 50%;
-        }
+  .button {
+    width: 10%;
+    @media (max-width: 750px) {
+      width: 50%;
     }
+  }
 }
-

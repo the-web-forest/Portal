@@ -15,25 +15,25 @@
 .passwordTitle {
   margin-top: 40px;
   margin-bottom: 20px;
-  font-family: "Aprova", sans-serif;
+  font-family: 'Aprova', sans-serif;
   font-size: 18px;
 }
 
-.inputCheckbox{
+.inputCheckbox {
   display: grid;
   gap: 3px;
   margin-bottom: 10px;
-   label {
-    border-color: #65A944;
+  label {
+    border-color: #65a944;
     span {
-      color: #4C4C4C;
+      color: #4c4c4c;
       font-size: 14px;
       font-weight: 600;
     }
-   }
+  }
 }
 
 .terms {
-  color: #65A944;
+  color: #65a944;
   font-weight: bold;
 }

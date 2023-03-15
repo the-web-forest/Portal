@@ -18,8 +18,9 @@
     margin-bottom: 40px;
   }
 
-  h3, span {
-    font-family: "Aprova", sans-serif;
+  h3,
+  span {
+    font-family: 'Aprova', sans-serif;
     color: var(--dark-gray-text);
     font-size: 24px;
   }
@@ -34,5 +35,4 @@
     flex-direction: column;
     margin-top: 20px;
   }
-
 }

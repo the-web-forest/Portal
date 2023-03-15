@@ -11,17 +11,17 @@
   align-items: center;
 
   h2 {
-    font-family: "Aprova", sans-serif;
+    font-family: 'Aprova', sans-serif;
     font-size: 24px;
   }
 
   span {
-    font-family: "Aprova", sans-serif;
+    font-family: 'Aprova', sans-serif;
     font-size: 16px;
     opacity: 0.8;
   }
 
-  @media (max-width: 750px)  {
+  @media (max-width: 750px) {
     width: 90%;
   }
 

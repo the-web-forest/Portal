@@ -27,21 +27,17 @@ And how the virtual trees will be transformed into real trees? This is easy! By 
 
 Did you like the project? Consider supporting us: [Click Here](http://apoie.webforest.eco)
 
-  
-
 ## Description 🌲
 
 **Portal** is our main platform repository.
 
 ## Our Stack 💻
 
-  
-
 We currently use the following technologies:
 
 - [.NextJS](https://nextjs.org/)
 - [Vercel](https://vercel.com/)
-  
+
 ## Stay in touch 📧
 
 - Website - https://www.webforest.eco
@@ -51,6 +47,7 @@ We currently use the following technologies:
 ## Contributors 🤝
 
 An special thanks for the following people who contributed to this project:
+
 <table>
   <tr>
     <td align="center">

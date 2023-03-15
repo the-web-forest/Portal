@@ -1,16 +1,16 @@
-import { WebForestLogo } from "../../components/WebForestLogo";
-import styles from "./styles.module.scss";
-import Image from "next/image";
-import Router from "next/router";
-import pagePaths from "../../infra/core/pagePaths";
-import Vibrate from "../../utils/vibrate";
-import { useCart } from "../../providers/cart";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import Settings from "../../infra/core/settings";
-import DesktopSidebar from "../desktop-sidebar";
-import MobileSidebar from "../mobile-sidebar";
-import { sendGoogleEvent } from "../../lib/GoogleAnalytics";
+import { WebForestLogo } from '../../components/WebForestLogo';
+import styles from './styles.module.scss';
+import Image from 'next/image';
+import Router from 'next/router';
+import pagePaths from '../../infra/core/pagePaths';
+import Vibrate from '../../utils/vibrate';
+import { useCart } from '../../providers/cart';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import Settings from '../../infra/core/settings';
+import DesktopSidebar from '../desktop-sidebar';
+import MobileSidebar from '../mobile-sidebar';
+import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
 
 interface HeaderProps {
   title?: string;
@@ -24,9 +24,9 @@ const Header = ({ title }: HeaderProps) => {
 
   const goToShoppingCart = () => {
     sendGoogleEvent({
-      action: "go_to_cart_header",
-      category: "conversion",
-      label: "cart",
+      action: 'go_to_cart_header',
+      category: 'conversion',
+      label: 'cart',
     });
 
     Router.push(pagePaths.payment.shoppingCart);
@@ -34,9 +34,9 @@ const Header = ({ title }: HeaderProps) => {
 
   const goToDashboard = () => {
     sendGoogleEvent({
-      action: "go_to_dashboard",
-      category: "conversion",
-      label: "header",
+      action: 'go_to_dashboard',
+      category: 'conversion',
+      label: 'header',
     });
 
     Vibrate.vibrate(200);
@@ -45,18 +45,18 @@ const Header = ({ title }: HeaderProps) => {
 
   const openMenuMobile = () => {
     sendGoogleEvent({
-      action: "open_menu_mobile",
-      category: "conversion",
-      label: "menu",
+      action: 'open_menu_mobile',
+      category: 'conversion',
+      label: 'menu',
     });
     setMenuIsOpen(!menuIsOpen);
   };
 
   const toggleMenuDesktop = () => {
     sendGoogleEvent({
-      action: "toggle_menu_desktop",
-      category: "conversion",
-      label: "menu",
+      action: 'toggle_menu_desktop',
+      category: 'conversion',
+      label: 'menu',
       data: { open: !menuIsOpen },
     });
     setMenuIsOpen(!menuIsOpen);
@@ -81,7 +81,7 @@ const Header = ({ title }: HeaderProps) => {
             id="logo"
             className={styles.logo}
             onClick={goToDashboard}
-            title={"Web Forest"}
+            title={'Web Forest'}
           >
             <WebForestLogo />
           </div>
@@ -114,13 +114,13 @@ const Header = ({ title }: HeaderProps) => {
                   title="Foto do usuário"
                 >
                   <Image
-                    src={user?.photo || "/images/icons/user.svg"}
+                    src={user?.photo || '/images/icons/user.svg'}
                     width={40}
                     height={40}
                   />
                 </div>
                 <span id="my-account-text" className={styles.myAccountText}>
-                  {user?.name.split(" ")[0]}
+                  {user?.name.split(' ')[0]}
                 </span>
               </div>
               <div
@@ -129,7 +129,7 @@ const Header = ({ title }: HeaderProps) => {
                 onClick={() => toggleMenuDesktop()}
               >
                 <Image
-                  src={"/icons/sandwich-menu.svg"}
+                  src={'/icons/sandwich-menu.svg'}
                   width={35}
                   height={35}
                 />
@@ -149,7 +149,7 @@ const Header = ({ title }: HeaderProps) => {
             className={styles.myPhoto}
           >
             <Image
-              src={"/icons/mobile-sandwich-menu.svg"}
+              src={'/icons/mobile-sandwich-menu.svg'}
               width={40}
               height={40}
             />
@@ -157,7 +157,7 @@ const Header = ({ title }: HeaderProps) => {
           <div
             className={styles.logoMobile}
             onClick={goToDashboard}
-            title={"Web Forest"}
+            title={'Web Forest'}
           >
             <WebForestLogo />
           </div>
@@ -179,7 +179,7 @@ const Header = ({ title }: HeaderProps) => {
             setMenuIsOpen={setMenuIsOpen}
             menuIsOpen={menuIsOpen}
             userPhoto={user?.photo}
-            userName={user?.name.split(" ")[0]}
+            userName={user?.name.split(' ')[0]}
           />
         </div>
       </div>

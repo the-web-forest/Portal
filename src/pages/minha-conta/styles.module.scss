@@ -1,62 +1,61 @@
 .container {
-    background-color: var(--lightgray-background);
-    margin-top: 80px;
-    padding: 2% 5% 80px 5%;
-    height: calc(100vh - 80px);
+  background-color: var(--lightgray-background);
+  margin-top: 80px;
+  padding: 2% 5% 80px 5%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 750px) {
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+
+  .title {
+    font-size: 2em;
+    color: var(--dark-gray-text);
+  }
+
+  .mainData {
+    margin-top: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     @media (max-width: 750px) {
-        height: calc(100vh - 60px);
-        margin-top: 60px;
+      flex-direction: column;
     }
 
-    .title {
-        font-size: 2em;
-        color: var(--dark-gray-text);
+    .photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+      overflow: hidden;
+
+      @media (max-width: 750px) {
+        margin: auto;
+      }
     }
 
-    .mainData {
+    .firstForm {
+      margin-left: 50px;
+
+      @media (max-width: 750px) {
+        margin-left: 0;
         margin-top: 20px;
-        display: flex;
-        flex-direction: row;
-
-        @media (max-width: 750px) {
-            flex-direction: column;
-        }
-
-        .photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 100%;
-            overflow: hidden;
-
-            @media (max-width: 750px) {
-               margin: auto;
-            }
-        }
-
-        .firstForm {
-            margin-left: 50px;
-
-            @media (max-width: 750px) {
-                margin-left: 0;
-                margin-top: 20px;
-            }
-        }
+      }
     }
+  }
 
-    .form {
-        margin-top: 10px;
+  .form {
+    margin-top: 10px;
 
-        .label {
-            color: var(--dark-gray-text);
-        }
-    }
-
-    .emailInformation {
-      margin: 10px 0 15px 0;
+    .label {
       color: var(--dark-gray-text);
     }
-}
+  }
 
+  .emailInformation {
+    margin: 10px 0 15px 0;
+    color: var(--dark-gray-text);
+  }
+}

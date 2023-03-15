@@ -1,216 +1,215 @@
 .container {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    background-color: var(--lightgray-background);
-    min-height: calc(100vh - 80px);
-    background-image: url('/images/payment-bg.png');
-    background-position: left bottom;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin-top: 80px;
-   
-    @media (max-width: 750px) {
-        margin-top: 60px;
-        flex-direction: column;
-        padding: none;
-        min-height: auto;
-    }
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--lightgray-background);
+  min-height: calc(100vh - 80px);
+  background-image: url('/images/payment-bg.png');
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 80px;
+
+  @media (max-width: 750px) {
+    margin-top: 60px;
+    flex-direction: column;
+    padding: none;
+    min-height: auto;
+  }
 }
 
 .inputLine {
-    height: 110px;
+  height: 110px;
 }
 
 .dataSection {
-    border-radius: 10px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    background-color: var(--white);
-    display: flex;
-    width: 60vw;
-    min-height: 500px;
-    flex-direction: column;
-    margin: auto;
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: var(--white);
+  display: flex;
+  width: 60vw;
+  min-height: 500px;
+  flex-direction: column;
+  margin: auto;
 
-    @media (max-width: 750px) {
-        width: 100vw;
-        border-radius: 0;
-        min-height: auto;
-        filter: none;
-    }
+  @media (max-width: 750px) {
+    width: 100vw;
+    border-radius: 0;
+    min-height: auto;
+    filter: none;
+  }
 }
 
 .totalTitle {
-    color: var(--white);
+  color: var(--white);
 }
 
-.totalValue{
-    color: var(--white);
-    font-weight: bold;
-    font-size: 1.8em;
-    margin-bottom: 30px;
+.totalValue {
+  color: var(--white);
+  font-weight: bold;
+  font-size: 1.8em;
+  margin-bottom: 30px;
 }
 
 .cardSection {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    
-    @media (max-width: 750px) {
-        flex-direction: column;
-        height: auto;
-    }
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    height: auto;
+  }
 }
 
 .formSection {
-    padding: 90px;
-    width: 75%;
-    @media (max-width: 750px) {
-        width: 100%;
-        padding: 25px;
-    }
+  padding: 90px;
+  width: 75%;
+  @media (max-width: 750px) {
+    width: 100%;
+    padding: 25px;
+  }
 }
 
 .cardForm {
-    width: 100%;
+  width: 100%;
 
-    .cardMessage {
-        margin-bottom: 10px;
-        font-size: .8em;
-        color: var(--attention-red);
-    }
+  .cardMessage {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    color: var(--attention-red);
+  }
 }
 
 .formLine {
-    display: flex;
-    width: 100%;
-    height: 110px;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  height: 110px;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .formColumn {
-    width: 45%;
+  width: 45%;
 }
 
 .title {
-   font-weight: 400;
-   font-size: 1.5em;
-   margin-bottom: 20px;
-   color: var(--dark-gray-text);
+  font-weight: 400;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: var(--dark-gray-text);
 }
 
 .cardImageSection {
-    border-radius: 0px 10px 10px 0px;
-    background-color: var(--dark-gray);
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--dark-gray);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    @media (max-width: 750px) {
-        width: 100%;
-        border-radius: 0px 0px 0px 0px;
-        display: none;
-    }
+  @media (max-width: 750px) {
+    width: 100%;
+    border-radius: 0px 0px 0px 0px;
+    display: none;
+  }
 }
 
 .cardIcon {
-    display: flex;
-    width: 50%;
+  display: flex;
+  width: 50%;
 }
 
 .inputText {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-family: "Aprova", sans-serif;
-    font-size: 15px;
-    color: var(--dark-blue);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: 'Aprova', sans-serif;
+  font-size: 15px;
+  color: var(--dark-blue);
 }
 
 .paymentButton {
-    display: block;
-    width: 50%;
+  display: block;
+  width: 50%;
 
-    @media (max-width: 750px) {
-        width: 50%;
-        margin-bottom: 30px;
-    }
+  @media (max-width: 750px) {
+    width: 50%;
+    margin-bottom: 30px;
+  }
 }
 
 // MODAL
 
 .modalHeader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.modalHeaderSpan{
-    margin-top: 10px;
-    font-weight: 400;
+.modalHeaderSpan {
+  margin-top: 10px;
+  font-weight: 400;
 }
 
 .modalBody {
-    text-align: center;
+  text-align: center;
 }
 
 .modalFooter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modalButton {
-    background-color: var(--dark-gray-text) !important;
-    color: var(--white);
-    width: 40%;
+  background-color: var(--dark-gray-text) !important;
+  color: var(--white);
+  width: 40%;
 }
 
 .modal {
-    padding: 20px;
-    @media (max-width: 750px) {
-        margin: 15px;
-    }
+  padding: 20px;
+  @media (max-width: 750px) {
+    margin: 15px;
+  }
 }
 
 .errorMessage {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .mobileValue {
-    display: none;
-    flex-direction: row;
-    justify-content: space-between;
-    color: var(--wf-green);
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-top: 15px;
-    
-    @media (max-width: 750px) {
-        display: flex;
-    }
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--wf-green);
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 15px;
+
+  @media (max-width: 750px) {
+    display: flex;
+  }
 }
 
 .footerMobile {
-    display: none;
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    bottom: 0;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
+  display: none;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
 
-    @media (max-width: 750px) {
-        display: flex;
-    }
+  @media (max-width: 750px) {
+    display: flex;
+  }
 
-    .buttonMobile {
-        width: 50%;
-    }
+  .buttonMobile {
+    width: 50%;
+  }
 }
-

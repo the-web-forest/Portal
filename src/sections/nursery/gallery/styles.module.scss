@@ -1,29 +1,29 @@
 .container {
-    display: flex;
-    margin-top: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  margin-top: 30px;
+  flex-wrap: wrap;
 
-    @media (max-width: 750px) {
-        margin-top: 10px;
-    }
+  @media (max-width: 750px) {
+    margin-top: 10px;
+  }
 }
 
 .container::selection {
-    background: transparent;
+  background: transparent;
 }
 .container::-moz-selection {
-    background: transparent;
+  background: transparent;
 }
 
 .loader {
-    position: absolute;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
