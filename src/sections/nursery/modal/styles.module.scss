@@ -1,42 +1,41 @@
 .modal {
-    padding: 30px;
+  padding: 30px;
 
-    @media (max-width: 750px) {
-        margin: 5%;
-    }
-
+  @media (max-width: 750px) {
+    margin: 5%;
+  }
 }
 
 .modalHeaderSpan {
-    font-size: 32px;
-    color: var(--dark-gray-text)
+  font-size: 32px;
+  color: var(--dark-gray-text);
 }
 
 .modalBody {
-    max-height: 40vh;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+  max-height: 40vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 /* Scroll 5 */
 .modalBody::-webkit-scrollbar {
-    width: 15px;
-    height: 15px;
-    background: #CECECE;
-    border-radius: 10px;
+  width: 15px;
+  height: 15px;
+  background: #cecece;
+  border-radius: 10px;
 }
 
 .modalBody::-webkit-scrollbar-track {
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    background-clip: padding-box;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-clip: padding-box;
 }
 
 .modalBody::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(45deg, var(--bud-green), var(--bud-green));
-    border-radius: 10px;
-    -webkit-box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
-    box-shadow: rgba(0,0,0,.12) 0 3px 13px 1px;
+  background-image: linear-gradient(45deg, var(--bud-green), var(--bud-green));
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 3px 13px 1px;
 }

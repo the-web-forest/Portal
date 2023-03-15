@@ -1,11 +1,11 @@
-import { ITreeResponse } from "../../../infra/dtos/Trees/ITreesResponse.dto";
-import styles from "./styles.module.scss";
-import Image from "next/image";
-import CurrencyHelper from "../../../helpers/currency";
-import { ICartItem, useCart } from "../../../providers/cart";
-import { useToast } from "@chakra-ui/react";
-import ToastCaller from "../../../infra/toast/ToastCaller";
-import { sendGoogleEvent } from "../../../lib/GoogleAnalytics";
+import { ITreeResponse } from '../../../infra/dtos/Trees/ITreesResponse.dto';
+import styles from './styles.module.scss';
+import Image from 'next/image';
+import CurrencyHelper from '../../../helpers/currency';
+import { ICartItem, useCart } from '../../../providers/cart';
+import { useToast } from '@chakra-ui/react';
+import ToastCaller from '../../../infra/toast/ToastCaller';
+import { sendGoogleEvent } from '../../../lib/GoogleAnalytics';
 
 interface NurseryGalleryItemProps {
   data: ITreeResponse;
@@ -20,12 +20,12 @@ const NurseryGalleryItem = ({
   const cart = useCart();
 
   const addItem = () => {
-    ToastCaller.Success(toast, "Sucesso!", "Árvore adicionada no carrinho");
+    ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada no carrinho');
 
     sendGoogleEvent({
-      action: "added_to_cart_nursery",
-      category: "conversion",
-      label: "tree",
+      action: 'added_to_cart_nursery',
+      category: 'conversion',
+      label: 'tree',
       value: data.value,
     });
 
@@ -40,9 +40,9 @@ const NurseryGalleryItem = ({
   const removeItem = () => {
     cart.removeItemQuantity(data.id);
     sendGoogleEvent({
-      action: "removed_from_cart_nursery",
-      category: "conversion",
-      label: "tree",
+      action: 'removed_from_cart_nursery',
+      category: 'conversion',
+      label: 'tree',
       value: data.value,
     });
   };

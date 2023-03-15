@@ -1,11 +1,11 @@
-import { SetStateAction, useContext } from "react";
-import styles from "./styles.module.scss";
-import Image from "next/image";
-import pagePaths from "../../infra/core/pagePaths";
-import { useRouter } from "next/router";
-import { AuthContext } from "../../contexts/AuthContext";
-import Settings from "../../infra/core/settings";
-import { sendGoogleEvent } from "../../lib/GoogleAnalytics";
+import { SetStateAction, useContext } from 'react';
+import styles from './styles.module.scss';
+import Image from 'next/image';
+import pagePaths from '../../infra/core/pagePaths';
+import { useRouter } from 'next/router';
+import { AuthContext } from '../../contexts/AuthContext';
+import Settings from '../../infra/core/settings';
+import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
 
 interface MobileSidebarProps {
   menuIsOpen: boolean;
@@ -28,36 +28,36 @@ const MobileSidebar = ({
 
   const goToNurseryMobile = async () => {
     sendGoogleEvent({
-      action: "side_menu_go_to_nursery_mobile",
-      category: "conversion",
-      label: "menu",
+      action: 'side_menu_go_to_nursery_mobile',
+      category: 'conversion',
+      label: 'menu',
     });
     return router.push(pagePaths.nursery.index);
   };
 
   const goToForestMobile = async () => {
     sendGoogleEvent({
-      action: "side_menu_go_to_forest_mobile",
-      category: "conversion",
-      label: "menu",
+      action: 'side_menu_go_to_forest_mobile',
+      category: 'conversion',
+      label: 'menu',
     });
     return router.push(pagePaths.forest.index);
   };
 
   const goToMyAccountMobile = async () => {
     sendGoogleEvent({
-      action: "side_menu_go_to_my_account_mobile",
-      category: "conversion",
-      label: "menu",
+      action: 'side_menu_go_to_my_account_mobile',
+      category: 'conversion',
+      label: 'menu',
     });
     return router.push(pagePaths.myAccount);
   };
 
   const closeMenu = () => {
     sendGoogleEvent({
-      action: "close_menu_mobile",
-      category: "conversion",
-      label: "menu",
+      action: 'close_menu_mobile',
+      category: 'conversion',
+      label: 'menu',
     });
     setMenuIsOpen(!menuIsOpen);
   };
@@ -81,7 +81,7 @@ const MobileSidebar = ({
           </div>
 
           <div className={styles.exit} onClick={() => closeMenu()}>
-            <Image src={"/icons/x-close-menu.svg"} width={30} height={30} />
+            <Image src={'/icons/x-close-menu.svg'} width={30} height={30} />
           </div>
         </div>
         <div

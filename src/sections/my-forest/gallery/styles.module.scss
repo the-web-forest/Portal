@@ -1,23 +1,23 @@
 .container {
-    display: flex;
-    margin-top: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  margin-top: 30px;
+  flex-wrap: wrap;
 
-    @media (max-width: 750px) {
-        margin-top: 10px;
-    }
+  @media (max-width: 750px) {
+    margin-top: 10px;
+  }
 }
 
 .container::selection {
-    background: transparent;
+  background: transparent;
 }
 .container::-moz-selection {
-    background: transparent;
+  background: transparent;
 }
 
 .loader {
-    display: flex;
-    width: 100vw;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  flex-direction: column;
 }

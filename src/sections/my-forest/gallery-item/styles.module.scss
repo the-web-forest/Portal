@@ -1,76 +1,74 @@
 .container {
-    width: 25%;
-    box-sizing: border-box;
-    
-    @media (max-width: 750px) {
-        width: 100%;
-    }
+  width: 25%;
+  box-sizing: border-box;
 
+  @media (max-width: 750px) {
+    width: 100%;
+  }
 }
 
 .inner {
-    background-color: var(--white);
-    margin: 10px;
-    padding: 10px 10px 10px 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
+  background-color: var(--white);
+  margin: 10px;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
 
-    @media (max-width: 750px) {
-        margin: 0;
-        margin-bottom: 20px;
-        border-radius: 10px;
-    }
+  @media (max-width: 750px) {
+    margin: 0;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
 }
 
 .photoFrame {
-    position: relative;
+  position: relative;
 }
 
 .photo {
-    object-fit: cover;
-    border-radius: 4px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .species {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: var(--white);
-    padding: 5px 10px 5px 10px;
-    border-radius: 20px;
-    color: var(--dark-blue);
-    border: 2px solid var(--dark-blue);
-    height: 30px;
-    line-height: 18px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--white);
+  padding: 5px 10px 5px 10px;
+  border-radius: 20px;
+  color: var(--dark-blue);
+  border: 2px solid var(--dark-blue);
+  height: 30px;
+  line-height: 18px;
 }
 
 .name {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .customize {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .customize {
-        display: flex;
-        .customizeIcon {
-            margin-right: 5px;
-        }
+    .customizeIcon {
+      margin-right: 5px;
     }
-
+  }
 }
 
 .order {
-    font-weight: bold;
-    font-size: .8em;
-    color: var(--dark-gray);
-    margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 0.8em;
+  color: var(--dark-gray);
+  margin-bottom: 10px;
 }
 
 .details {
-    color: var(--green);
-    text-decoration: underline;
-    cursor: pointer;
+  color: var(--green);
+  text-decoration: underline;
+  cursor: pointer;
 }

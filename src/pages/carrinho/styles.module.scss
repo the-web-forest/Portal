@@ -9,13 +9,12 @@
   padding: 100px 5% 5% 5%;
   background-color: var(--lightgray-background);
 
-
   @media (max-width: 750px) {
-      margin-top: 60px;
-      padding: unset;
-      background-color: var(--lightgray-background);
-      background-image: none;
-      min-height: calc(100vh - 60px);
+    margin-top: 60px;
+    padding: unset;
+    background-color: var(--lightgray-background);
+    background-image: none;
+    min-height: calc(100vh - 60px);
   }
 }
 
@@ -52,7 +51,7 @@
     color: var(--dark-gray-text);
 
     @media (max-width: 750px) {
-      width: 100%;    
+      width: 100%;
     }
 
     .emptyCart {
@@ -68,7 +67,7 @@
 
       .button {
         margin-top: 20px;
-        font-size: .6em !important;
+        font-size: 0.6em !important;
       }
     }
 
@@ -82,7 +81,7 @@
       color: var(--dark-gray-text);
 
       @media (max-width: 750px) {
-        display: none;    
+        display: none;
       }
 
       .tree {
@@ -99,7 +98,6 @@
         text-align: center;
       }
     }
-
   }
 
   .summary {
@@ -109,9 +107,8 @@
     justify-content: flex-end;
 
     @media (max-width: 750px) {
-      display: none;    
+      display: none;
     }
-
 
     .box {
       width: 80%;
@@ -134,7 +131,7 @@
         color: var(--white);
         text-align: center;
         padding: 10%;
-        border-radius: 0px; 
+        border-radius: 0px;
         align-items: center;
 
         .cartTotals {
@@ -151,13 +148,10 @@
           font-weight: bold;
           margin-bottom: 20px;
         }
-
       }
     }
-
   }
 }
-
 
 .footerMobile {
   display: none;
@@ -171,11 +165,11 @@
   box-shadow: 2px 0px 16px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 750px) {
-      display: flex;
+    display: flex;
   }
 
   .buttonMobile {
-      width: 80%;
+    width: 80%;
   }
 }
 

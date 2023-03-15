@@ -1,73 +1,72 @@
-
 .wrapper {
-    display: flex;
-    position: relative;
-    height: 50px;
+  display: flex;
+  position: relative;
+  height: 50px;
 }
 
 .container {
-    -webkit-appearance: none;
-    padding: 10px;
-    height: 100%;
-    font-size: 16px;
-    color: var(--dark-gray);
-    border-radius: 5px;
-    border: none;
-    font-family: "Aprova", sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    background-color: var(--lightgray-background);
-    border: 1px solid transparent;
+  -webkit-appearance: none;
+  padding: 10px;
+  height: 100%;
+  font-size: 16px;
+  color: var(--dark-gray);
+  border-radius: 5px;
+  border: none;
+  font-family: 'Aprova', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  background-color: var(--lightgray-background);
+  border: 1px solid transparent;
 }
 
 .container:focus {
-    border: 1px solid var(--wf-green);
+  border: 1px solid var(--wf-green);
 }
 
 .container:disabled {
-    cursor: no-drop;
-    color: var(--dark-gray);
+  cursor: no-drop;
+  color: var(--dark-gray);
 }
 
 .password {
-    position: absolute;
-    right: 0;
-    height: 40px;
-    width: 40px !important;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  position: absolute;
+  right: 0;
+  height: 40px;
+  width: 40px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .container:focus {
-    outline: none;
+  outline: none;
 }
 
 .errorText {
-    font-size: 14px;
-    font-family: "Aprova", sans-serif;
-    margin-top: 5px;
-    color: var(--red-error);
+  font-size: 14px;
+  font-family: 'Aprova', sans-serif;
+  margin-top: 5px;
+  color: var(--red-error);
 }
 
 .rulesContainer {
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
 }
 
 .ruleItem {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-    svg {
-        margin-right: 5px;
-    }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  svg {
+    margin-right: 5px;
+  }
 
-    span {
-        font-size: 14px;
-        font-family: "Aprova", sans-serif;
-    }
+  span {
+    font-size: 14px;
+    font-family: 'Aprova', sans-serif;
+  }
 }
