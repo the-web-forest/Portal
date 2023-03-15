@@ -31,6 +31,13 @@ export const AuthProvider: FC = ({ children }) => {
     setCookie(undefined, CookiesEnum.USER_DATA, JSON.stringify(user), {
       maxAge: 60 * 60 * 1,
     });
+
+    sendGoogleEvent({
+      action: 'sign_in',
+      category: 'conversion',
+      label: 'user',
+    });
+
     setUser(user);
     Router.push(pagePaths.nursery.index);
   }, []);
@@ -45,6 +52,13 @@ export const AuthProvider: FC = ({ children }) => {
     setCookie(undefined, CookiesEnum.USER_DATA, JSON.stringify(user), {
       maxAge: 60 * 60 * 1,
     });
+
+    sendGoogleEvent({
+      action: 'google_sign_in',
+      category: 'conversion',
+      label: 'user',
+    });
+
     setUser(user);
     Router.push(pagePaths.nursery.index);
   }, []);
