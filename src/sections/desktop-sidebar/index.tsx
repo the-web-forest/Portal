@@ -49,7 +49,7 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
         className={menuIsOpen ? styles.blackout : styles.blackoutClosed}
       >
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={e => e.stopPropagation()}
           className={menuIsOpen ? styles.sideMenu : styles.sideMenuClosed}
         >
           <span onClick={() => goToNurseryDesktop()} className={styles.item}>
@@ -67,7 +67,7 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
 
           <span className={styles.message}>
             Atualmente estamos na fase beta do projeto. Caso encontre qualquer
-            problema, entre em contato pelo e-mail{" "}
+            problema, entre em contato pelo e-mail{' '}
             <a
               className={styles.support}
               href={`mailto:${Settings.SUPPORT_EMAIL}?subject=Preciso de Suporte`}

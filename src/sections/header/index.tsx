@@ -81,7 +81,7 @@ const Header = ({ title }: HeaderProps) => {
             id="logo"
             className={styles.logo}
             onClick={goToDashboard}
-            title={"Web Forest"}
+            title={'Web Forest'}
           >
             <WebForestLogo />
           </div>
@@ -114,13 +114,13 @@ const Header = ({ title }: HeaderProps) => {
                   title="Foto do usuário"
                 >
                   <Image
-                    src={user?.photo || "/images/icons/user.svg"}
+                    src={user?.photo || '/images/icons/user.svg'}
                     width={40}
                     height={40}
                   />
                 </div>
                 <span id="my-account-text" className={styles.myAccountText}>
-                  {user?.name.split(" ")[0]}
+                  {user?.name.split(' ')[0]}
                 </span>
               </div>
               <div
@@ -129,7 +129,7 @@ const Header = ({ title }: HeaderProps) => {
                 onClick={() => toggleMenuDesktop()}
               >
                 <Image
-                  src={"/icons/sandwich-menu.svg"}
+                  src={'/icons/sandwich-menu.svg'}
                   width={35}
                   height={35}
                 />
@@ -149,7 +149,7 @@ const Header = ({ title }: HeaderProps) => {
             className={styles.myPhoto}
           >
             <Image
-              src={"/icons/mobile-sandwich-menu.svg"}
+              src={'/icons/mobile-sandwich-menu.svg'}
               width={40}
               height={40}
             />
@@ -157,7 +157,7 @@ const Header = ({ title }: HeaderProps) => {
           <div
             className={styles.logoMobile}
             onClick={goToDashboard}
-            title={"Web Forest"}
+            title={'Web Forest'}
           >
             <WebForestLogo />
           </div>
@@ -179,7 +179,7 @@ const Header = ({ title }: HeaderProps) => {
             setMenuIsOpen={setMenuIsOpen}
             menuIsOpen={menuIsOpen}
             userPhoto={user?.photo}
-            userName={user?.name.split(" ")[0]}
+            userName={user?.name.split(' ')[0]}
           />
         </div>
       </div>

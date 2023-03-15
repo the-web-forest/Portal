@@ -69,7 +69,7 @@ const MobileSidebar = ({
           <div className={styles.left}>
             <div className={styles.photo}>
               <Image
-                src={userPhoto || "/images/icons/user.svg"}
+                src={userPhoto || '/images/icons/user.svg'}
                 width={45}
                 height={45}
               />
