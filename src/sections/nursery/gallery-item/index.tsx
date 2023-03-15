@@ -5,7 +5,8 @@ import CurrencyHelper from '../../../helpers/currency';
 import { ICartItem, useCart } from '../../../providers/cart';
 import { useToast } from '@chakra-ui/react';
 import ToastCaller from '../../../infra/toast/ToastCaller';
-import { sendGoogleEvent } from '../../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../../lib/analytics/GoogleAnalytics';
 
 interface NurseryGalleryItemProps {
   data: ITreeResponse;
@@ -21,14 +22,9 @@ const NurseryGalleryItem = ({
 
   const addItem = () => {
     ToastCaller.Success(toast, 'Sucesso!', 'Árvore adicionada no carrinho');
-
-    sendGoogleEvent({
-      action: 'added_to_cart_nursery',
-      category: 'conversion',
-      label: 'tree',
-      value: data.value,
-    });
-
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_ADDED_ITEM_QUANTITY_TO_CART_ON_NURSERY,
+    );
     cart.addItemToCart({
       id: data.id,
       value: data.value,
@@ -39,12 +35,9 @@ const NurseryGalleryItem = ({
 
   const removeItem = () => {
     cart.removeItemQuantity(data.id);
-    sendGoogleEvent({
-      action: 'removed_from_cart_nursery',
-      category: 'conversion',
-      label: 'tree',
-      value: data.value,
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_REMOVED_ITEM_QUANTITY_TO_CART_ON_NURSERY,
+    );
   };
 
   const getItemQuantity = () => {

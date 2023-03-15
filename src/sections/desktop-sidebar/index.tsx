@@ -3,7 +3,8 @@ import { SetStateAction, useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import pagePaths from '../../infra/core/pagePaths';
 import Settings from '../../infra/core/settings';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 import styles from './styles.module.scss';
 
 interface DesktopSidebarProps {
@@ -16,29 +17,23 @@ const DesktopSidebar = ({ menuIsOpen, setMenuIsOpen }: DesktopSidebarProps) => {
   const { signOut } = useContext(AuthContext);
 
   const goToNurseryDesktop = () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_nursery_desktop',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_NURSERY_DESKTOP,
+    );
     router.push(pagePaths.nursery.index);
   };
 
   const goToForestDesktop = () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_forest_desktop',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_FOREST_DESKTOP,
+    );
     router.push(pagePaths.forest.index);
   };
 
   const goToMyAccountDesktop = () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_my_account_desktop',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_MY_ACCOUNT_DESKTOP,
+    );
     router.push(pagePaths.myAccount);
   };
 

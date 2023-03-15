@@ -7,6 +7,7 @@ export default class Settings {
   public static CONTACT_EMAIL = 'contato@webforest.eco';
   public static SUPPORT_EMAIL = 'suporte@webforest.eco';
   public static FORUM_URL = 'https://www.reddit.com/r/webforest/';
+  public static ANALYTICS_APP_NAME = 'portal_web_forest';
 
   public static isProduction(): boolean {
     return process.env.NEXT_PUBLIC_APP_ENV == 'production';

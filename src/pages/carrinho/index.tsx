@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Header from '../../sections/header';
 import styles from './styles.module.scss';
-import Image from 'next/image';
 import { useCart } from '../../providers/cart';
 import FilledButton, { FilledColor } from '../../components/FilledButton';
 import CurrencyHelper from '../../helpers/currency';
@@ -10,7 +9,8 @@ import pagePaths from '../../infra/core/pagePaths';
 import CartItem from '../../sections/cart/cart-item';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import { useToast } from '@chakra-ui/react';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 
 const Carrinho: NextPage = () => {
   const cart = useCart();
@@ -22,23 +22,14 @@ const Carrinho: NextPage = () => {
       ToastCaller.Warning(toast, 'Atenção', 'Seu carrinho está vazio');
       return false;
     }
-
-    sendGoogleEvent({
-      action: 'go_to_checkout',
-      category: 'conversion',
-      label: 'cart',
-      value: cart.cartTotals.value,
-    });
-
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_GO_TO_CHECKOUT);
     return router.push(pagePaths.payment.index);
   };
 
   const selectTrees = () => {
-    sendGoogleEvent({
-      action: 'select_trees_from_empty_cart',
-      category: 'conversion',
-      label: 'cart',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_GO_TO_CHECKOUT_FROM_EMPTY_CART,
+    );
     router.push(pagePaths.nursery.index);
   };
   return (

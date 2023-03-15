@@ -10,7 +10,8 @@ import ITreesResponseDTO, {
 import ToastCaller from '../../infra/toast/ToastCaller';
 import GetBiomesUseCase from '../../infra/useCases/getBiomes.usecase';
 import GetTreesByBiomeUseCase from '../../infra/useCases/getTreesByBiome.usecase';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 import { useCart } from '../../providers/cart';
 import Header from '../../sections/header';
 import NurseryGallery from '../../sections/nursery/gallery';
@@ -35,13 +36,9 @@ const Viveiro: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const changeSelectedBiome = (biomeName: string) => {
-    sendGoogleEvent({
-      action: 'change_biome_trees_list',
-      category: 'conversion',
-      label: 'nursery',
-      data: { biomeName },
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_CHANGED_BIOME, {
+      biomeName,
     });
-
     setTreeList(undefined);
     const newBiomes = biomes.map(biome => {
       biome.selected = false;
@@ -81,13 +78,7 @@ const Viveiro: NextPage = () => {
   };
 
   const plantTrees = () => {
-    sendGoogleEvent({
-      action: 'plant_now_button_pressed',
-      category: 'conversion',
-      label: 'payment',
-      value: cart.cartTotals.quantity,
-    });
-
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_PRESSED_PLANT_NOW_BUTTON);
     if (cart.cartTotals.quantity > 0) {
       router.push(pagePaths.payment.shoppingCart);
     } else {

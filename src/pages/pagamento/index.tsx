@@ -22,11 +22,11 @@ import FilledButton, { FilledColor } from '../../components/FilledButton';
 import Input from '../../components/Input';
 import CurrencyHelper from '../../helpers/currency';
 import pagePaths from '../../infra/core/pagePaths';
-import Settings from '../../infra/core/settings';
 import AppError from '../../infra/errors/AppError';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import NewPaymentUseCase from '../../infra/useCases/newPayment.usecase';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 import creditCardMask from '../../masks/creditCard.mask';
 import creditCardExpirationMask from '../../masks/creditCardExpiration.mask';
 import creditCardSecurityCode from '../../masks/creditCardSecurityCode.mask';
@@ -133,11 +133,7 @@ const Payment: NextPage = () => {
     newPaymentUseCase
       .run(items, cardToken)
       .then(res => {
-        sendGoogleEvent({
-          action: 'payment_success',
-          category: 'conversion',
-          label: 'payment',
-        });
+        GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_PAYMENT_SUCCESS);
         router.push({
           pathname: pagePaths.plant.confirmation,
           query: { id: encodeURI(res) },
@@ -147,11 +143,7 @@ const Payment: NextPage = () => {
         }, 500);
       })
       .catch(err => {
-        sendGoogleEvent({
-          action: 'payment_error',
-          category: 'conversion',
-          label: 'payment',
-        });
+        GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_PAYMENT_FAILURE);
         setShowErrorModal(true);
         setIsLoading(false);
       });
@@ -167,13 +159,7 @@ const Payment: NextPage = () => {
     async event => {
       try {
         event.preventDefault();
-
-        sendGoogleEvent({
-          action: 'pay_button_pressed',
-          category: 'conversion',
-          label: 'payment',
-        });
-
+        GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_PRESSED_PAYMENT_BUTTON);
         const errors = await new PaymentFormValidate().validate(data);
         if (Object.keys(errors)?.length > 0) {
           setError(errors);

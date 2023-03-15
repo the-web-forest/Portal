@@ -22,7 +22,8 @@ import userNameMask from '../../../masks/userName.mask';
 import { StrUtils } from '../../../utils/str-utils';
 import { OnChangeSelect } from '../../../components/Select';
 import Consts from '../../../infra/core/consts';
-import { sendGoogleEvent } from '../../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../../lib/analytics/GoogleAnalytics';
 
 export const SignupForm: FC = () => {
   const [formData, setFormData] = useState<ISignupData>({
@@ -49,13 +50,7 @@ export const SignupForm: FC = () => {
           Object.keys(formErrors)?.length > 0 &&
             setFormErrors({} as ISignupData);
           const registered = await new RegisterUserUseCase().run(formData);
-
-          sendGoogleEvent({
-            action: 'user_registered',
-            category: 'conversion',
-            label: 'menu',
-          });
-
+          GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_REGISTERED);
           registered && router.push(pagePaths.signup.success);
         }
       } catch (err: any) {

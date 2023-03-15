@@ -23,8 +23,8 @@ import UpdateUserFormValidate from '../../validations/DTO/UpdateUserForm.validat
 import UpdateUserUseCase from '../../infra/useCases/user/updateUser.usecase';
 import ToastCaller from '../../infra/toast/ToastCaller';
 import { Checkbox, useToast } from '@chakra-ui/react';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
-
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 const getStatesUseCase = new GetStatesUseCase();
 const getCitiesUseCase = new GetCitiesUseCase();
 const getUserInfoUseCase = new GetUserInfoUseCase();
@@ -88,13 +88,7 @@ const MinhaConta = () => {
   const handleSubmit: FormEventHandler = useCallback(
     async event => {
       event.preventDefault();
-
-      sendGoogleEvent({
-        action: 'profile_update',
-        category: 'conversion',
-        label: 'profile',
-      });
-
+      GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_UPDATED_PROFILE);
       const errors = await new UpdateUserFormValidate().validate(
         formData,
         formErrors,

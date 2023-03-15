@@ -2,7 +2,8 @@ import { it } from 'date-fns/locale';
 import Image from 'next/image';
 import { AiOutlineDelete } from 'react-icons/ai';
 import CurrencyHelper from '../../../helpers/currency';
-import { sendGoogleEvent } from '../../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../../lib/analytics/GoogleAnalytics';
 import { IContextCartItem, useCart } from '../../../providers/cart';
 import styles from './styles.module.scss';
 
@@ -14,31 +15,23 @@ const CartItem = ({ item }: CartItemProps) => {
   const cart = useCart();
 
   const removeFromCart = (id: string) => {
-    sendGoogleEvent({
-      action: 'remove_from_cart',
-      category: 'conversion',
-      label: 'cart',
-      data: { id },
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_REMOVED_ITEM_FROM_CART);
     cart.removeItemOfCart(id);
   };
 
   const addItemQuantity = (item: IContextCartItem) => {
-    sendGoogleEvent({
-      action: 'added_item_quantity_cart',
-      category: 'conversion',
-      label: 'cart',
-      data: { ...item },
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_ADDED_ITEM_QUANTITY_TO_CART,
+      { ...item },
+    );
     cart.addItemToCart(item);
   };
 
   const removeItemQuantityCart = (id: string) => {
-    sendGoogleEvent({
-      action: 'removed_item_quantity_cart',
-      category: 'conversion',
-      label: 'cart',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_REMOVED_ITEM_QUANTITY_FROM_CART,
+      { id },
+    );
     cart.removeItemQuantity(id);
   };
 

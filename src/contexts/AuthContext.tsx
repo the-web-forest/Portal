@@ -7,7 +7,8 @@ import ILoginData from '../validations/DTO/ILoginData';
 import Router from 'next/router';
 import pagePaths from '../infra/core/pagePaths';
 import GoogleLoginUserUseCase from '../infra/useCases/googleLoginUser.usecase';
-import { sendGoogleEvent } from '../lib/GoogleAnalytics';
+import GoogleAnalytics from '../lib/analytics/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../lib/analytics/AnalyticsEvents';
 
 type AuthcontextType = {
   isAuthenticated: boolean | undefined;
@@ -32,11 +33,7 @@ export const AuthProvider: FC = ({ children }) => {
       maxAge: 60 * 60 * 1,
     });
 
-    sendGoogleEvent({
-      action: 'sign_in',
-      category: 'conversion',
-      label: 'user',
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_SIGN_IN);
 
     setUser(user);
     Router.push(pagePaths.nursery.index);
@@ -53,22 +50,14 @@ export const AuthProvider: FC = ({ children }) => {
       maxAge: 60 * 60 * 1,
     });
 
-    sendGoogleEvent({
-      action: 'google_sign_in',
-      category: 'conversion',
-      label: 'user',
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_GOOGLE_SIGN_IN);
 
     setUser(user);
     Router.push(pagePaths.nursery.index);
   }, []);
 
   const signOut = useCallback(() => {
-    sendGoogleEvent({
-      action: 'sign_out',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_SIGN_OUT);
     destroyCookie(undefined, CookiesEnum.USER_TOKEN);
     destroyCookie(undefined, CookiesEnum.USER_DATA);
     Router.push(pagePaths.index).then(() => Router.reload());

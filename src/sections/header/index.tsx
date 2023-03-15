@@ -10,7 +10,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Settings from '../../infra/core/settings';
 import DesktopSidebar from '../desktop-sidebar';
 import MobileSidebar from '../mobile-sidebar';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 
 interface HeaderProps {
   title?: string;
@@ -23,41 +24,26 @@ const Header = ({ title }: HeaderProps) => {
   const { user } = useContext(AuthContext);
 
   const goToShoppingCart = () => {
-    sendGoogleEvent({
-      action: 'go_to_cart_header',
-      category: 'conversion',
-      label: 'cart',
-    });
-
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_GO_TO_CART_IN_HEADER,
+    );
     Router.push(pagePaths.payment.shoppingCart);
   };
 
   const goToDashboard = () => {
-    sendGoogleEvent({
-      action: 'go_to_dashboard',
-      category: 'conversion',
-      label: 'header',
-    });
-
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_CLICKED_ON_LOGO);
     Vibrate.vibrate(200);
     Router.push(pagePaths.nursery.index);
   };
 
   const openMenuMobile = () => {
-    sendGoogleEvent({
-      action: 'open_menu_mobile',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_OPENED_MOBILE_MENU);
     setMenuIsOpen(!menuIsOpen);
   };
 
   const toggleMenuDesktop = () => {
-    sendGoogleEvent({
-      action: 'toggle_menu_desktop',
-      category: 'conversion',
-      label: 'menu',
-      data: { open: !menuIsOpen },
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_TOGGLED_MENU_DESKTOP, {
+      menuIsOpen,
     });
     setMenuIsOpen(!menuIsOpen);
   };

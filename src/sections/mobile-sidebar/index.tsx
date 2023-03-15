@@ -5,7 +5,8 @@ import pagePaths from '../../infra/core/pagePaths';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../../contexts/AuthContext';
 import Settings from '../../infra/core/settings';
-import { sendGoogleEvent } from '../../lib/GoogleAnalytics';
+import ANALYTICS_EVENTS from '../../lib/analytics/AnalyticsEvents';
+import GoogleAnalytics from '../../lib/analytics/GoogleAnalytics';
 
 interface MobileSidebarProps {
   menuIsOpen: boolean;
@@ -27,38 +28,28 @@ const MobileSidebar = ({
   };
 
   const goToNurseryMobile = async () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_nursery_mobile',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_NURSERY_MOBILE,
+    );
     return router.push(pagePaths.nursery.index);
   };
 
   const goToForestMobile = async () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_forest_mobile',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_FOREST_MOBILE,
+    );
     return router.push(pagePaths.forest.index);
   };
 
   const goToMyAccountMobile = async () => {
-    sendGoogleEvent({
-      action: 'side_menu_go_to_my_account_mobile',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(
+      ANALYTICS_EVENTS.USER_CLICKED_SIDE_MENU_GO_TO_MY_ACCOUNT_MOBILE,
+    );
     return router.push(pagePaths.myAccount);
   };
 
   const closeMenu = () => {
-    sendGoogleEvent({
-      action: 'close_menu_mobile',
-      category: 'conversion',
-      label: 'menu',
-    });
+    GoogleAnalytics.sendEvent(ANALYTICS_EVENTS.USER_CLOSED_MOBILE_MENU);
     setMenuIsOpen(!menuIsOpen);
   };
 
